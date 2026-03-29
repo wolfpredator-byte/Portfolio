@@ -187,15 +187,16 @@
 <!-- Project 1: Large Feature -->
 <div class="md:col-span-8 group relative overflow-hidden rounded-xl bg-surface-container">
 <div class="aspect-[16/9] overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Close-up 3D render of iridescent liquid metal waves swirling in a dark space with teal and pink specular highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo0xHfV5vGfR4ZdnTjYTe9ZylJBREisyEmuCUifU5pZz5LLjHn6kvAYhLpawoPpoyMnlufZugf5OhPy4sCFPv_7XVXG6j7Rlp9lc2DGWUvchHhEE10abcUreIAsmn2BdcyZErapRZuLx5Bs_FMvB-d5m-EGaBGDJytlmNsndSvu_WyyAHjEPDLp6l4IJm2USYJgEvTz6qC3pZfTrHg1wHRQUOn6snjixrnNhacVES5cI5LrLNrJiEgRCCcqPKP4rTjoK6C-fOshAwm"/>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Car Chase" src="img/carchase.png"/>
 </div>
 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-12 flex flex-col justify-end">
-<span class="text-primary font-label text-xs tracking-widest uppercase mb-2">01 / Abstract Motion</span>
-<h3 class="font-headline text-3xl font-bold mb-4">CYBERNETIC FLUIDITY</h3>
-<p class="text-on-surface-variant max-w-md text-sm mb-6">Exploration of procedural movement and refractive index modulation in Cinema 4D.</p>
-<a class="text-primary font-bold flex items-center gap-2 group/link" href="#">
-                            View Case Study <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform" data-icon="north_east">north_east</span>
-</a>
+<span class="text-primary font-label text-xs tracking-widest uppercase mb-2">01 / FAST MOTION</span>
+<h3 class="font-headline text-3xl font-bold mb-4">CAR CHASE</h3>
+<p class="text-on-surface-variant max-w-md text-sm mb-6">First try of a dynamic car chase sequence on a highway</p>
+<button id="open-video" class="text-primary font-bold flex items-center gap-2 group/link" href="#">
+                            View Case Study 
+<span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform" data-icon="north_east">north_east</span>
+</button>
 </div>
 </div>
 <!-- Project 2: Vertical Offset -->
@@ -325,6 +326,48 @@
             else dynamicLine.classList.add('animate-pulse');
         }
     });
+
+    // Riferimenti agli elementi
+const videoModal = document.getElementById('video-modal');
+const modalVideo = document.getElementById('modal-video');
+const openBtn = document.getElementById('open-video');
+const closeBtn = document.getElementById('close-modal');
+
+// Funzione per aprire il video
+if (openBtn) {
+    openBtn.addEventListener('click', () => {
+        videoModal.classList.remove('hidden'); // Mostra la modal
+        document.body.style.overflow = 'hidden'; // Blocca lo scroll della pagina sotto
+        modalVideo.play(); // Fa partire il video in automatico
+    });
+}
+
+// Funzione per chiudere il video
+if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+        videoModal.classList.add('hidden'); // Nasconde la modal
+        document.body.style.overflow = 'auto'; // Riabilita lo scroll
+        modalVideo.pause(); // Mette in pausa il video
+        modalVideo.currentTime = 0; // Lo resetta dall'inizio
+    });
+}
+
+// Chiudi cliccando fuori dal video (sullo sfondo scuro)
+videoModal.addEventListener('click', (e) => {
+    if (e.target === videoModal) closeBtn.click();
+});
 </script>
+<div id="video-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center bg-black/95 backdrop-blur-xl transition-all duration-500">
+    <button id="close-modal" class="absolute top-10 right-10 text-white hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-4xl">close</span>
+    </button>
+    
+    <div class="w-full max-w-5xl aspect-video px-4">
+        <video id="modal-video" class="w-full h-full rounded-2xl shadow-2xl border border-white/10" controls>
+            <source src="video/carchase.mp4" type="video/mp4">
+            Il tuo browser non supporta il tag video.
+        </video>
+    </div>
+</div>
 </body>
 </html>
