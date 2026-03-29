@@ -394,43 +394,85 @@ function setupCanvas() {
 }
 
 // Funzione principale di disegno
-function drawVisualizer() {
-    animationId = requestAnimationFrame(drawVisualizer);
+function draw() {
+            animationId = requestAnimationFrame(draw);
+            analyser.getByteFrequencyData(dataArray);
+            
+            // 1. CALCOLO DEI BASSI (Prendiamo le frequenze più basse)
+            let bassSum = 0;
+            const bassRange = 10; // Prime 10 frequenze = Bassi
+            for (let i = 0; i < bassRange; i++) {
+                bassSum += dataArray[i];
+            }
+            const bassAvg = bassSum / bassRange;
+            const bassIntensity = bassAvg / 255; // Valore da 0.0 a 1.0
 
-    // Ottieni i dati delle frequenze attuali
-    analyser.getByteFrequencyData(dataArray);
+            // 2. EFFETTO NEON PULSANTE SUL VIDEO (CSS)
+            // Il blur e l'espansione dell'ombra aumentano drasticamente coi bassi
+            const glowBlur = 20 + (bassIntensity * 100); 
+            const glowSpread = 2 + (bassIntensity * 30);
+            const glowOpacity = 0.3 + (bassIntensity * 0.7);
+            
+            video.style.boxShadow = `0 0 ${glowBlur}px ${glowSpread}px rgba(0, 255, 194, ${glowOpacity})`;
+            video.style.borderColor = `rgba(170, 255, 220, ${0.5 + bassIntensity})`;
 
-    // Pulisci il canvas ad ogni frame
-    ctx.clearRect(0, 0, audioCanvas.width, audioCanvas.height);
+            // 3. DISEGNO DELL'ONDA SONORA SUI BORDI (Canvas)
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Stile linea Neon
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = "#aaffdc";
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = "#00FFC2";
+            ctx.lineJoin = "round";
 
-    const bufferLength = analyser.frequencyBinCount;
-    const barWidth = (audioCanvas.width / bufferLength) * 2.5; // Larghezza barre
-    let barHeight;
-    let x = 0;
+            // Coordinate del bordo del video rispetto al canvas
+            const videoRect = video.getBoundingClientRect();
+            const canvasRect = canvas.getBoundingClientRect();
+            
+            // Offset per far partire la linea esattamente sul bordo del video
+            const startX = (canvasRect.width - videoRect.width) / 2;
+            const endX = startX + videoRect.width;
+            const topY = (canvasRect.height - videoRect.height) / 2;
+            const bottomY = topY + videoRect.height;
 
-    // Colore Neon del sito (#aaffdc)
-    const neonColor = "#aaffdc";
+            // Usiamo solo la prima metà dello spettro audio per un'onda più estetica
+            const dataLength = analyser.frequencyBinCount / 1.5; 
+            const sliceWidth = videoRect.width / dataLength;
 
-    for (let i = 0; i < bufferLength; i++) {
-        barHeight = dataArray[i] * 1.2; // Sensibilità altezza
+            // --- DISEGNA ONDA SUPERIORE (Esce verso l'alto) ---
+            ctx.beginPath();
+            let x = startX;
+            for (let i = 0; i < dataLength; i++) {
+                const v = dataArray[i] / 255.0;
+                // I bassi (i più bassi) creano i picchi più alti
+                const spikeHeight = v * 60; // Altezza massima dell'onda
+                const y = topY - spikeHeight; 
+                
+                if (i === 0) ctx.moveTo(x, topY);
+                else ctx.lineTo(x, y);
+                
+                x += sliceWidth;
+            }
+            ctx.lineTo(endX, topY);
+            ctx.stroke();
 
-        // Effetto Neon: Glow bar (sfocata)
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = "rgba(0, 255, 194, 0.7)";
-        ctx.fillStyle = "rgba(170, 255, 220, 0.3)"; // Colore base tenue
-        
-        // Disegna la barra principale
-        ctx.fillRect(x, audioCanvas.height - barHeight, barWidth, barHeight);
-
-        // Linea sottile interna (più luminosa)
-        ctx.shadowBlur = 0;
-        ctx.fillStyle = neonColor;
-        ctx.fillRect(x + barWidth/4, audioCanvas.height - barHeight, barWidth/2, barHeight);
-
-        x += barWidth + 1; // Spaziatura tra le barre
-    }
-}
-
+            // --- DISEGNA ONDA INFERIORE (Esce verso il basso) ---
+            ctx.beginPath();
+            x = startX;
+            for (let i = 0; i < dataLength; i++) {
+                const v = dataArray[i] / 255.0;
+                const spikeHeight = v * 60; 
+                const y = bottomY + spikeHeight; // Aggiungiamo per andare verso il basso
+                
+                if (i === 0) ctx.moveTo(x, bottomY);
+                else ctx.lineTo(x, y);
+                
+                x += sliceWidth;
+            }
+            ctx.lineTo(endX, bottomY);
+            ctx.stroke();
+        }
 // Inizializza l'Audio Context (solo la prima volta che apri il video)
 function initAudioAnalyzer() {
     if (audioContext) return; // Già inizializzato
@@ -457,14 +499,14 @@ function initAudioAnalyzer() {
         <span class="material-symbols-outlined text-4xl">close</span>
     </button>
     
-    <div id="modal-container" class="relative w-full max-w-6xl aspect-video px-4 scale-90 blur-md transition-all duration-500 ease-out flex items-center justify-center">
-    
-    <canvas id="audio-visualizer" class="absolute inset-0 w-full h-full rounded-lg opacity-60"></canvas>
-    
-    <video id="modal-video" class="relative z-10 w-full h-full rounded-lg shadow-[0_0_60px_rgba(0,255,194,0.1)] border border-primary/10" controls crossorigin="anonymous">
-        <source src="video/carchase.mp4" type="video/mp4">
-    </video>
-</div>
+    <div id="modal-container" class="relative w-full max-w-6xl aspect-video p-12 scale-90 blur-md transition-all duration-500 ease-out flex items-center justify-center">
+        
+        <canvas id="audio-visualizer" class="absolute inset-0 w-full h-full z-0"></canvas>
+        
+        <video id="modal-video" class="relative z-10 w-full h-full object-cover rounded-lg border-2 border-primary/80 transition-shadow duration-75" controls crossorigin="anonymous">
+            <source src="video/carchase.mp4" type="video/mp4">
+        </video>
+    </div>
 </div>
 </body>
 </html>
