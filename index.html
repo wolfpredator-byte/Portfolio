@@ -204,7 +204,7 @@
 <div class="aspect-[3/4] overflow-hidden">
 <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Minimalist 3D architectural render of a brutalist concrete staircase with sharp shadows and a single beam of light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfivCyIrcgABgsO6VPUj5oW3l9VVBccllKZEx3o0RUviPXRnSiWgRepRrbbclkvB6NDUOqhyKPchJcw6NUI0Sv9JbX1vxL8b3YMWPU-bBZjGbBmKAV7aHZjsyy1c37VVBbVW31q4ql7yDQCYxF2AjVAmOk7tFm0Tbbw75uZ-sVJTJJEGyp1zuhC-kTFPd18WEseptfTs_Ja5XhvA0XUgPZtm4EDehdEJsXV9g-ia0smshAkold83uCttRadIYvJsNnBjSKRrsnD-p5"/>
 </div>
-<div class="p-8">
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-12 flex flex-col justify-end">
 <span class="text-on-surface-variant font-label text-xs tracking-widest uppercase">02 / Architecture</span>
 <h3 class="font-headline text-2xl font-bold mt-2">SHADOW STRUCTURE</h3>
 </div>
@@ -214,7 +214,7 @@
 <div class="aspect-square overflow-hidden">
 <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Technical 3D wireframe render of a mechanical clockwork heart with glowing circuitry and metallic textures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADQpAgSho5Bm7qx1c4W10E7tkBaOUfkFQsCYginWOtgpa2ztwIkfc6KWK7AhE-wECA85Mh64zKUMgZwsEOAwQNHxRxep_irazGxXfA8IYbbyd35ZuAQDES5Uri3hJFu1xE-cYJSlfm1Ln_MDmRfrDmPY0Dtq-Hcd20hMqxVNeVg5kXAz9w55W_WT83OISb80pEj2TQAaiL49gvWUZa_urrOdVUJtlZxUqzfCH6sYaLoAOlefhlsse2cRYlPbb0rOCXAiYJk_ex02xR"/>
 </div>
-<div class="p-8">
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-12 flex flex-col justify-end">
 <span class="text-on-surface-variant font-label text-xs tracking-widest uppercase">03 / Hard Surface</span>
 <h3 class="font-headline text-2xl font-bold mt-2">CORE ENGINE</h3>
 </div>
@@ -224,7 +224,7 @@
 <div class="aspect-video overflow-hidden">
 <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Cinematic 3D render of an astronaut standing on a dark obsidian planet looking at a giant teal nebula galaxy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSFngJAZbS_F9XjcR8SBZVtYvBqdB_oWI37st6Hud-5h_HROVC0aplHmcXuttbF2WfkBB1ePGsRmJZAZ4W6s7n7tBM_Yn4qoxwposBWRUt9QYx3QzqU84R7y1QPiIpbC-n_FHRma5vJ3-vxZSe3b5ph2bL7xfxf-5o2Idn-kr9_XydIqpLOr7NUOKtsZmq2vL4tbWao0vxEOJhvQUOm7VfXvtmCvgz8IOH8zNUDRXyl1-FKGMF697nR9ErdWHTQSpr3ODNhfhcIPyn"/>
 </div>
-<div class="p-8">
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-12 flex flex-col justify-end">
 <span class="text-on-surface-variant font-label text-xs tracking-widest uppercase">04 / Environment</span>
 <h3 class="font-headline text-2xl font-bold mt-2">NEBULA REACH</h3>
 </div>
@@ -327,45 +327,53 @@
         }
     });
 
-    // Riferimenti agli elementi
 const videoModal = document.getElementById('video-modal');
+const modalContainer = document.getElementById('modal-container');
 const modalVideo = document.getElementById('modal-video');
 const openBtn = document.getElementById('open-video');
 const closeBtn = document.getElementById('close-modal');
 
-// Funzione per aprire il video
 if (openBtn) {
     openBtn.addEventListener('click', () => {
-        videoModal.classList.remove('hidden'); // Mostra la modal
-        document.body.style.overflow = 'hidden'; // Blocca lo scroll della pagina sotto
-        modalVideo.play(); // Fa partire il video in automatico
+        // 1. Rendi visibile il contenitore (ma ancora trasparente)
+        videoModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+
+        // 2. Trigger dell'animazione con un micro-delay
+        setTimeout(() => {
+            videoModal.classList.add('opacity-100');
+            modalContainer.classList.remove('scale-90', 'blur-md');
+            modalContainer.classList.add('scale-100', 'blur-0');
+            modalVideo.play();
+        }, 10);
     });
 }
 
-// Funzione per chiudere il video
-if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-        videoModal.classList.add('hidden'); // Nasconde la modal
-        document.body.style.overflow = 'auto'; // Riabilita lo scroll
-        modalVideo.pause(); // Mette in pausa il video
-        modalVideo.currentTime = 0; // Lo resetta dall'inizio
-    });
-}
+const closeModal = () => {
+    videoModal.classList.remove('opacity-100');
+    modalContainer.classList.add('scale-90', 'blur-md');
+    
+    setTimeout(() => {
+        videoModal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+    }, 500); // Aspetta la fine della transizione CSS
+};
 
-// Chiudi cliccando fuori dal video (sullo sfondo scuro)
-videoModal.addEventListener('click', (e) => {
-    if (e.target === videoModal) closeBtn.click();
-});
+closeBtn?.addEventListener('click', closeModal);
+document.getElementById('modal-bg')?.addEventListener('click', closeModal);
 </script>
-<div id="video-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center bg-black/95 backdrop-blur-xl transition-all duration-500">
-    <button id="close-modal" class="absolute top-10 right-10 text-white hover:text-primary transition-colors">
+<div id="video-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center bg-black/98 backdrop-blur-2xl transition-all duration-500 opacity-0">
+    <div class="absolute inset-0 cursor-zoom-out" id="modal-bg"></div>
+    
+    <button id="close-modal" class="absolute top-10 right-10 text-white/50 hover:text-primary transition-all z-[210]">
         <span class="material-symbols-outlined text-4xl">close</span>
     </button>
     
-    <div class="w-full max-w-5xl aspect-video px-4">
-        <video id="modal-video" class="w-full h-full rounded-2xl shadow-2xl border border-white/10" controls>
+    <div id="modal-container" class="w-full max-w-6xl aspect-video px-4 scale-90 blur-md transition-all duration-500 ease-out">
+        <video id="modal-video" class="w-full h-full rounded-lg shadow-[0_0_50px_rgba(0,255,194,0.2)] border border-primary/20" controls>
             <source src="video/carchase.mp4" type="video/mp4">
-            Il tuo browser non supporta il tag video.
         </video>
     </div>
 </div>
