@@ -193,7 +193,7 @@
 <span class="text-primary font-label text-xs tracking-widest uppercase mb-2">01 / FAST MOTION</span>
 <h3 class="font-headline text-3xl font-bold mb-4">CAR CHASE</h3>
 <p class="text-on-surface-variant max-w-md text-sm mb-6">First try of a dynamic car chase sequence on a highway</p>
-<button id="open-video" class="text-primary font-bold flex items-center gap-2 group/link" href="#">
+<button id="open-video" class="text-primary font-bold flex items-center gap-2 group/link">
                             View Case Study 
 <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform" data-icon="north_east">north_east</span>
 </button>
@@ -291,11 +291,11 @@
     import { Application } from 'https://unpkg.com/@splinetool/runtime@1.0.28/build/runtime.js';
     
     // Initialize Spline 3D Scene
-    const canvas = document.getElementById('canvas3d');
-    if (canvas) {
-        const app = new Application(canvas);
-        app.load('https://prod.spline.design/rDF0COJmsMCGdSiC/scene.splinecode');
-    }
+    const canvas3dElement = document.getElementById('canvas3d');
+        if (canvas3dElement) {
+            const app = new Application(canvas3dElement);
+            app.load('https://prod.spline.design/rDF0COJmsMCGdSiC/scene.splinecode');
+        }
 
     // Global Environmental Light Control
     window.addEventListener('scroll', () => {
@@ -333,23 +333,31 @@ const modalVideo = document.getElementById('modal-video');
 const openBtn = document.getElementById('open-video');
 const closeBtn = document.getElementById('close-modal');
 
+// --- AGGIORNAMENTO LOGICA MODAL (con Audio) ---
 if (openBtn) {
     openBtn.addEventListener('click', () => {
-        // 1. Rendi visibile il contenitore (ma ancora trasparente)
+        // Mostra modal (animazione esistente)
         videoModal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
 
-        // 2. Trigger dell'animazione con un micro-delay
         setTimeout(() => {
             videoModal.classList.add('opacity-100');
             modalContainer.classList.remove('scale-90', 'blur-md');
             modalContainer.classList.add('scale-100', 'blur-0');
+            
+            // --- NUOVO: Fai partire l'analisi audio ---
+            initAudioAnalyzer();
+            if (audioContext.state === 'suspended') {
+                audioContext.resume(); // Necessario per blocchi browser
+            }
             modalVideo.play();
+            drawVisualizer(); // Fai partire il disegno
         }, 10);
     });
 }
 
 const closeModal = () => {
+    // Nascondi modal (animazione esistente)
     videoModal.classList.remove('opacity-100');
     modalContainer.classList.add('scale-90', 'blur-md');
     
@@ -358,11 +366,89 @@ const closeModal = () => {
         document.body.style.overflow = 'auto';
         modalVideo.pause();
         modalVideo.currentTime = 0;
-    }, 500); // Aspetta la fine della transizione CSS
+
+        // --- NUOVO: Ferma il disegno per risparmiare risorse ---
+        cancelAnimationFrame(animationId);
+    }, 500);
 };
 
+// Gestione ridimensionamento finestra
+window.addEventListener('resize', setupCanvas);
 closeBtn?.addEventListener('click', closeModal);
 document.getElementById('modal-bg')?.addEventListener('click', closeModal);
+
+// --- CONFIGURAZIONE AUDIO VISUALIZER (Neon Style) ---
+let audioContext;
+let analyser;
+let dataArray;
+let source;
+let animationId;
+
+const audioCanvas = document.getElementById('audio-visualizer');
+const ctx = audioCanvas.getContext('2d');
+
+// Funzione per impostare il Canvas in base alla risoluzione
+function setupCanvas() {
+    audioCanvas.width = audioCanvas.parentElement.offsetWidth;
+    audioCanvas.height = audioCanvas.parentElement.offsetHeight;
+}
+
+// Funzione principale di disegno
+function drawVisualizer() {
+    animationId = requestAnimationFrame(drawVisualizer);
+
+    // Ottieni i dati delle frequenze attuali
+    analyser.getByteFrequencyData(dataArray);
+
+    // Pulisci il canvas ad ogni frame
+    ctx.clearRect(0, 0, audioCanvas.width, audioCanvas.height);
+
+    const bufferLength = analyser.frequencyBinCount;
+    const barWidth = (audioCanvas.width / bufferLength) * 2.5; // Larghezza barre
+    let barHeight;
+    let x = 0;
+
+    // Colore Neon del sito (#aaffdc)
+    const neonColor = "#aaffdc";
+
+    for (let i = 0; i < bufferLength; i++) {
+        barHeight = dataArray[i] * 1.2; // Sensibilità altezza
+
+        // Effetto Neon: Glow bar (sfocata)
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = "rgba(0, 255, 194, 0.7)";
+        ctx.fillStyle = "rgba(170, 255, 220, 0.3)"; // Colore base tenue
+        
+        // Disegna la barra principale
+        ctx.fillRect(x, audioCanvas.height - barHeight, barWidth, barHeight);
+
+        // Linea sottile interna (più luminosa)
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = neonColor;
+        ctx.fillRect(x + barWidth/4, audioCanvas.height - barHeight, barWidth/2, barHeight);
+
+        x += barWidth + 1; // Spaziatura tra le barre
+    }
+}
+
+// Inizializza l'Audio Context (solo la prima volta che apri il video)
+function initAudioAnalyzer() {
+    if (audioContext) return; // Già inizializzato
+
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioContext.createAnalyser();
+    
+    // Connetti il video all'analizzatore
+    source = audioContext.createMediaElementSource(modalVideo);
+    source.connect(analyser);
+    analyser.connect(audioContext.destination); // Connetti alle casse
+
+    analyser.fftSize = 64; // Numero di barre (più basso = barre più larghe)
+    const bufferLength = analyser.frequencyBinCount;
+    dataArray = new Uint8Array(bufferLength);
+    
+    setupCanvas();
+}
 </script>
 <div id="video-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center bg-black/98 backdrop-blur-2xl transition-all duration-500 opacity-0">
     <div class="absolute inset-0 cursor-zoom-out" id="modal-bg"></div>
@@ -371,11 +457,14 @@ document.getElementById('modal-bg')?.addEventListener('click', closeModal);
         <span class="material-symbols-outlined text-4xl">close</span>
     </button>
     
-    <div id="modal-container" class="w-full max-w-6xl aspect-video px-4 scale-90 blur-md transition-all duration-500 ease-out">
-        <video id="modal-video" class="w-full h-full rounded-lg shadow-[0_0_50px_rgba(0,255,194,0.2)] border border-primary/20" controls>
-            <source src="video/carchase.mp4" type="video/mp4">
-        </video>
-    </div>
+    <div id="modal-container" class="relative w-full max-w-6xl aspect-video px-4 scale-90 blur-md transition-all duration-500 ease-out flex items-center justify-center">
+    
+    <canvas id="audio-visualizer" class="absolute inset-0 w-full h-full rounded-lg opacity-60"></canvas>
+    
+    <video id="modal-video" class="relative z-10 w-full h-full rounded-lg shadow-[0_0_60px_rgba(0,255,194,0.1)] border border-primary/10" controls crossorigin="anonymous">
+        <source src="video/carchase.mp4" type="video/mp4">
+    </video>
+</div>
 </div>
 </body>
 </html>
