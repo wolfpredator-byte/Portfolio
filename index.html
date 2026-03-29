@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <title>SubD_Zero | Digital Portfolio</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error-container": "#ffa8a3",
+              "on-primary-container": "#005c44",
+              "on-tertiary-fixed-variant": "#004e5f",
+              "on-secondary-fixed-variant": "#006858",
+              "on-tertiary": "#004e5f",
+              "on-secondary-fixed": "#00483d",
+              "secondary-fixed": "#4ffcdc",
+              "inverse-on-surface": "#565556",
+              "primary-container": "#00fdc1",
+              "on-background": "#ffffff",
+              "secondary-container": "#006b5b",
+              "surface-container-high": "#201f21",
+              "secondary-dim": "#3aedce",
+              "on-primary-fixed": "#004734",
+              "surface-variant": "#262627",
+              "secondary": "#4ffcdc",
+              "inverse-surface": "#fcf8f9",
+              "tertiary": "#74e0ff",
+              "on-surface": "#ffffff",
+              "surface": "#0e0e0f",
+              "tertiary-container": "#00d5fe",
+              "surface-tint": "#aaffdc",
+              "tertiary-fixed": "#00d5fe",
+              "tertiary-dim": "#00c7ec",
+              "primary-fixed-dim": "#00edb4",
+              "error": "#ff716c",
+              "surface-container": "#1a191b",
+              "error-dim": "#d7383b",
+              "outline": "#767576",
+              "surface-container-highest": "#262627",
+              "on-primary-fixed-variant": "#00664c",
+              "secondary-fixed-dim": "#3aedce",
+              "surface-container-lowest": "#000000",
+              "primary-dim": "#00edb4",
+              "tertiary-fixed-dim": "#00c7ec",
+              "surface-container-low": "#131314",
+              "on-secondary-container": "#ddfff4",
+              "outline-variant": "#484849",
+              "on-surface-variant": "#adaaab",
+              "inverse-primary": "#006c51",
+              "surface-dim": "#0e0e0f",
+              "on-secondary": "#005d4f",
+              "primary-fixed": "#00fdc1",
+              "on-error": "#490006",
+              "surface-bright": "#2c2c2d",
+              "primary": "#aaffdc",
+              "on-tertiary-fixed": "#002f39",
+              "error-container": "#9f0519",
+              "background": "#0e0e0f",
+              "on-primary": "#00654b",
+              "on-tertiary-container": "#004553"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+
+        #canvas3d {
+        pointer-events: auto !important; 
+        touch-action: none;
+        }
+        #spline-placeholder {
+        pointer-events: none;
+        }
+        .scroll-line {
+        transition: height 0.2s ease-out;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+        }
+        .scrim-gradient {
+            background: linear-gradient(to top, #000000 0%, transparent 100%);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #aaffdc 0%, #00fdc1 100%);
+        }
+        .asymmetric-offset {
+            transform: translateY(15%);
+        }
+        /* Premium Neon Effects */
+        .nav-glow-bar {
+            box-shadow: 0 0 20px rgba(0, 255, 194, 0.8), 0 0 40px rgba(0, 255, 194, 0.4);
+            filter: blur(0.5px);
+        }
+        .bottom-ambient-glow {
+            box-shadow: 0 0 30px rgba(0, 255, 194, 0.4), 0 0 60px rgba(0, 255, 194, 0.2);
+            filter: blur(1px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary-fixed">
+<div class="nav-glow-bar fixed top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_20px_rgba(0,255,194,0.8)] z-[100] transition-opacity duration-500"></div>
+<div class="bottom-ambient-glow fixed bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent shadow-[0_0_30px_rgba(0,255,194,0.4)] z-[100] opacity-0 transition-opacity duration-500"></div>
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 glass-nav">
+<div class="flex justify-between items-center px-8 py-6 max-w-[1920px] mx-auto">
+<div class="text-2xl font-bold tracking-tighter text-[#00FFC2] font-headline"><a href="index.html">SubD_Zero</a></div>
+<div class="hidden md:flex items-center gap-12 font-headline tracking-tight">
+<a class="text-[#00FFC2] border-b-2 border-[#00FFC2] pb-1 transition-colors" href="index.html#featured">Featured</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="projects.html">Projects</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="models.html">Models</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="wip.html">WIP</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="about.html">About</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="about.html#contact">Contact</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-[#adaaab] hover:text-[#aaffdc] duration-300 scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+</button>
+</div>
+</div>
+</nav>
+<main>
+<!-- Hero Scene: The SubD_Zero Viewport -->
+<section id="hero-scene" class="relative min-h-screen flex items-center overflow-hidden">
+    <!-- 3D Scene Background (Spline Integration) -->
+    <div id="spline-placeholder" class="absolute inset-0 z-0">
+        <canvas id="canvas3d" class="w-full h-full outline-none"></canvas>
+        <div class="absolute inset-0 scrim-gradient opacity-60 pointer-events-none"></div>
+    </div>
+    <div id="hero-content" class="relative z-10 px-8 md:px-24 w-full pointer-events-none">
+        <div class="max-w-4xl">
+            <p class="font-label text-primary tracking-[0.3em] uppercase mb-6 text-sm">3D VISUAL ARTIST &amp; MOTION DESIGNER</p>
+            <h1 class="font-headline text-5xl md:text-8xl font-bold tracking-tighter leading-[0.9] mb-8">
+                CRAFTING <span class="text-transparent bg-clip-text primary-gradient">DIGITAL</span><br/>MONOLITHS
+            </h1>
+            <p class="text-on-surface-variant text-lg md:text-xl max-w-xl mb-12 font-light leading-relaxed">
+                Pushing the boundaries of light, texture, and form through advanced octane-rendered environments and high-fidelity procedural geometries.
+            </p>
+            <div class="flex flex-wrap gap-6">
+                <a href="projects.html" class="pointer-events-auto primary-gradient text-on-primary-fixed px-10 py-4 rounded-xl font-bold tracking-tight hover:shadow-[0_0_20px_rgba(170,255,220,0.4)] transition-all duration-300 flex items-center gap-2 group">
+                 Explore Projects
+                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+              </a>
+                <a href="process.html" class="pointer-events-auto border border-outline-variant/20 hover:bg-surface-bright px-10 py-4 rounded-xl font-medium transition-all duration-300">
+                 The Process
+              </a>
+            </div>
+        </div>
+    </div>
+
+   <div id="scroll-indicator" class="fixed bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-20 pointer-events-none transition-opacity duration-300">
+        <span class="font-label text-primary/60 text-[10px] tracking-[0.4em] uppercase">Scroll to View</span>
+        <div id="dynamic-line" class="scroll-line w-[1px] h-16 bg-gradient-to-b from-primary to-transparent shadow-[0_0_8px_rgba(0,255,194,0.6)] animate-pulse"></div>
+    </div>
+</section>
+<!-- Featured Selection: Bento Editorial -->
+<section id="featured" class="py-32 px-8 md:px-24 bg-surface">
+<div class="flex flex-col md:flex-row justify-between items-baseline gap-8 mb-24">
+<h2 class="font-headline text-4xl md:text-6xl font-bold tracking-tighter">FEATURED WORK</h2>
+<div class="flex gap-4">
+<span class="font-label text-on-surface-variant text-sm px-4 py-2 bg-surface-container rounded-full">Automotive</span>
+<span class="font-label text-on-surface-variant text-sm px-4 py-2 bg-surface-container rounded-full">Architectural</span>
+<span class="font-label text-on-surface-variant text-sm px-4 py-2 bg-surface-container rounded-full">Abstract</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Project 1: Large Feature -->
+<div class="md:col-span-8 group relative overflow-hidden rounded-xl bg-surface-container">
+<div class="aspect-[16/9] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Close-up 3D render of iridescent liquid metal waves swirling in a dark space with teal and pink specular highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo0xHfV5vGfR4ZdnTjYTe9ZylJBREisyEmuCUifU5pZz5LLjHn6kvAYhLpawoPpoyMnlufZugf5OhPy4sCFPv_7XVXG6j7Rlp9lc2DGWUvchHhEE10abcUreIAsmn2BdcyZErapRZuLx5Bs_FMvB-d5m-EGaBGDJytlmNsndSvu_WyyAHjEPDLp6l4IJm2USYJgEvTz6qC3pZfTrHg1wHRQUOn6snjixrnNhacVES5cI5LrLNrJiEgRCCcqPKP4rTjoK6C-fOshAwm"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-12 flex flex-col justify-end">
+<span class="text-primary font-label text-xs tracking-widest uppercase mb-2">01 / Abstract Motion</span>
+<h3 class="font-headline text-3xl font-bold mb-4">CYBERNETIC FLUIDITY</h3>
+<p class="text-on-surface-variant max-w-md text-sm mb-6">Exploration of procedural movement and refractive index modulation in Cinema 4D.</p>
+<a class="text-primary font-bold flex items-center gap-2 group/link" href="#">
+                            View Case Study <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform" data-icon="north_east">north_east</span>
+</a>
+</div>
+</div>
+<!-- Project 2: Vertical Offset -->
+<div class="md:col-span-4 group relative overflow-hidden rounded-xl bg-surface-container asymmetric-offset">
+<div class="aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Minimalist 3D architectural render of a brutalist concrete staircase with sharp shadows and a single beam of light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfivCyIrcgABgsO6VPUj5oW3l9VVBccllKZEx3o0RUviPXRnSiWgRepRrbbclkvB6NDUOqhyKPchJcw6NUI0Sv9JbX1vxL8b3YMWPU-bBZjGbBmKAV7aHZjsyy1c37VVBbVW31q4ql7yDQCYxF2AjVAmOk7tFm0Tbbw75uZ-sVJTJJEGyp1zuhC-kTFPd18WEseptfTs_Ja5XhvA0XUgPZtm4EDehdEJsXV9g-ia0smshAkold83uCttRadIYvJsNnBjSKRrsnD-p5"/>
+</div>
+<div class="p-8">
+<span class="text-on-surface-variant font-label text-xs tracking-widest uppercase">02 / Architecture</span>
+<h3 class="font-headline text-2xl font-bold mt-2">SHADOW STRUCTURE</h3>
+</div>
+</div>
+<!-- Project 3: Wide -->
+<div class="md:col-span-5 group relative overflow-hidden rounded-xl bg-surface-container">
+<div class="aspect-square overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Technical 3D wireframe render of a mechanical clockwork heart with glowing circuitry and metallic textures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADQpAgSho5Bm7qx1c4W10E7tkBaOUfkFQsCYginWOtgpa2ztwIkfc6KWK7AhE-wECA85Mh64zKUMgZwsEOAwQNHxRxep_irazGxXfA8IYbbyd35ZuAQDES5Uri3hJFu1xE-cYJSlfm1Ln_MDmRfrDmPY0Dtq-Hcd20hMqxVNeVg5kXAz9w55W_WT83OISb80pEj2TQAaiL49gvWUZa_urrOdVUJtlZxUqzfCH6sYaLoAOlefhlsse2cRYlPbb0rOCXAiYJk_ex02xR"/>
+</div>
+<div class="p-8">
+<span class="text-on-surface-variant font-label text-xs tracking-widest uppercase">03 / Hard Surface</span>
+<h3 class="font-headline text-2xl font-bold mt-2">CORE ENGINE</h3>
+</div>
+</div>
+<!-- Project 4: Balanced -->
+<div class="md:col-span-7 group relative overflow-hidden rounded-xl bg-surface-container">
+<div class="aspect-video overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Cinematic 3D render of an astronaut standing on a dark obsidian planet looking at a giant teal nebula galaxy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSFngJAZbS_F9XjcR8SBZVtYvBqdB_oWI37st6Hud-5h_HROVC0aplHmcXuttbF2WfkBB1ePGsRmJZAZ4W6s7n7tBM_Yn4qoxwposBWRUt9QYx3QzqU84R7y1QPiIpbC-n_FHRma5vJ3-vxZSe3b5ph2bL7xfxf-5o2Idn-kr9_XydIqpLOr7NUOKtsZmq2vL4tbWao0vxEOJhvQUOm7VfXvtmCvgz8IOH8zNUDRXyl1-FKGMF697nR9ErdWHTQSpr3ODNhfhcIPyn"/>
+</div>
+<div class="p-8">
+<span class="text-on-surface-variant font-label text-xs tracking-widest uppercase">04 / Environment</span>
+<h3 class="font-headline text-2xl font-bold mt-2">NEBULA REACH</h3>
+</div>
+</div>
+</div>
+</section>
+<!-- Artist Intro Section -->
+<section class="py-48 px-8 md:px-24 bg-surface-container-low overflow-hidden relative">
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
+<div class="relative">
+<div class="absolute -top-12 -left-12 text-[12rem] font-bold text-surface-bright/20 font-headline leading-none select-none">3D</div>
+<h2 class="font-headline text-4xl md:text-5xl font-bold mb-8 relative z-10 leading-tight">
+                        TRANSLATING <span class="text-primary italic">IMAGINATION</span> INTO GEOMETRY.
+                    </h2>
+<div class="space-y-6 text-on-surface-variant text-lg">
+<p>With over 8 years of experience in the digital arts, I specialize in creating immersive visual narratives that bridge the gap between realism and surrealism.</p>
+<p>My toolkit includes Cinema 4D, Houdini, and Octane Render, allowing me to craft complex procedural systems and photorealistic textures for global brands and independent studios.</p>
+</div>
+<div class="mt-12 flex gap-8">
+<div>
+<div class="text-3xl font-headline font-bold text-primary">120+</div>
+<div class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Renders Delivered</div>
+</div>
+<div>
+<div class="text-3xl font-headline font-bold text-primary">15</div>
+<div class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Industry Awards</div>
+</div>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute inset-0 bg-primary/10 rounded-xl blur-3xl group-hover:bg-primary/20 transition-all duration-500"></div>
+<div class="relative aspect-square rounded-xl overflow-hidden border border-outline-variant/10">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" data-alt="Stylized portrait of a digital artist in a dark studio surrounded by glowing computer screens and 3D equipment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEJnpOfUl5gRl9DTniu6BnARhIHsWrZeHABlOYK_huucrg1w5SLJfuFZq2VZFfJwV9jUV6g-FTBafix8yprEDTTQx_t3S_e5NK71-qotWcXuG7FtgoVPlSrJq9l_o2U0HuVVWy3jHcYutpIT_7yqlOMCAYG5sJzssFw2ETg7X_xDqfLYDtmmb-4LqmZQK8IsInpTMMB7oQDcWQFmQuYVQ80Ag6ddWKqXZX20kN5CazxxJVbIStJ6_4JOstRLjEAxk2_DFerhl8UBmM"/>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-32 px-8 text-center">
+<div class="max-w-3xl mx-auto">
+<h2 class="font-headline text-5xl md:text-7xl font-bold mb-8 tracking-tighter">READY TO RENDER?</h2>
+<p class="text-on-surface-variant text-xl mb-12">Available for select commissions and collaborative projects worldwide.</p>
+<a class="inline-block primary-gradient text-on-primary-fixed px-12 py-5 rounded-full font-bold text-xl hover:scale-105 transition-transform duration-300" href="mailto:contact@subdzero.art">
+                    Get In Touch
+                </a>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-20 mt-24 bg-[#000000] border-t border-[#484849]/20">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 max-w-[1920px] mx-auto gap-8">
+<div class="font-headline text-lg font-bold tracking-widest text-on-surface-variant">SubD_Zero</div>
+<div class="flex gap-12 font-body text-sm tracking-wide">
+<a class="text-[#adaaab] hover:text-[#00FFC2] transition-all duration-300 opacity-80 hover:opacity-100" href="#">ArtStation</a>
+<a class="text-[#adaaab] hover:text-[#00FFC2] transition-all duration-300 opacity-80 hover:opacity-100" href="#">LinkedIn</a>
+<a class="text-[#adaaab] hover:text-[#00FFC2] transition-all duration-300 opacity-80 hover:opacity-100" href="#">Instagram</a>
+</div>
+<div class="text-[#adaaab] font-body text-sm tracking-wide">
+                © 2024 SubD_Zero Artistry
+            </div>
+</div>
+</footer>
+<script type="module">
+    import { Application } from 'https://unpkg.com/@splinetool/runtime@1.0.28/build/runtime.js';
+    
+    // Initialize Spline 3D Scene
+    const canvas = document.getElementById('canvas3d');
+    if (canvas) {
+        const app = new Application(canvas);
+        app.load('https://prod.spline.design/rDF0COJmsMCGdSiC/scene.splinecode');
+    }
+
+    // Global Environmental Light Control
+    window.addEventListener('scroll', () => {
+        const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+        const topGlow = document.querySelector('.nav-glow-bar');
+        const bottomGlow = document.querySelector('.bottom-ambient-glow');
+        const scrollIndicator = document.getElementById('scroll-indicator');
+        const dynamicLine = document.getElementById('dynamic-line');
+        
+        // 1. Logica Luci (esistente)
+        if (topGlow) topGlow.style.opacity = Math.max(0, 1 - scrollPos / 100);
+        if (bottomGlow) bottomGlow.style.opacity = Math.min(1, scrollPos / 300);
+        
+        // 2. Logica Indicatore Scroll
+        if (scrollIndicator) {
+            // Svanisce gradualmente
+            scrollIndicator.style.opacity = Math.max(0, 1 - scrollPos / 250);
+            // Si sposta verso il basso
+            scrollIndicator.style.transform = `translate(-50%, ${scrollPos * 0.1}px)`;
+        }
+
+        if (dynamicLine) {
+            // La linea si allunga mentre scrolli
+            const newHeight = 64 + (scrollPos * 0.8);
+            dynamicLine.style.height = `${newHeight}px`;
+            // Se scendi molto, smette di pulsare per non distrarre
+            if (scrollPos > 50) dynamicLine.classList.remove('animate-pulse');
+            else dynamicLine.classList.add('animate-pulse');
+        }
+    });
+</script>
+</body>
+</html>

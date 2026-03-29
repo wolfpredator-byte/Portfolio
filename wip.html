@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Work In Progress | SubD_Zero</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error-container": "#ffa8a3",
+              "on-primary-container": "#005c44",
+              "on-tertiary-fixed-variant": "#004e5f",
+              "on-secondary-fixed-variant": "#006858",
+              "on-tertiary": "#004e5f",
+              "on-secondary-fixed": "#00483d",
+              "secondary-fixed": "#4ffcdc",
+              "inverse-on-surface": "#565556",
+              "primary-container": "#00fdc1",
+              "on-background": "#ffffff",
+              "secondary-container": "#006b5b",
+              "surface-container-high": "#201f21",
+              "secondary-dim": "#3aedce",
+              "on-primary-fixed": "#004734",
+              "surface-variant": "#262627",
+              "secondary": "#4ffcdc",
+              "inverse-surface": "#fcf8f9",
+              "tertiary": "#74e0ff",
+              "on-surface": "#ffffff",
+              "surface": "#0e0e0f",
+              "tertiary-container": "#00d5fe",
+              "surface-tint": "#aaffdc",
+              "tertiary-fixed": "#00d5fe",
+              "tertiary-dim": "#00c7ec",
+              "primary-fixed-dim": "#00edb4",
+              "error": "#ff716c",
+              "surface-container": "#1a191b",
+              "error-dim": "#d7383b",
+              "outline": "#767576",
+              "surface-container-highest": "#262627",
+              "on-primary-fixed-variant": "#00664c",
+              "secondary-fixed-dim": "#3aedce",
+              "surface-container-lowest": "#000000",
+              "primary-dim": "#00edb4",
+              "tertiary-fixed-dim": "#00c7ec",
+              "surface-container-low": "#131314",
+              "on-secondary-container": "#ddfff4",
+              "outline-variant": "#484849",
+              "on-surface-variant": "#adaaab",
+              "inverse-primary": "#006c51",
+              "surface-dim": "#0e0e0f",
+              "on-secondary": "#005d4f",
+              "primary-fixed": "#00fdc1",
+              "on-error": "#490006",
+              "surface-bright": "#2c2c2d",
+              "primary": "#aaffdc",
+              "on-tertiary-fixed": "#002f39",
+              "error-container": "#9f0519",
+              "background": "#0e0e0f",
+              "on-primary": "#00654b",
+              "on-tertiary-container": "#004553"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+        }
+        .no-border { border: none !important; }
+        .tonal-shift-bg { background-color: rgba(14, 14, 15, 0.8); }
+        .flat-no-shadows { box-shadow: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary-fixed">
+<div class="nav-glow-bar fixed top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_20px_rgba(0,255,194,0.8)] z-[100] transition-opacity duration-500"></div>
+<div class="bottom-ambient-glow fixed bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent shadow-[0_0_30px_rgba(0,255,194,0.4)] z-[100] opacity-0 transition-opacity duration-500"></div>
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 glass-nav">
+<div class="flex justify-between items-center px-8 py-6 max-w-[1920px] mx-auto">
+<div class="text-2xl font-bold tracking-tighter text-[#00FFC2] font-headline"><a href="index.html">SubD_Zero</a></div>
+<div class="hidden md:flex items-center gap-12 font-headline tracking-tight">
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="index.html#featured">Featured</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="projects.html">Projects</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="models.html">Models</a>
+<a class="text-[#00FFC2] border-b-2 border-[#00FFC2] pb-1 transition-colors" href="wip.html">WIP</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="about.html">About</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="about.html#contact">Contact</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-[#adaaab] hover:text-[#aaffdc] duration-300 scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-8 max-w-[1920px] mx-auto">
+<!-- Header Section -->
+<header class="mb-24 max-w-4xl">
+<h1 class="font-headline text-6xl md:text-8xl font-bold tracking-tighter mb-8 leading-none">
+                Working in <span class="text-primary italic">Progress</span>
+</h1>
+<p class="text-on-surface-variant text-xl max-w-2xl font-light leading-relaxed">
+                A look behind the curtain at technical explorations, digital clay sculpts, and geometric wireframes currently inhabiting the SubD_Zero workstation.
+            </p>
+</header>
+<!-- Viewport Toggles (Design System Component) -->
+<div class="flex flex-wrap gap-4 mb-16">
+<button class="px-6 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label text-sm tracking-wide transition-all">
+                All Drafts
+            </button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label text-sm tracking-wide hover:bg-surface-bright transition-all">
+                Wireframes
+            </button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label text-sm tracking-wide hover:bg-surface-bright transition-all">
+                Clay Sculpts
+            </button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label text-sm tracking-wide hover:bg-surface-bright transition-all">
+                Lighting Tests
+            </button>
+</div>
+<!-- Asymmetric Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Item 1: Large Featured Sculpt -->
+<div class="md:col-span-8 group relative overflow-hidden rounded-md bg-surface-container-low">
+<div class="aspect-[16/9] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" data-alt="Intricate 3D clay sculpt of a futuristic mechanical heart with exposed gears and hydraulic tubes, soft ambient occlusion lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM21D-mthr7cfmBo6P8CoO0-QdPFtMo9Ws9gOfOM-2sW745F2Jlj1V7DJT5wPh2g88bFVAGtF3elvyHipWdjCwlixYAAguN4V8o1Qs8jMfJiSlYxZWWofux77jm56eUDzQQx_HK7M22u_ELr0J_dTkAcaHqk9pCEZ4dSFy_yU_V52JfVyO2zXFlkpWMSwKBc497yL61wnE8X64nDY6V3wrLK1amOxPEpYsOE0ULiPGiOnaEkEpGIE9cUmJa3u2sro8qcH97mCfSRF0"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-90"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full">
+<div class="flex items-center gap-3 mb-4">
+<span class="px-3 py-1 bg-primary/10 text-primary border border-primary/20 text-[10px] uppercase tracking-widest font-bold rounded-sm">Current Stage: Sculpting</span>
+<span class="text-on-surface-variant text-xs font-label">Software: ZBrush</span>
+</div>
+<h3 class="font-headline text-3xl font-bold mb-2">PROJECT: CORE_DRIVE</h3>
+<p class="text-on-surface-variant max-w-md font-body text-sm">Refining the haptic valve assembly. Focus on mechanical realism and joint articulation for the final cinematic render.</p>
+</div>
+</div>
+<!-- Item 2: Vertical Wireframe -->
+<div class="md:col-span-4 group relative overflow-hidden rounded-md bg-surface-container-low flex flex-col">
+<div class="aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60" data-alt="Digital wireframe mesh of a complex architectural structure with glowing teal lines against a deep black void" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoG4VpUyTdN9DUV-h59FGFhh91T_IXE7SjHqpE7sfh6RM-GAcDcmY81gBmrtLEibVcXyGCB0_m8E6Z3--YrsAUVtCKOPRIfepXOKCT2CazOyXHQxJTw7bskr_oNFQQ8C_BmVX1jFRmLBLM4vT72jpus6ADrJESjJY_8v06H5xwEe7HvPITRKtFTE9tvL2SBPYM1NcUlPJhV06I0kYymdt46FrZ2xxkxPelvQ8kAT8W5WQdQ1Id1RvEi6z84LHsVeQ7cLM0YrYJbDnt"/>
+</div>
+<div class="p-6 bg-surface-container">
+<div class="mb-3">
+<span class="px-2 py-1 bg-tertiary/10 text-tertiary border border-tertiary/20 text-[10px] uppercase tracking-widest font-bold rounded-sm">Stage: Topology</span>
+</div>
+<h3 class="font-headline text-xl font-bold mb-1 tracking-tight">NEO_STRUCTURE_04</h3>
+<p class="text-on-surface-variant font-body text-xs">Optimizing quad-flow for the main atrium arches. Structural integrity test successful.</p>
+</div>
+</div>
+<!-- Item 3: Secondary Sculpt -->
+<div class="md:col-span-4 group relative overflow-hidden rounded-md bg-surface-container-low">
+<div class="aspect-square overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70" data-alt="Close-up of a 3D digital character face sculpt showing skin pore details and subtle muscle structure in grey clay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArj3rI9Ktnnha0SlZfHZVIuJO5Gxww9f0xqJMFTrQy9iNNczXtyo4hcTdZflCxNVqQy1908AcFZbqDQitFDjV-RuYikvNd33lBd7a1nMR5npM34Kqp6PLRwSdBnSa5H9U--Io3tKadJopAsJq0RgpZ191uvzLikP7HuooO3yoSWLOgXSCcIP5g-73fT10PgfESPVmR11Aj-94rwUjSF7zRXSHxFDIInmLOw-MWm-aIIuF8Ey1xO7Lwk-R103WIYQTR1kg1mlpqC-Pl"/>
+</div>
+<div class="absolute bottom-0 left-0 p-6 w-full bg-gradient-to-t from-surface-container-lowest to-transparent">
+<h3 class="font-headline text-lg font-bold mb-1">HUMANOID_V2</h3>
+<p class="text-on-surface-variant font-body text-xs uppercase tracking-tighter">Surface Detailing Phase</p>
+</div>
+</div>
+<!-- Item 4: Wide Mesh Study -->
+<div class="md:col-span-8 group relative overflow-hidden rounded-md bg-surface-container-low">
+<div class="aspect-[21/9] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60" data-alt="Wide shot of a 3D environment layout in whitebox stage showing primitive shapes of buildings and streets" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsqhDpdszxZveCNbHkmoPUrBQeEcn-lUftsjwas3VrprXpcHRvW9_BQ4kVUqMkT2QSAsLSaM9qYczc47exCsQjZKhS36neRnOxGzmkXDaSu1CHBFJRcXLM5xveg4nrf-k5qGFIGrqlUXXWMU7jyhuXECrTJZF-mUZCaxJvkoer9qGH0ZsaUiStjezT3jlP0dxcYN9DdaV9CmlbfRZN7szdNLnh-xosgCyFqibXMkVyvzVRWN5v1hpKuKwLIfT0rdLDc59z-3-ujJRy"/>
+</div>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<span class="text-primary/40 font-headline text-8xl font-black italic tracking-tighter opacity-20">WHITEBOXING</span>
+</div>
+<div class="p-8 bg-surface-container border-t border-outline-variant/10">
+<div class="flex justify-between items-end">
+<div>
+<h3 class="font-headline text-2xl font-bold mb-2">URBAN_VOID_LEVEL</h3>
+<p class="text-on-surface-variant max-w-lg text-sm">Establishing scale and navigation paths. Primitive blocking for the district alpha sector.</p>
+</div>
+<div class="text-right">
+<p class="text-on-surface-variant text-[10px] font-label uppercase">Progress</p>
+<p class="text-primary font-headline text-xl font-bold">34%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- CTA Section -->
+<section class="mt-32 p-16 rounded-xl bg-surface-container-low text-center relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-[120px]" data-icon="construction">construction</span>
+</div>
+<h2 class="font-headline text-4xl font-bold mb-6">Have a specific vision?</h2>
+<p class="text-on-surface-variant max-w-xl mx-auto mb-10 text-lg">
+                I'm currently accepting select commissions for high-fidelity 3D assets and environmental storytelling. Let's build the future.
+            </p>
+<button class="px-10 py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary-fixed font-headline font-bold rounded-xl hover:shadow-[0_0_20px_rgba(170,255,220,0.3)] transition-all duration-300">
+                Initialize Project
+            </button>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-20 mt-24 bg-[#000000]">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 border-t border-[#484849]/20 pt-12 max-w-[1920px] mx-auto">
+<div class="mb-8 md:mb-0">
+<p class="font-['Manrope'] text-sm tracking-wide text-[#adaaab]">© 2024 SubD_Zero Artistry</p>
+</div>
+<div class="flex gap-12 font-['Manrope'] text-sm tracking-wide">
+<a class="text-[#adaaab] hover:text-[#00FFC2] transition-all opacity-80 hover:opacity-100" href="#">ArtStation</a>
+<a class="text-[#adaaab] hover:text-[#00FFC2] transition-all opacity-80 hover:opacity-100" href="#">LinkedIn</a>
+<a class="text-[#adaaab] hover:text-[#00FFC2] transition-all opacity-80 hover:opacity-100" href="#">Behance</a>
+</div>
+<div class="mt-8 md:mt-0 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant">System Status: Optimal</span>
+</div>
+</div>
+</footer>
+<script>
+    // Global Environmental Light Control
+    window.addEventListener('scroll', () => {
+        const topGlow = document.querySelector('.nav-glow-bar');
+        const bottomGlow = document.querySelector('.bottom-ambient-glow');
+        const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (topGlow) {
+            topGlow.style.opacity = Math.max(0, 1 - scrollPos / 100);
+        }
+        
+        if (bottomGlow) {
+            bottomGlow.style.opacity = Math.min(1, scrollPos / 300);
+        }
+    });
+</script>
+</body></html>

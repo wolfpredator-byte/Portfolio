@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SubD_Zero | Models</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-error-container": "#ffa8a3",
+            "on-primary-container": "#005c44",
+            "on-tertiary-fixed-variant": "#004e5f",
+            "on-secondary-fixed-variant": "#006858",
+            "on-tertiary": "#004e5f",
+            "on-secondary-fixed": "#00483d",
+            "secondary-fixed": "#4ffcdc",
+            "inverse-on-surface": "#565556",
+            "primary-container": "#00fdc1",
+            "on-background": "#ffffff",
+            "secondary-container": "#006b5b",
+            "surface-container-high": "#201f21",
+            "secondary-dim": "#3aedce",
+            "on-primary-fixed": "#004734",
+            "surface-variant": "#262627",
+            "secondary": "#4ffcdc",
+            "inverse-surface": "#fcf8f9",
+            "tertiary": "#74e0ff",
+            "on-surface": "#ffffff",
+            "surface": "#0e0e0f",
+            "tertiary-container": "#00d5fe",
+            "surface-tint": "#aaffdc",
+            "tertiary-fixed": "#00d5fe",
+            "tertiary-dim": "#00c7ec",
+            "primary-fixed-dim": "#00edb4",
+            "error": "#ff716c",
+            "surface-container": "#1a191b",
+            "error-dim": "#d7383b",
+            "outline": "#767576",
+            "surface-container-highest": "#262627",
+            "on-primary-fixed-variant": "#00664c",
+            "secondary-fixed-dim": "#3aedce",
+            "surface-container-lowest": "#000000",
+            "primary-dim": "#00edb4",
+            "tertiary-fixed-dim": "#00c7ec",
+            "surface-container-low": "#131314",
+            "on-secondary-container": "#ddfff4",
+            "outline-variant": "#484849",
+            "on-surface-variant": "#adaaab",
+            "inverse-primary": "#006c51",
+            "surface-dim": "#0e0e0f",
+            "on-secondary": "#005d4f",
+            "primary-fixed": "#00fdc1",
+            "on-error": "#490006",
+            "surface-bright": "#2c2c2d",
+            "primary": "#aaffdc",
+            "on-tertiary-fixed": "#002f39",
+            "error-container": "#9f0519",
+            "background": "#0e0e0f",
+            "on-primary": "#00654b",
+            "on-tertiary-container": "#004553"
+          },
+          fontFamily: {
+            "headline": ["Space Grotesk"],
+            "body": ["Manrope"],
+            "label": ["Manrope"]
+          },
+          borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-nav {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(20px);
+    }
+    .text-glow {
+      text-shadow: 0 0 15px rgba(170, 255, 220, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<div class="nav-glow-bar fixed top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_20px_rgba(0,255,194,0.8)] z-[100] transition-opacity duration-500"></div>
+<div class="bottom-ambient-glow fixed bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent shadow-[0_0_30px_rgba(0,255,194,0.4)] z-[100] opacity-0 transition-opacity duration-500"></div>
+<!-- TopNavBar Shell -->
+<nav class="fixed top-0 w-full z-50 glass-nav">
+<div class="flex justify-between items-center px-8 py-6 max-w-[1920px] mx-auto">
+<div class="text-2xl font-bold tracking-tighter text-[#00FFC2] font-headline"><a href="index.html">SubD_Zero</a></div>
+<div class="hidden md:flex items-center gap-12 font-headline tracking-tight">
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="index.html#featured">Featured</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="projects.html">Projects</a>
+<a class="text-[#00FFC2] border-b-2 border-[#00FFC2] pb-1 transition-colors" href="models.html">Models</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="wip.html">WIP</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="about.html">About</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="about.html#contact">Contact</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-[#adaaab] hover:text-[#aaffdc] duration-300 scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24">
+<!-- Header Section -->
+<header class="px-8 md:px-24 mb-20 max-w-[1920px] mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+<div class="max-w-3xl">
+<span class="text-primary font-label text-sm tracking-[0.2em] uppercase mb-4 block">Collection 01</span>
+<h1 class="text-5xl md:text-8xl font-headline font-bold tracking-tighter mb-6 leading-none">Finished Models</h1>
+<p class="text-on-surface-variant text-lg md:text-xl max-w-xl font-light leading-relaxed">
+            A curated selection of high-fidelity 3D assets, showcasing technical precision in lighting, material physics, and structural topology.
+          </p>
+</div>
+<div class="flex gap-2 bg-surface-container-low p-1 rounded-xl">
+<button class="px-6 py-2 rounded-lg bg-secondary-container text-on-secondary-container font-label text-sm font-medium transition-all">All Projects</button>
+<button class="px-6 py-2 rounded-lg text-on-surface-variant hover:text-white font-label text-sm transition-all">Mechanical</button>
+<button class="px-6 py-2 rounded-lg text-on-surface-variant hover:text-white font-label text-sm transition-all">Organic</button>
+</div>
+</div>
+</header>
+<!-- Gallery Grid -->
+<div class="px-8 md:px-24 max-w-[1920px] mx-auto space-y-40">
+<!-- Project 01: Hero Layout -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-8 group cursor-crosshair overflow-hidden rounded-md">
+<img alt="3D Render" class="w-full aspect-video object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Hyper-realistic 3D render of a futuristic mechanical heart with glowing cyan fiber optics, dark matte metal textures, and soft cinematic volumetric lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9osk9xbuiPkvH34rkRbP-oFJ75_QhdByr4k1vmRoaMEJosw0Z6iAParG2pJlvwsyhIsgZbAJ1g2Bw1Pap5FYQsmY3OYzF40mgmzKFxtnJawTM0FKKJeX45Noknr0zNYAkNKfcgjmkfgPj10nOGis_5tqdpvQjSMsR4hNeWLA6Ri6m5n2UVluGNE1tIFBzKrMKrc3JafhKH9ce_SX4N_xphZdlkuz3geNXhF0gWXREDSlaiwzEsbztObeQeMcKjJrjLLrbomIUzQZ5"/>
+</div>
+<div class="lg:col-span-4 flex flex-col gap-6 lg:pl-12">
+<div class="space-y-2">
+<span class="text-on-surface-variant font-label text-xs tracking-widest uppercase">Asset ID: 0882-X</span>
+<h2 class="text-4xl font-headline font-bold tracking-tight">Cyber-Organic Core</h2>
+</div>
+<p class="text-on-surface-variant leading-relaxed">
+            Exploring the intersection of synthetic biology and industrial design. This model features over 4 million polygons with a focus on subsurface scattering for the semi-transparent membranes.
+          </p>
+<div class="flex flex-wrap gap-3 pt-4">
+<span class="px-3 py-1 bg-surface-container-highest text-tertiary font-label text-[10px] tracking-tighter uppercase rounded-sm">ZBrush</span>
+<span class="px-3 py-1 bg-surface-container-highest text-tertiary font-label text-[10px] tracking-tighter uppercase rounded-sm">Octane Render</span>
+<span class="px-3 py-1 bg-surface-container-highest text-tertiary font-label text-[10px] tracking-tighter uppercase rounded-sm">Substance</span>
+</div>
+<button class="mt-4 self-start text-primary font-label text-sm flex items-center gap-2 group">
+            View Case Study
+            <span class="w-8 h-[1px] bg-primary group-hover:w-12 transition-all"></span>
+</button>
+</div>
+</section>
+<!-- Project 02 & 03: Asymmetric Duo -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-24">
+<!-- Card 02 -->
+<div class="space-y-8 mt-12">
+<div class="bg-surface-container-low p-4 rounded-md group overflow-hidden">
+<img alt="3D Render" class="w-full aspect-[4/5] object-cover rounded-sm transition-transform duration-700 group-hover:scale-[1.02]" data-alt="Minimalist 3D architectural visualization of a brutalist concrete structure with sharp shadows and a single warm orange light source inside a dark void" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIC6MBkPwt5zqF0d6i363S1EEuR3ji0RgbFjUuOVzwuwzO2PD1XiCJlABFYMtOtHvQqSFcfLlYDsImFZY5RtsMutCZ5gZmvhy-xNnNmw6PofdMwrDYnArqLcEf9cwn9-Dx3FYG0_HOjVXA1IKK-_aqA7ULab2TB5_aYjansQpGwRUZeP74i3jyOCSKQKIiXjDSiWthrN87HghggjJlVIx_Dg9n8SNsFhbhEqEHiJn3GWh_kcR2nuAgz9U3kyrfnF42IBwLGSh4Bthq"/>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-start">
+<h3 class="text-2xl font-headline font-medium">Void Architecture</h3>
+<span class="text-primary font-label text-sm">2024</span>
+</div>
+<p class="text-on-surface-variant font-light">
+              A study in brutalist minimalism and dramatic light falloff within a simulated vacuum environment.
+            </p>
+<div class="text-xs font-label text-on-surface-variant/60 flex gap-4">
+<span>Software: Blender</span>
+<span>Render: Cycles</span>
+</div>
+</div>
+</div>
+<!-- Card 03 -->
+<div class="space-y-8">
+<div class="bg-surface-container-low p-4 rounded-md group overflow-hidden">
+<img alt="3D Render" class="w-full aspect-[4/5] object-cover rounded-sm transition-transform duration-700 group-hover:scale-[1.02]" data-alt="Abstract 3D fluid simulation with iridescent oil-slick textures swirling in a dark space, high reflective surfaces and chromatic aberration" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvuwhMCFKnBiJYCsD8wli4wT6ZwE5uUieNUZs2Be_IAW0WRX7zFRWfUQ7_1XUU_oSkcCJzjweGp4EIcX36QNowxwyNIdH5BHeSfqFzqwi08Y0r1I09T1InL6GMCUQjA0bIrdkaH7ubVIr_M6HTYxYBa_BWx9ehGhpV5For7sAPHGJnuZyc509wEvsgwFRMsUC4u37pVvXZvVVEhD5GJMPM-cA3zCV3p51N5w4Ts3sA4vWU-4yiJo-A092gwTUZLOH0mZV5kJNLqQ8C"/>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-start">
+<h3 class="text-2xl font-headline font-medium">Chromatic Drift</h3>
+<span class="text-primary font-label text-sm">2023</span>
+</div>
+<p class="text-on-surface-variant font-light">
+              Procedural fluid dynamics exploring spectral refraction and non-Newtonian movement patterns.
+            </p>
+<div class="text-xs font-label text-on-surface-variant/60 flex gap-4">
+<span>Software: Houdini</span>
+<span>Render: Redshift</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Project 04: Wide Editorial Layout -->
+<section class="relative bg-surface-container-low rounded-md overflow-hidden">
+<div class="grid grid-cols-1 lg:grid-cols-2">
+<div class="p-12 md:p-24 flex flex-col justify-center order-2 lg:order-1">
+<span class="text-tertiary font-label text-xs tracking-[0.3em] uppercase mb-8">Featured Series</span>
+<h2 class="text-5xl md:text-7xl font-headline font-bold leading-none mb-8 tracking-tighter">Monolithic Silence</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed mb-12">
+              A collection of ten high-poly assets inspired by the concept of ancient alien technologies found in deep space.
+            </p>
+<div class="flex gap-6">
+<button class="bg-primary text-on-primary-fixed px-8 py-4 rounded-xl font-headline font-bold hover:shadow-[0_0_20px_rgba(170,255,220,0.3)] transition-all">
+                Explore Series
+              </button>
+<button class="border border-outline-variant/20 px-8 py-4 rounded-xl font-headline font-bold hover:bg-surface-bright transition-all">
+                Download Wireframe
+              </button>
+</div>
+</div>
+<div class="h-[400px] lg:h-auto order-1 lg:order-2">
+<img alt="3D Series" class="w-full h-full object-cover" data-alt="Dark dramatic 3D scene of massive obsidian monoliths floating in a nebula, intricate etched glowing runes, cinematic scale and depth" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZGtR1ng4_WHQhysR939lnzVQ7DrQ9LzoHb5104GBt9Nb6xhm5FjuWrVtKqyzf39-A-BKLntjk4IB8KC8LFkh9aWOREsfE2jW-keum5EPfFm1WHPDOg1g4vAzyseObqZV7ZF75lFkALOkaG7ikqOkNDILTdgFAOJtCVLY-NJ_by4R08ke-Y8caVjMzXhuWWmAUZYBpGu6FpMgCVZuhafAXO_ipHBvrU9kFWknqoAAGHxnnTT-irIDCDjrrqXsNwKcTTcaYaQ8RpMDp"/>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer Shell -->
+<footer class="w-full py-20 mt-24 bg-[#000000] flex flex-col md:flex-row justify-between items-center px-12 border-t border-[#484849]/20 font-['Manrope'] text-sm tracking-wide">
+<div class="text-[#adaaab] mb-8 md:mb-0">
+      © 2024 SubD_Zero Artistry
+    </div>
+<div class="flex gap-8">
+<a class="text-[#adaaab] hover:text-[#00FFC2] transition-all opacity-80 hover:opacity-100" href="#">ArtStation</a>
+<a class="text-[#adaaab] hover:text-[#00FFC2] transition-all opacity-80 hover:opacity-100" href="#">LinkedIn</a>
+</div>
+<div class="mt-8 md:mt-0">
+<button class="p-4 rounded-full bg-surface-container-high hover:bg-surface-bright transition-all group">
+<span class="material-symbols-outlined text-[#00FFC2] group-hover:translate-y-[-2px] transition-transform" data-icon="arrow_upward">arrow_upward</span>
+</button>
+</div>
+</footer>
+<script>
+    // Global Environmental Light Control
+    window.addEventListener('scroll', () => {
+        const topGlow = document.querySelector('.nav-glow-bar');
+        const bottomGlow = document.querySelector('.bottom-ambient-glow');
+        const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (topGlow) {
+            topGlow.style.opacity = Math.max(0, 1 - scrollPos / 100);
+        }
+        
+        if (bottomGlow) {
+            bottomGlow.style.opacity = Math.min(1, scrollPos / 300);
+        }
+    });
+</script>
+</body></html>
