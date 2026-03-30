@@ -161,7 +161,7 @@
                  Explore Projects
                 <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
               </a>
-                <a href="process.html" class="pointer-events-auto border border-outline-variant/20 hover:bg-surface-bright px-10 py-4 rounded-xl font-medium transition-all duration-300">
+                <a href="wip.html" class="pointer-events-auto border border-outline-variant/20 hover:bg-surface-bright px-10 py-4 rounded-xl font-medium transition-all duration-300">
                  The Process
               </a>
             </div>
@@ -192,15 +192,15 @@
 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-12 flex flex-col justify-end">
 <span class="text-primary font-label text-xs tracking-widest uppercase mb-2">01 / FAST MOTION</span>
 <h3 class="font-headline text-3xl font-bold mb-4">CAR CHASE</h3>
-<p class="text-on-surface-variant max-w-md text-sm mb-6">First try of a dynamic car chase sequence on a highway</p>
-<button id="open-video" class="text-primary font-bold flex items-center gap-2 group/link">
+<p class="text-on-surface-variant max-w-md text-sm mb-6">First try of a dynamic car chase sequence on a highway.</p>
+<button class="open-video-btn text-primary font-bold flex items-center gap-2 group/link" data-video-src="video/carchase.mp4">
                             View Case Study 
 <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform" data-icon="north_east">north_east</span>
 </button>
 </div>
 </div>
 <!-- Project 2: Vertical Offset -->
-<div class="md:col-span-4 group relative overflow-hidden rounded-xl bg-surface-container asymmetric-offset">
+<div class="md:col-span-4 group relative z-10 overflow-hidden rounded-xl bg-surface-container asymmetric-offset">
 <div class="aspect-[3/4] overflow-hidden">
 <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Minimalist 3D architectural render of a brutalist concrete staircase with sharp shadows and a single beam of light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfivCyIrcgABgsO6VPUj5oW3l9VVBccllKZEx3o0RUviPXRnSiWgRepRrbbclkvB6NDUOqhyKPchJcw6NUI0Sv9JbX1vxL8b3YMWPU-bBZjGbBmKAV7aHZjsyy1c37VVBbVW31q4ql7yDQCYxF2AjVAmOk7tFm0Tbbw75uZ-sVJTJJEGyp1zuhC-kTFPd18WEseptfTs_Ja5XhvA0XUgPZtm4EDehdEJsXV9g-ia0smshAkold83uCttRadIYvJsNnBjSKRrsnD-p5"/>
 </div>
@@ -222,11 +222,15 @@
 <!-- Project 4: Balanced -->
 <div class="md:col-span-7 group relative overflow-hidden rounded-xl bg-surface-container">
 <div class="aspect-video overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Cinematic 3D render of an astronaut standing on a dark obsidian planet looking at a giant teal nebula galaxy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSFngJAZbS_F9XjcR8SBZVtYvBqdB_oWI37st6Hud-5h_HROVC0aplHmcXuttbF2WfkBB1ePGsRmJZAZ4W6s7n7tBM_Yn4qoxwposBWRUt9QYx3QzqU84R7y1QPiIpbC-n_FHRma5vJ3-vxZSe3b5ph2bL7xfxf-5o2Idn-kr9_XydIqpLOr7NUOKtsZmq2vL4tbWao0vxEOJhvQUOm7VfXvtmCvgz8IOH8zNUDRXyl1-FKGMF697nR9ErdWHTQSpr3ODNhfhcIPyn"/>
-</div>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Futuristic 3D render of a space station with glowing neon lights orbiting a planet, featuring intricate geometric designs and a cosmic backdrop" src="img/spacescene.png"/>
 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-12 flex flex-col justify-end">
-<span class="text-on-surface-variant font-label text-xs tracking-widest uppercase">04 / Environment</span>
-<h3 class="font-headline text-2xl font-bold mt-2">NEBULA REACH</h3>
+<span class="text-on-surface-variant font-label text-xs tracking-widest uppercase">04 / Space Environment</span>
+<h3 class="font-headline text-2xl font-bold mt-2">SPACE RINGS</h3>
+<p class="text-on-surface-variant max-w-md text-sm mb-6">Rendering of a futuristic space station orbiting a distant planet.</p>
+<button class="open-video-btn text-primary font-bold flex items-center gap-2 group/link" data-video-src="video/spacescene.mp4">
+                            View Case Study 
+<span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform" data-icon="north_east">north_east</span>
+</button>
 </div>
 </div>
 </div>
@@ -334,9 +338,20 @@ const openBtn = document.getElementById('open-video');
 const closeBtn = document.getElementById('close-modal');
 
 // --- AGGIORNAMENTO LOGICA MODAL (con Audio) ---
-if (openBtn) {
-    openBtn.addEventListener('click', () => {
-        // Mostra modal (animazione esistente)
+// Seleziona TUTTI i bottoni con la classe che abbiamo appena creato
+const openBtns = document.querySelectorAll('.open-video-btn');
+
+// Per ogni bottone che abbiamo trovato...
+openBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        // 1. Leggiamo il percorso del video dall'attributo personalizzato
+        const videoSrc = this.getAttribute('data-video-src');
+        
+        // 2. Diciamo al player video di usare questa nuova sorgente
+        modalVideo.src = videoSrc;
+        modalVideo.load(); // Carica il nuovo file video
+        
+        // 3. Mostra la modale (animazione che avevi già scritto)
         videoModal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
 
@@ -345,16 +360,16 @@ if (openBtn) {
             modalContainer.classList.remove('scale-90', 'blur-md');
             modalContainer.classList.add('scale-100', 'blur-0');
             
-            // --- NUOVO: Fai partire l'analisi audio ---
+            // Fai partire l'analisi audio e il video
             initAudioAnalyzer();
             if (audioContext.state === 'suspended') {
-                audioContext.resume(); // Necessario per blocchi browser
+                audioContext.resume();
             }
             modalVideo.play();
-            drawVisualizer(); // Fai partire il disegno
+            drawVisualizer();
         }, 10);
     });
-}
+});
 
 const closeModal = () => {
     // Nascondi modal (animazione esistente)
@@ -502,10 +517,6 @@ function initAudioAnalyzer() {
     <div id="modal-container" class="relative w-full max-w-6xl aspect-video p-12 scale-90 blur-md transition-all duration-500 ease-out flex items-center justify-center">
         
         <canvas id="audio-visualizer" class="absolute inset-0 w-full h-full z-0"></canvas>
-        
-        <video id="modal-video" class="relative z-10 w-full h-full object-cover rounded-lg border-2 border-primary/80 transition-shadow duration-75" controls crossorigin="anonymous">
-            <source src="video/carchase.mp4" type="video/mp4">
-        </video>
     </div>
 </div>
 </body>
