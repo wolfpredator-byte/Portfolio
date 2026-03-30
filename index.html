@@ -331,43 +331,48 @@
         }
     });
 
-const videoModal = document.getElementById('video-modal');
 const modalContainer = document.getElementById('modal-container');
-const modalVideo = document.getElementById('modal-video');
-const openBtn = document.getElementById('open-video');
 const closeBtn = document.getElementById('close-modal');
 
 // --- AGGIORNAMENTO LOGICA MODAL (con Audio) ---
 // Seleziona TUTTI i bottoni con la classe che abbiamo appena creato
 const openBtns = document.querySelectorAll('.open-video-btn');
+const modalVideo = document.getElementById('modal-video');
 
-// Per ogni bottone che abbiamo trovato...
+// 2. Funzione per gestire i click
 openBtns.forEach(btn => {
     btn.addEventListener('click', function() {
-        // 1. Leggiamo il percorso del video dall'attributo personalizzato
+        // Recuperiamo il link del video dal bottone
         const videoSrc = this.getAttribute('data-video-src');
         
-        // 2. Diciamo al player video di usare questa nuova sorgente
-        modalVideo.src = videoSrc;
-        modalVideo.load(); // Carica il nuovo file video
-        
-        // 3. Mostra la modale (animazione che avevi già scritto)
-        videoModal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
+        if (videoSrc) {
+            // Impostiamo la sorgente direttamente nel tag video
+            modalVideo.src = videoSrc;
+            modalVideo.load(); // Fondamentale per far capire al browser che il file è cambiato
 
-        setTimeout(() => {
-            videoModal.classList.add('opacity-100');
-            modalContainer.classList.remove('scale-90', 'blur-md');
-            modalContainer.classList.add('scale-100', 'blur-0');
-            
-            // Fai partire l'analisi audio e il video
-            initAudioAnalyzer();
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
-            modalVideo.play();
-            drawVisualizer();
-        }, 10);
+            // Mostriamo la modale
+            videoModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            setTimeout(() => {
+                videoModal.classList.add('opacity-100');
+                modalContainer.classList.remove('scale-90', 'blur-md');
+                modalContainer.classList.add('scale-100', 'blur-0');
+                
+                // Audio e Partenza
+                initAudioAnalyzer();
+                if (audioContext && audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                
+                modalVideo.play().catch(error => {
+                    console.error("Errore nella riproduzione video:", error);
+                });
+                
+                // Avviamo l'animazione dell'onda (la funzione nel tuo script è draw)
+                draw(); 
+            }, 10);
+        }
     });
 });
 
@@ -428,8 +433,8 @@ function draw() {
             const glowSpread = 2 + (bassIntensity * 30);
             const glowOpacity = 0.3 + (bassIntensity * 0.7);
             
-            video.style.boxShadow = `0 0 ${glowBlur}px ${glowSpread}px rgba(0, 255, 194, ${glowOpacity})`;
-            video.style.borderColor = `rgba(170, 255, 220, ${0.5 + bassIntensity})`;
+            modalVideo.style.boxShadow = `0 0 ${glowBlur}px ${glowSpread}px rgba(0, 255, 194, ${glowOpacity})`;
+            modalVideo.style.borderColor = `rgba(170, 255, 220, ${0.5 + bassIntensity})`;
 
             // 3. DISEGNO DELL'ONDA SONORA SUI BORDI (Canvas)
             ctx.clearRect(0, 0, canvas.width, canvas.height);
