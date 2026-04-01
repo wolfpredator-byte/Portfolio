@@ -7,7 +7,7 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="main.js" defer></script>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -229,20 +229,19 @@
 </div>
 </div>
 </footer>
-<script>
-    // Global Environmental Light Control
-    window.addEventListener('scroll', () => {
-        const topGlow = document.querySelector('.nav-glow-bar');
-        const bottomGlow = document.querySelector('.bottom-ambient-glow');
-        const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (topGlow) {
-            topGlow.style.opacity = Math.max(0, 1 - scrollPos / 100);
-        }
-        
-        if (bottomGlow) {
-            bottomGlow.style.opacity = Math.min(1, scrollPos / 300);
-        }
-    });
-</script>
+<!-- Video Modal Structure -->
+<div id="video-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center bg-black/98 backdrop-blur-2xl transition-all duration-500 opacity-0">
+    <div class="absolute inset-0 cursor-zoom-out" id="modal-bg"></div>
+    <button id="close-modal" class="absolute top-10 right-10 text-white/50 hover:text-primary transition-all z-[210]" aria-label="Chiudi">
+        <span class="material-symbols-outlined text-4xl">close</span>
+    </button>
+    <button id="mute-btn" class="absolute bottom-12 right-14 z-[210] flex items-center gap-2 bg-black/40 hover:bg-primary/20 border border-white/10 hover:border-primary/40 text-white/70 hover:text-primary backdrop-blur-sm px-4 py-2 rounded-full transition-all duration-300 text-sm font-label" aria-label="Attiva audio">
+        <span id="mute-icon" class="material-symbols-outlined text-xl">volume_off</span>
+        <span id="mute-label">Suono</span>
+    </button>
+    <div id="modal-container" class="relative w-full max-w-6xl aspect-video p-12 scale-90 blur-md transition-all duration-500 ease-out flex items-center justify-center">
+        <video id="modal-video" class="w-full h-full object-cover rounded-xl border border-primary/20 z-10" playsinline></video>
+        <canvas id="audio-visualizer" class="absolute inset-0 w-full h-full z-0"></canvas>
+    </div>
+</div>
 </body></html>

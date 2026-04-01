@@ -9,7 +9,7 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="main.js" defer></script>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -200,7 +200,7 @@
 </div>
 </div>
 <!-- Project 2: Vertical Offset -->
-<div class="md:col-span-4 group relative z-10 overflow-hidden rounded-xl bg-surface-container asymmetric-offset">
+<div class="md:col-span-4 group relative z-10 overflow-hidden rounded-xl bg-surface-container">
 <div class="aspect-[3/4] overflow-hidden">
 <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Minimalist 3D architectural render of a brutalist concrete staircase with sharp shadows and a single beam of light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfivCyIrcgABgsO6VPUj5oW3l9VVBccllKZEx3o0RUviPXRnSiWgRepRrbbclkvB6NDUOqhyKPchJcw6NUI0Sv9JbX1vxL8b3YMWPU-bBZjGbBmKAV7aHZjsyy1c37VVBbVW31q4ql7yDQCYxF2AjVAmOk7tFm0Tbbw75uZ-sVJTJJEGyp1zuhC-kTFPd18WEseptfTs_Ja5XhvA0XUgPZtm4EDehdEJsXV9g-ia0smshAkold83uCttRadIYvJsNnBjSKRrsnD-p5"/>
 </div>
@@ -271,7 +271,7 @@
 <div class="max-w-3xl mx-auto">
 <h2 class="font-headline text-5xl md:text-7xl font-bold mb-8 tracking-tighter">READY TO WORK?</h2>
 <p class="text-on-surface-variant text-xl mb-12">Available for select commissions and collaborative projects worldwide.</p>
-<a class="inline-block primary-gradient text-on-primary-fixed px-12 py-5 rounded-full font-bold text-xl hover:scale-105 transition-transform duration-300" href="mailto:contact@subdzero.art">
+<a class="inline-block primary-gradient text-on-primary-fixed px-12 py-5 rounded-full font-bold text-xl hover:scale-105 transition-transform duration-300" href="mailto:subd.zero.art@gmail.com">
                     Get In Touch
                 </a>
 </div>
@@ -291,238 +291,31 @@
             </div>
 </div>
 </footer>
+
+<!-- Spline Initialization -->
 <script type="module">
     import { Application } from 'https://unpkg.com/@splinetool/runtime@1.0.28/build/runtime.js';
-    
-    // Initialize Spline 3D Scene
     const canvas3dElement = document.getElementById('canvas3d');
-        if (canvas3dElement) {
-            const app = new Application(canvas3dElement);
-            app.load('https://prod.spline.design/sXAH4XnRLsisEISw/scene.splinecode');
-        }
-
-    // Global Environmental Light Control
-    window.addEventListener('scroll', () => {
-        const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
-        const topGlow = document.querySelector('.nav-glow-bar');
-        const bottomGlow = document.querySelector('.bottom-ambient-glow');
-        const scrollIndicator = document.getElementById('scroll-indicator');
-        const dynamicLine = document.getElementById('dynamic-line');
-        
-        // 1. Logica Luci (esistente)
-        if (topGlow) topGlow.style.opacity = Math.max(0, 1 - scrollPos / 100);
-        if (bottomGlow) bottomGlow.style.opacity = Math.min(1, scrollPos / 300);
-        
-        // 2. Logica Indicatore Scroll
-        if (scrollIndicator) {
-            // Svanisce gradualmente
-            scrollIndicator.style.opacity = Math.max(0, 1 - scrollPos / 250);
-            // Si sposta verso il basso
-            scrollIndicator.style.transform = `translate(-50%, ${scrollPos * 0.1}px)`;
-        }
-
-        if (dynamicLine) {
-            // La linea si allunga mentre scrolli
-            const newHeight = 64 + (scrollPos * 0.8);
-            dynamicLine.style.height = `${newHeight}px`;
-            // Se scendi molto, smette di pulsare per non distrarre
-            if (scrollPos > 50) dynamicLine.classList.remove('animate-pulse');
-            else dynamicLine.classList.add('animate-pulse');
-        }
-    });
-
-const modalContainer = document.getElementById('modal-container');
-const closeBtn = document.getElementById('close-modal');
-
-// --- AGGIORNAMENTO LOGICA MODAL (con Audio) ---
-// Seleziona TUTTI i bottoni con la classe che abbiamo appena creato
-const openBtns = document.querySelectorAll('.open-video-btn');
-const modalVideo = document.getElementById('modal-video');
-
-// 2. Funzione per gestire i click
-openBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-        // Recuperiamo il link del video dal bottone
-        const videoSrc = this.getAttribute('data-video-src');
-        
-        if (videoSrc) {
-            // Impostiamo la sorgente direttamente nel tag video
-            modalVideo.src = videoSrc;
-            modalVideo.load(); // Fondamentale per far capire al browser che il file è cambiato
-
-            // Mostriamo la modale
-            videoModal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-
-            setTimeout(() => {
-                videoModal.classList.add('opacity-100');
-                modalContainer.classList.remove('scale-90', 'blur-md');
-                modalContainer.classList.add('scale-100', 'blur-0');
-                
-                // Audio e Partenza
-                initAudioAnalyzer();
-                if (audioContext && audioContext.state === 'suspended') {
-                    audioContext.resume();
-                }
-                
-                modalVideo.play().catch(error => {
-                    console.error("Errore nella riproduzione video:", error);
-                });
-                
-                // Avviamo l'animazione dell'onda (la funzione nel tuo script è draw)
-                draw(); 
-            }, 10);
-        }
-    });
-});
-
-const closeModal = () => {
-    // Nascondi modal (animazione esistente)
-    videoModal.classList.remove('opacity-100');
-    modalContainer.classList.add('scale-90', 'blur-md');
-    
-    setTimeout(() => {
-        videoModal.classList.add('hidden');
-        document.body.style.overflow = 'auto';
-        modalVideo.pause();
-        modalVideo.currentTime = 0;
-
-        // --- NUOVO: Ferma il disegno per risparmiare risorse ---
-        cancelAnimationFrame(animationId);
-    }, 500);
-};
-
-// Gestione ridimensionamento finestra
-window.addEventListener('resize', setupCanvas);
-closeBtn?.addEventListener('click', closeModal);
-document.getElementById('modal-bg')?.addEventListener('click', closeModal);
-
-// --- CONFIGURAZIONE AUDIO VISUALIZER (Neon Style) ---
-let audioContext;
-let analyser;
-let dataArray;
-let source;
-let animationId;
-
-const audioCanvas = document.getElementById('audio-visualizer');
-const ctx = audioCanvas.getContext('2d');
-
-// Funzione per impostare il Canvas in base alla risoluzione
-function setupCanvas() {
-    audioCanvas.width = audioCanvas.parentElement.offsetWidth;
-    audioCanvas.height = audioCanvas.parentElement.offsetHeight;
-}
-
-// Funzione principale di disegno
-function draw() {
-            animationId = requestAnimationFrame(draw);
-            analyser.getByteFrequencyData(dataArray);
-            
-            // 1. CALCOLO DEI BASSI (Prendiamo le frequenze più basse)
-            let bassSum = 0;
-            const bassRange = 10; // Prime 10 frequenze = Bassi
-            for (let i = 0; i < bassRange; i++) {
-                bassSum += dataArray[i];
-            }
-            const bassAvg = bassSum / bassRange;
-            const bassIntensity = bassAvg / 255; // Valore da 0.0 a 1.0
-
-            // 2. EFFETTO NEON PULSANTE SUL VIDEO (CSS)
-            // Il blur e l'espansione dell'ombra aumentano drasticamente coi bassi
-            const glowBlur = 20 + (bassIntensity * 100); 
-            const glowSpread = 2 + (bassIntensity * 30);
-            const glowOpacity = 0.3 + (bassIntensity * 0.7);
-            
-            modalVideo.style.boxShadow = `0 0 ${glowBlur}px ${glowSpread}px rgba(0, 255, 194, ${glowOpacity})`;
-            modalVideo.style.borderColor = `rgba(170, 255, 220, ${0.5 + bassIntensity})`;
-
-            // 3. DISEGNO DELL'ONDA SONORA SUI BORDI (Canvas)
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Stile linea Neon
-            ctx.lineWidth = 3;
-            ctx.strokeStyle = "#aaffdc";
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = "#00FFC2";
-            ctx.lineJoin = "round";
-
-            // Coordinate del bordo del video rispetto al canvas
-            const videoRect = video.getBoundingClientRect();
-            const canvasRect = canvas.getBoundingClientRect();
-            
-            // Offset per far partire la linea esattamente sul bordo del video
-            const startX = (canvasRect.width - videoRect.width) / 2;
-            const endX = startX + videoRect.width;
-            const topY = (canvasRect.height - videoRect.height) / 2;
-            const bottomY = topY + videoRect.height;
-
-            // Usiamo solo la prima metà dello spettro audio per un'onda più estetica
-            const dataLength = analyser.frequencyBinCount / 1.5; 
-            const sliceWidth = videoRect.width / dataLength;
-
-            // --- DISEGNA ONDA SUPERIORE (Esce verso l'alto) ---
-            ctx.beginPath();
-            let x = startX;
-            for (let i = 0; i < dataLength; i++) {
-                const v = dataArray[i] / 255.0;
-                // I bassi (i più bassi) creano i picchi più alti
-                const spikeHeight = v * 60; // Altezza massima dell'onda
-                const y = topY - spikeHeight; 
-                
-                if (i === 0) ctx.moveTo(x, topY);
-                else ctx.lineTo(x, y);
-                
-                x += sliceWidth;
-            }
-            ctx.lineTo(endX, topY);
-            ctx.stroke();
-
-            // --- DISEGNA ONDA INFERIORE (Esce verso il basso) ---
-            ctx.beginPath();
-            x = startX;
-            for (let i = 0; i < dataLength; i++) {
-                const v = dataArray[i] / 255.0;
-                const spikeHeight = v * 60; 
-                const y = bottomY + spikeHeight; // Aggiungiamo per andare verso il basso
-                
-                if (i === 0) ctx.moveTo(x, bottomY);
-                else ctx.lineTo(x, y);
-                
-                x += sliceWidth;
-            }
-            ctx.lineTo(endX, bottomY);
-            ctx.stroke();
-        }
-// Inizializza l'Audio Context (solo la prima volta che apri il video)
-function initAudioAnalyzer() {
-    if (audioContext) return; // Già inizializzato
-
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    analyser = audioContext.createAnalyser();
-    
-    // Connetti il video all'analizzatore
-    source = audioContext.createMediaElementSource(modalVideo);
-    source.connect(analyser);
-    analyser.connect(audioContext.destination); // Connetti alle casse
-
-    analyser.fftSize = 64; // Numero di barre (più basso = barre più larghe)
-    const bufferLength = analyser.frequencyBinCount;
-    dataArray = new Uint8Array(bufferLength);
-    
-    setupCanvas();
-}
+    if (canvas3dElement) {
+        const app = new Application(canvas3dElement);
+        app.load('https://prod.spline.design/sXAH4XnRLsisEISw/scene.splinecode');
+    }
 </script>
+
+<!-- Video Modal Structure -->
 <div id="video-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center bg-black/98 backdrop-blur-2xl transition-all duration-500 opacity-0">
     <div class="absolute inset-0 cursor-zoom-out" id="modal-bg"></div>
-    
-    <button id="close-modal" class="absolute top-10 right-10 text-white/50 hover:text-primary transition-all z-[210]">
+    <button id="close-modal" class="absolute top-10 right-10 text-white/50 hover:text-primary transition-all z-[210]" aria-label="Chiudi">
         <span class="material-symbols-outlined text-4xl">close</span>
     </button>
-    
+    <button id="mute-btn" class="absolute bottom-12 right-14 z-[210] flex items-center gap-2 bg-black/40 hover:bg-primary/20 border border-white/10 hover:border-primary/40 text-white/70 hover:text-primary backdrop-blur-sm px-4 py-2 rounded-full transition-all duration-300 text-sm font-label" aria-label="Attiva audio">
+        <span id="mute-icon" class="material-symbols-outlined text-xl">volume_off</span>
+        <span id="mute-label">Suono</span>
+    </button>
     <div id="modal-container" class="relative w-full max-w-6xl aspect-video p-12 scale-90 blur-md transition-all duration-500 ease-out flex items-center justify-center">
-        
+        <video id="modal-video" class="w-full h-full object-cover rounded-xl border border-primary/20 z-10" playsinline></video>
         <canvas id="audio-visualizer" class="absolute inset-0 w-full h-full z-0"></canvas>
     </div>
 </div>
-</body>
+</body></html>
 </html>
