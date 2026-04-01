@@ -121,83 +121,141 @@
                 A look behind the curtain at technical explorations, digital clay sculpts, and geometric wireframes currently inhabiting the SubD_Zero workstation.
             </p>
 </header>
-<!-- Viewport Toggles (Design System Component) -->
-<div class="flex flex-wrap gap-4 mb-16">
-<button class="px-6 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label text-sm tracking-wide transition-all">
-                All Drafts
-            </button>
-<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label text-sm tracking-wide hover:bg-surface-bright transition-all">
-                Wireframes
-            </button>
-<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label text-sm tracking-wide hover:bg-surface-bright transition-all">
-                Clay Sculpts
-            </button>
-<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label text-sm tracking-wide hover:bg-surface-bright transition-all">
-                Lighting Tests
-            </button>
+<!-- ── WIP FILTER BUTTONS ─────────────────────────────────────────── -->
+<style>
+    /* Tag pill colours */
+    .wip-tag[data-tag="modelling"]  { background: rgba(170,255,220,0.10); color:#aaffdc; border-color:rgba(170,255,220,0.25); }
+    .wip-tag[data-tag="shading"]    { background: rgba(116,224,255,0.10); color:#74e0ff; border-color:rgba(116,224,255,0.25); }
+    .wip-tag[data-tag="rendering"]  { background: rgba(255,193,116,0.10); color:#ffcc74; border-color:rgba(255,193,116,0.25); }
+
+    /* Filter buttons active state */
+    .filter-btn.active { background:rgba(170,255,220,0.15); color:#aaffdc; border-color:rgba(170,255,220,0.4); }
+    .filter-btn[data-filter="shading"].active { background:rgba(116,224,255,0.15); color:#74e0ff; border-color:rgba(116,224,255,0.4); }
+    .filter-btn[data-filter="rendering"].active { background:rgba(255,193,116,0.15); color:#ffcc74; border-color:rgba(255,193,116,0.4); }
+    .filter-btn[data-filter="all"].active { background:rgba(170,255,220,0.15); color:#aaffdc; border-color:rgba(170,255,220,0.4); }
+
+    /* Card hide/show animation */
+    .wip-card { transition: opacity 0.35s ease, transform 0.35s ease; }
+    .wip-card.hidden-card { opacity:0; transform:scale(0.96); pointer-events:none; position:absolute; visibility:hidden; }
+</style>
+
+<div id="wip-filters" class="flex flex-wrap gap-3 mb-16">
+    <button class="filter-btn active px-6 py-2 rounded-full border border-transparent bg-surface-container-highest text-on-surface-variant font-label text-sm tracking-wide transition-all duration-300 hover:border-primary/30" data-filter="all">
+        All Drafts
+    </button>
+    <button class="filter-btn px-6 py-2 rounded-full border border-transparent bg-surface-container-highest text-on-surface-variant font-label text-sm tracking-wide transition-all duration-300 hover:border-primary/30" data-filter="modelling">
+        <span class="inline-block w-2 h-2 rounded-full bg-[#aaffdc] mr-1.5 align-middle"></span>Modelling
+    </button>
+    <button class="filter-btn px-6 py-2 rounded-full border border-transparent bg-surface-container-highest text-on-surface-variant font-label text-sm tracking-wide transition-all duration-300 hover:border-primary/30" data-filter="shading">
+        <span class="inline-block w-2 h-2 rounded-full bg-[#74e0ff] mr-1.5 align-middle"></span>Shading
+    </button>
+    <button class="filter-btn px-6 py-2 rounded-full border border-transparent bg-surface-container-highest text-on-surface-variant font-label text-sm tracking-wide transition-all duration-300 hover:border-primary/30" data-filter="rendering">
+        <span class="inline-block w-2 h-2 rounded-full bg-[#ffcc74] mr-1.5 align-middle"></span>Rendering
+    </button>
 </div>
-<!-- Asymmetric Bento Grid -->
-<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-<!-- Item 1: Large Featured Sculpt -->
-<div class="md:col-span-8 group relative overflow-hidden rounded-md bg-surface-container-low">
-<div class="aspect-[16/9] overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" data-alt="Intricate 3D clay sculpt of a futuristic mechanical heart with exposed gears and hydraulic tubes, soft ambient occlusion lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM21D-mthr7cfmBo6P8CoO0-QdPFtMo9Ws9gOfOM-2sW745F2Jlj1V7DJT5wPh2g88bFVAGtF3elvyHipWdjCwlixYAAguN4V8o1Qs8jMfJiSlYxZWWofux77jm56eUDzQQx_HK7M22u_ELr0J_dTkAcaHqk9pCEZ4dSFy_yU_V52JfVyO2zXFlkpWMSwKBc497yL61wnE8X64nDY6V3wrLK1amOxPEpYsOE0ULiPGiOnaEkEpGIE9cUmJa3u2sro8qcH97mCfSRF0"/>
+
+<!-- ── BENTO GRID ──────────────────────────────────────────────────── -->
+<div id="wip-grid" class="grid grid-cols-1 md:grid-cols-12 gap-8 relative">
+
+    <!-- Card 1 – Modelling -->
+    <div class="wip-card md:col-span-8 group relative overflow-hidden rounded-md bg-surface-container-low" data-tags="modelling">
+        <div class="aspect-[16/9] overflow-hidden">
+            <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM21D-mthr7cfmBo6P8CoO0-QdPFtMo9Ws9gOfOM-2sW745F2Jlj1V7DJT5wPh2g88bFVAGtF3elvyHipWdjCwlixYAAguN4V8o1Qs8jMfJiSlYxZWWofux77jm56eUDzQQx_HK7M22u_ELr0J_dTkAcaHqk9pCEZ4dSFy_yU_V52JfVyO2zXFlkpWMSwKBc497yL61wnE8X64nDY6V3wrLK1amOxPEpYsOE0ULiPGiOnaEkEpGIE9cUmJa3u2sro8qcH97mCfSRF0" alt="PROJECT: CORE_DRIVE" />
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-90"></div>
+        <div class="absolute bottom-0 left-0 p-8 w-full">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="wip-tag border text-[10px] uppercase tracking-widest font-bold rounded-sm px-3 py-1" data-tag="modelling">Modelling</span>
+                <span class="text-on-surface-variant text-xs font-label">Software: ZBrush</span>
+            </div>
+            <h3 class="font-headline text-3xl font-bold mb-2">PROJECT: CORE_DRIVE</h3>
+            <p class="text-on-surface-variant max-w-md font-body text-sm">Refining the haptic valve assembly. Focus on mechanical realism and joint articulation for the final cinematic render.</p>
+        </div>
+    </div>
+
+    <!-- Card 2 – Modelling -->
+    <div class="wip-card md:col-span-4 group relative overflow-hidden rounded-md bg-surface-container-low flex flex-col" data-tags="modelling">
+        <div class="aspect-[3/4] overflow-hidden">
+            <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoG4VpUyTdN9DUV-h59FGFhh91T_IXE7SjHqpE7sfh6RM-GAcDcmY81gBmrtLEibVcXyGCB0_m8E6Z3--YrsAUVtCKOPRIfepXOKCT2CazOyXHQxJTw7bskr_oNFQQ8C_BmVX1jFRmLBLM4vT72jpus6ADrJESjJY_8v06H5xwEe7HvPITRKtFTE9tvL2SBPYM1NcUlPJhV06I0kYymdt46FrZ2xxkxPelvQ8kAT8W5WQdQ1Id1RvEi6z84LHsVeQ7cLM0YrYJbDnt" alt="NEO_STRUCTURE_04" />
+        </div>
+        <div class="p-6 bg-surface-container">
+            <div class="mb-3 flex gap-2">
+                <span class="wip-tag border text-[10px] uppercase tracking-widest font-bold rounded-sm px-2 py-1" data-tag="modelling">Modelling</span>
+            </div>
+            <h3 class="font-headline text-xl font-bold mb-1 tracking-tight">NEO_STRUCTURE_04</h3>
+            <p class="text-on-surface-variant font-body text-xs">Optimizing quad-flow for the main atrium arches. Structural integrity test successful.</p>
+        </div>
+    </div>
+
+    <!-- Card 3 – Shading -->
+    <div class="wip-card md:col-span-4 group relative overflow-hidden rounded-md bg-surface-container-low" data-tags="shading">
+        <div class="aspect-square overflow-hidden">
+            <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArj3rI9Ktnnha0SlZfHZVIuJO5Gxww9f0xqJMFTrQy9iNNczXtyo4hcTdZflCxNVqQy1908AcFZbqDQitFDjV-RuYikvNd33lBd7a1nMR5npM34Kqp6PLRwSdBnSa5H9U--Io3tKadJopAsJq0RgpZ191uvzLikP7HuooO3yoSWLOgXSCcIP5g-73fT10PgfESPVmR11Aj-94rwUjSF7zRXSHxFDIInmLOw-MWm-aIIuF8Ey1xO7Lwk-R103WIYQTR1kg1mlpqC-Pl" alt="HUMANOID_V2" />
+        </div>
+        <div class="absolute bottom-0 left-0 p-6 w-full bg-gradient-to-t from-surface-container-lowest to-transparent">
+            <div class="mb-2">
+                <span class="wip-tag border text-[10px] uppercase tracking-widest font-bold rounded-sm px-2 py-1" data-tag="shading">Shading</span>
+            </div>
+            <h3 class="font-headline text-lg font-bold mb-1">HUMANOID_V2</h3>
+            <p class="text-on-surface-variant font-body text-xs uppercase tracking-tighter">Surface Detailing Phase</p>
+        </div>
+    </div>
+
+    <!-- Card 4 – Rendering -->
+    <div class="wip-card md:col-span-8 group relative overflow-hidden rounded-md bg-surface-container-low" data-tags="rendering">
+        <div class="aspect-[21/9] overflow-hidden">
+            <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsqhDpdszxZveCNbHkmoPUrBQeEcn-lUftsjwas3VrprXpcHRvW9_BQ4kVUqMkT2QSAsLSaM9qYczc47exCsQjZKhS36neRnOxGzmkXDaSu1CHBFJRcXLM5xveg4nrf-k5qGFIGrqlUXXWMU7jyhuXECrTJZF-mUZCaxJvkoer9qGH0ZsaUiStjezT3jlP0dxcYN9DdaV9CmlbfRZN7szdNLnh-xosgCyFqibXMkVyvzVRWN5v1hpKuKwLIfT0rdLDc59z-3-ujJRy" alt="URBAN_VOID_LEVEL" />
+        </div>
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <span class="text-primary/40 font-headline text-8xl font-black italic tracking-tighter opacity-20">RENDERING</span>
+        </div>
+        <div class="p-8 bg-surface-container border-t border-outline-variant/10">
+            <div class="flex justify-between items-end">
+                <div>
+                    <div class="mb-3">
+                        <span class="wip-tag border text-[10px] uppercase tracking-widest font-bold rounded-sm px-2 py-1" data-tag="rendering">Rendering</span>
+                    </div>
+                    <h3 class="font-headline text-2xl font-bold mb-2">URBAN_VOID_LEVEL</h3>
+                    <p class="text-on-surface-variant max-w-lg text-sm">Establishing scale and navigation paths. Final lighting pass in progress.</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-on-surface-variant text-[10px] font-label uppercase">Progress</p>
+                    <p class="text-primary font-headline text-xl font-bold">34%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
-<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-90"></div>
-<div class="absolute bottom-0 left-0 p-8 w-full">
-<div class="flex items-center gap-3 mb-4">
-<span class="px-3 py-1 bg-primary/10 text-primary border border-primary/20 text-[10px] uppercase tracking-widest font-bold rounded-sm">Current Stage: Sculpting</span>
-<span class="text-on-surface-variant text-xs font-label">Software: ZBrush</span>
-</div>
-<h3 class="font-headline text-3xl font-bold mb-2">PROJECT: CORE_DRIVE</h3>
-<p class="text-on-surface-variant max-w-md font-body text-sm">Refining the haptic valve assembly. Focus on mechanical realism and joint articulation for the final cinematic render.</p>
-</div>
-</div>
-<!-- Item 2: Vertical Wireframe -->
-<div class="md:col-span-4 group relative overflow-hidden rounded-md bg-surface-container-low flex flex-col">
-<div class="aspect-[3/4] overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60" data-alt="Digital wireframe mesh of a complex architectural structure with glowing teal lines against a deep black void" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoG4VpUyTdN9DUV-h59FGFhh91T_IXE7SjHqpE7sfh6RM-GAcDcmY81gBmrtLEibVcXyGCB0_m8E6Z3--YrsAUVtCKOPRIfepXOKCT2CazOyXHQxJTw7bskr_oNFQQ8C_BmVX1jFRmLBLM4vT72jpus6ADrJESjJY_8v06H5xwEe7HvPITRKtFTE9tvL2SBPYM1NcUlPJhV06I0kYymdt46FrZ2xxkxPelvQ8kAT8W5WQdQ1Id1RvEi6z84LHsVeQ7cLM0YrYJbDnt"/>
-</div>
-<div class="p-6 bg-surface-container">
-<div class="mb-3">
-<span class="px-2 py-1 bg-tertiary/10 text-tertiary border border-tertiary/20 text-[10px] uppercase tracking-widest font-bold rounded-sm">Stage: Topology</span>
-</div>
-<h3 class="font-headline text-xl font-bold mb-1 tracking-tight">NEO_STRUCTURE_04</h3>
-<p class="text-on-surface-variant font-body text-xs">Optimizing quad-flow for the main atrium arches. Structural integrity test successful.</p>
-</div>
-</div>
-<!-- Item 3: Secondary Sculpt -->
-<div class="md:col-span-4 group relative overflow-hidden rounded-md bg-surface-container-low">
-<div class="aspect-square overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70" data-alt="Close-up of a 3D digital character face sculpt showing skin pore details and subtle muscle structure in grey clay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArj3rI9Ktnnha0SlZfHZVIuJO5Gxww9f0xqJMFTrQy9iNNczXtyo4hcTdZflCxNVqQy1908AcFZbqDQitFDjV-RuYikvNd33lBd7a1nMR5npM34Kqp6PLRwSdBnSa5H9U--Io3tKadJopAsJq0RgpZ191uvzLikP7HuooO3yoSWLOgXSCcIP5g-73fT10PgfESPVmR11Aj-94rwUjSF7zRXSHxFDIInmLOw-MWm-aIIuF8Ey1xO7Lwk-R103WIYQTR1kg1mlpqC-Pl"/>
-</div>
-<div class="absolute bottom-0 left-0 p-6 w-full bg-gradient-to-t from-surface-container-lowest to-transparent">
-<h3 class="font-headline text-lg font-bold mb-1">HUMANOID_V2</h3>
-<p class="text-on-surface-variant font-body text-xs uppercase tracking-tighter">Surface Detailing Phase</p>
-</div>
-</div>
-<!-- Item 4: Wide Mesh Study -->
-<div class="md:col-span-8 group relative overflow-hidden rounded-md bg-surface-container-low">
-<div class="aspect-[21/9] overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60" data-alt="Wide shot of a 3D environment layout in whitebox stage showing primitive shapes of buildings and streets" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsqhDpdszxZveCNbHkmoPUrBQeEcn-lUftsjwas3VrprXpcHRvW9_BQ4kVUqMkT2QSAsLSaM9qYczc47exCsQjZKhS36neRnOxGzmkXDaSu1CHBFJRcXLM5xveg4nrf-k5qGFIGrqlUXXWMU7jyhuXECrTJZF-mUZCaxJvkoer9qGH0ZsaUiStjezT3jlP0dxcYN9DdaV9CmlbfRZN7szdNLnh-xosgCyFqibXMkVyvzVRWN5v1hpKuKwLIfT0rdLDc59z-3-ujJRy"/>
-</div>
-<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-<span class="text-primary/40 font-headline text-8xl font-black italic tracking-tighter opacity-20">WHITEBOXING</span>
-</div>
-<div class="p-8 bg-surface-container border-t border-outline-variant/10">
-<div class="flex justify-between items-end">
-<div>
-<h3 class="font-headline text-2xl font-bold mb-2">URBAN_VOID_LEVEL</h3>
-<p class="text-on-surface-variant max-w-lg text-sm">Establishing scale and navigation paths. Primitive blocking for the district alpha sector.</p>
-</div>
-<div class="text-right">
-<p class="text-on-surface-variant text-[10px] font-label uppercase">Progress</p>
-<p class="text-primary font-headline text-xl font-bold">34%</p>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+<!-- ── FILTER SCRIPT ──────────────────────────────────────────────── -->
+<script>
+(function () {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards      = document.querySelectorAll('.wip-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Update active button
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filter = btn.dataset.filter;
+
+            cards.forEach(card => {
+                const tags = (card.dataset.tags || '').split(',').map(t => t.trim());
+                const match = filter === 'all' || tags.includes(filter);
+
+                if (match) {
+                    card.classList.remove('hidden-card');
+                } else {
+                    card.classList.add('hidden-card');
+                }
+            });
+        });
+    });
+})();
+</script>
 <!-- CTA Section -->
 <section class="mt-32 p-16 rounded-xl bg-surface-container-low text-center relative overflow-hidden">
 <div class="absolute top-0 right-0 p-4 opacity-10">
