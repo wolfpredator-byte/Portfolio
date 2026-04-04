@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SubD_Zero | Models</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="main.js" defer></script>
-<script id="tailwind-config">
+<html class="dark" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>SubD_Zero | Models</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script src="main.js" defer></script>
+  <script src="i18n.js" defer></script>
+  <script id="tailwind-config">
     tailwind.config = {
       darkMode: "class",
       theme: {
@@ -71,184 +79,699 @@
             "body": ["Manrope"],
             "label": ["Manrope"]
           },
-          borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
         },
       },
     }
   </script>
-<style>
+  <style>
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
+
     .glass-nav {
       background: rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(20px);
     }
+
     .text-glow {
       text-shadow: 0 0 15px rgba(170, 255, 220, 0.4);
     }
+
+    .nav-glow-bar {
+      box-shadow: 0 0 20px rgba(0, 255, 194, 0.8), 0 0 40px rgba(0, 255, 194, 0.4);
+      filter: blur(0.5px);
+    }
+
+    .bottom-ambient-glow {
+      box-shadow: 0 0 30px rgba(0, 255, 194, 0.4), 0 0 60px rgba(0, 255, 194, 0.2);
+      filter: blur(1px);
+    }
+
+    .lang-active {
+      color: #00FFC2 !important;
+      font-weight: 700;
+    }
+
+    #mobile-menu {
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+    }
+
+    /* ── Case Study Panel ───────────────────────── */
+    #case-study-panel {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: #0a0a0b;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    #case-study-panel.open {
+      transform: translateY(0);
+    }
+
+    /* ── Before/After Comparison Slider ─────────── */
+    .compare-container {
+      position: relative;
+      overflow: hidden;
+      cursor: ew-resize;
+      user-select: none;
+    }
+
+    .compare-container img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .compare-top {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      width: 50%;
+    }
+
+    .compare-top img {
+      width: var(--compare-width, 200%);
+      max-width: none;
+    }
+
+    .compare-handle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 3px;
+      background: #aaffdc;
+      transform: translateX(-50%);
+      box-shadow: 0 0 16px rgba(170, 255, 220, 0.7);
+      pointer-events: none;
+    }
+
+    .compare-handle::before,
+    .compare-handle::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #aaffdc;
+      top: 50%;
+      margin-top: -18px;
+      box-shadow: 0 0 20px rgba(170, 255, 220, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .compare-handle::before {
+      content: '◀';
+      font-size: 10px;
+      color: #0a0a0b;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-right: 2px;
+    }
+
+    /* Pill labels */
+    .compare-label {
+      position: absolute;
+      top: 16px;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .label-before {
+      left: 12px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #aaffdc;
+      border: 1px solid rgba(170, 255, 220, 0.3);
+    }
+
+    .label-after {
+      right: 12px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #adaaab;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* ── CS Gallery ─────────────────────────────── */
+    .cs-video-wrapper {
+      position: relative;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .cs-video-wrapper video {
+      display: block;
+      width: 100%;
+    }
+
+    .cs-video-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.35);
+      transition: opacity 0.3s;
+      cursor: pointer;
+    }
+
+    .cs-video-overlay:hover {
+      opacity: 0.7;
+    }
+
+    .play-btn-cs {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(170, 255, 220, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(170, 255, 220, 0.5);
+      transition: transform 0.2s;
+    }
+
+    .play-btn-cs:hover {
+      transform: scale(1.08);
+    }
   </style>
 </head>
+
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
-<div class="nav-glow-bar fixed top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_20px_rgba(0,255,194,0.8)] z-[100] transition-opacity duration-500"></div>
-<div class="bottom-ambient-glow fixed bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent shadow-[0_0_30px_rgba(0,255,194,0.4)] z-[100] opacity-0 transition-opacity duration-500"></div>
-<!-- TopNavBar Shell -->
-<nav class="fixed top-0 w-full z-50 glass-nav">
-<div class="flex justify-between items-center px-8 py-6 max-w-[1920px] mx-auto">
-<div class="text-2xl font-bold tracking-tighter text-[#00FFC2] font-headline"><a href="index.html">SubD_Zero</a></div>
-<div class="hidden md:flex items-center gap-12 font-headline tracking-tight">
-<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="index.html#featured">Featured</a>
-<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="projects.html">Projects</a>
-<a class="text-[#00FFC2] border-b-2 border-[#00FFC2] pb-1 transition-colors" href="models.html">Models</a>
-<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="wip.html">WIP</a>
-<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="about.html">About</a>
-<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="about.html#contact">Contact</a>
-</div>
-<div class="flex items-center gap-4">
-<button class="text-[#adaaab] hover:text-[#aaffdc] duration-300 scale-95 transition-all">
-<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
-</button>
-</div>
-</div>
-</nav>
-<main class="pt-32 pb-24">
-<!-- Header Section -->
-<header class="px-8 md:px-24 mb-20 max-w-[1920px] mx-auto">
-<div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
-<div class="max-w-3xl">
-<span class="text-primary font-label text-sm tracking-[0.2em] uppercase mb-4 block">Collection 01</span>
-<h1 class="text-5xl md:text-8xl font-headline font-bold tracking-tighter mb-6 leading-none">Finished Models</h1>
-<p class="text-on-surface-variant text-lg md:text-xl max-w-xl font-light leading-relaxed">
-            A curated selection of high-fidelity 3D assets, showcasing technical precision in lighting, material physics, and structural topology.
+  <div
+    class="nav-glow-bar fixed top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_20px_rgba(0,255,194,0.8)] z-[100] transition-opacity duration-500">
+  </div>
+  <div
+    class="bottom-ambient-glow fixed bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent shadow-[0_0_30px_rgba(0,255,194,0.4)] z-[100] opacity-0 transition-opacity duration-500">
+  </div>
+  <!-- TopNavBar Shell -->
+  <nav class="fixed top-0 w-full z-50 glass-nav">
+    <div class="flex justify-between items-center px-6 md:px-8 py-5 md:py-6 max-w-[1920px] mx-auto">
+      <div class="text-2xl font-bold tracking-tighter text-[#00FFC2] font-headline"><a href="index.html">SubD_Zero</a>
+      </div>
+      <div class="hidden md:flex items-center gap-12 font-headline tracking-tight">
+        <a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="index.html#featured"
+          data-i18n="nav.featured">Featured</a>
+        <a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="projects.html"
+          data-i18n="nav.projects">Projects</a>
+        <a class="text-[#00FFC2] border-b-2 border-[#00FFC2] pb-1 transition-colors" href="models.html"
+          data-i18n="nav.models">Models</a>
+        <a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="wip.html"
+          data-i18n="nav.wip">WIP</a>
+        <a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="about.html"
+          data-i18n="nav.about">About</a>
+        <a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="about.html#contact"
+          data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="flex items-center gap-3 md:gap-4">
+        <div class="flex items-center gap-1 font-label text-xs tracking-widest">
+          <button class="lang-toggle-btn text-[#adaaab] hover:text-[#00FFC2] transition-colors duration-200 px-1"
+            data-lang="it">IT</button>
+          <span class="text-[#484849]">|</span>
+          <button class="lang-toggle-btn text-[#adaaab] hover:text-[#00FFC2] transition-colors duration-200 px-1"
+            data-lang="en">EN</button>
+        </div>
+        <button class="text-[#adaaab] hover:text-[#aaffdc] duration-300 scale-95 transition-all hidden md:block">
+          <span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+        </button>
+        <button id="mobile-menu-btn" class="md:hidden text-[#adaaab] hover:text-[#00FFC2] transition-colors"
+          aria-label="Open menu">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-menu"
+    class="fixed inset-0 z-[150] bg-black/95 backdrop-blur-2xl translate-x-full opacity-0 pointer-events-none flex flex-col">
+    <div class="flex justify-between items-center px-6 py-5 border-b border-outline-variant/20">
+      <div class="text-xl font-bold tracking-tighter text-[#00FFC2] font-headline">SubD_Zero</div>
+      <button id="mobile-menu-close" class="text-[#adaaab] hover:text-[#00FFC2] transition-colors"
+        aria-label="Close menu">
+        <span class="material-symbols-outlined text-3xl">close</span>
+      </button>
+    </div>
+    <nav class="flex flex-col gap-2 p-8 flex-1">
+      <a href="index.html#featured"
+        class="font-headline text-3xl font-bold text-[#adaaab] hover:text-white py-3 border-b border-outline-variant/10 transition-colors"
+        data-i18n="nav.featured">Featured</a>
+      <a href="projects.html"
+        class="font-headline text-3xl font-bold text-[#adaaab] hover:text-white py-3 border-b border-outline-variant/10 transition-colors"
+        data-i18n="nav.projects">Projects</a>
+      <a href="models.html"
+        class="font-headline text-3xl font-bold text-[#00FFC2] py-3 border-b border-outline-variant/10"
+        data-i18n="nav.models">Models</a>
+      <a href="wip.html"
+        class="font-headline text-3xl font-bold text-[#adaaab] hover:text-white py-3 border-b border-outline-variant/10 transition-colors"
+        data-i18n="nav.wip">WIP</a>
+      <a href="about.html"
+        class="font-headline text-3xl font-bold text-[#adaaab] hover:text-white py-3 border-b border-outline-variant/10 transition-colors"
+        data-i18n="nav.about">About</a>
+      <a href="about.html#contact"
+        class="font-headline text-3xl font-bold text-[#adaaab] hover:text-white py-3 transition-colors"
+        data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="px-8 pb-10 flex items-center gap-2 font-label text-sm tracking-widest">
+      <button class="lang-toggle-btn text-[#adaaab] hover:text-[#00FFC2] transition-colors px-2 py-1"
+        data-lang="it">IT</button>
+      <span class="text-[#484849]">|</span>
+      <button class="lang-toggle-btn text-[#adaaab] hover:text-[#00FFC2] transition-colors px-2 py-1"
+        data-lang="en">EN</button>
+    </div>
+  </div>
+  <main class="pt-28 md:pt-32 pb-24">
+    <!-- Header Section -->
+    <header class="px-6 md:px-24 mb-16 md:mb-20 max-w-[1920px] mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+        <div class="max-w-3xl">
+          <span class="text-primary font-label text-sm tracking-[0.2em] uppercase mb-4 block"
+            data-i18n="models.label">Collection 01</span>
+          <h1 class="text-4xl sm:text-5xl md:text-8xl font-headline font-bold tracking-tighter mb-6 leading-none"
+            data-i18n="models.title">Finished Models</h1>
+          <p class="text-on-surface-variant text-base md:text-xl max-w-xl font-light leading-relaxed"
+            data-i18n="models.subtitle">
+            A curated selection of high-fidelity 3D assets, showcasing technical precision in lighting, material
+            physics, and structural topology.
           </p>
-</div>
-<div class="flex gap-2 bg-surface-container-low p-1 rounded-xl">
-<button class="px-6 py-2 rounded-lg bg-secondary-container text-on-secondary-container font-label text-sm font-medium transition-all">All Projects</button>
-<button class="px-6 py-2 rounded-lg text-on-surface-variant hover:text-white font-label text-sm transition-all">Mechanical</button>
-<button class="px-6 py-2 rounded-lg text-on-surface-variant hover:text-white font-label text-sm transition-all">Organic</button>
-</div>
-</div>
-</header>
-<!-- Gallery Grid -->
-<div class="px-8 md:px-24 max-w-[1920px] mx-auto space-y-40">
-<!-- Project 01: Hero Layout -->
-<section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-<div class="lg:col-span-8 group cursor-crosshair overflow-hidden rounded-md">
-<img alt="3D Render" class="w-full aspect-video object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Hyper-realistic 3D render of a futuristic mechanical heart with glowing cyan fiber optics, dark matte metal textures, and soft cinematic volumetric lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9osk9xbuiPkvH34rkRbP-oFJ75_QhdByr4k1vmRoaMEJosw0Z6iAParG2pJlvwsyhIsgZbAJ1g2Bw1Pap5FYQsmY3OYzF40mgmzKFxtnJawTM0FKKJeX45Noknr0zNYAkNKfcgjmkfgPj10nOGis_5tqdpvQjSMsR4hNeWLA6Ri6m5n2UVluGNE1tIFBzKrMKrc3JafhKH9ce_SX4N_xphZdlkuz3geNXhF0gWXREDSlaiwzEsbztObeQeMcKjJrjLLrbomIUzQZ5"/>
-</div>
-<div class="lg:col-span-4 flex flex-col gap-6 lg:pl-12">
-<div class="space-y-2">
-<span class="text-on-surface-variant font-label text-xs tracking-widest uppercase">Asset ID: 0882-X</span>
-<h2 class="text-4xl font-headline font-bold tracking-tight">Cyber-Organic Core</h2>
-</div>
-<p class="text-on-surface-variant leading-relaxed">
-            Exploring the intersection of synthetic biology and industrial design. This model features over 4 million polygons with a focus on subsurface scattering for the semi-transparent membranes.
+        </div>
+        <div class="flex gap-2 bg-surface-container-low p-1 rounded-xl">
+          <button
+            class="px-4 md:px-6 py-2 rounded-lg bg-secondary-container text-on-secondary-container font-label text-sm font-medium transition-all"
+            data-i18n="models.filter.all">All Projects</button>
+          <button
+            class="px-4 md:px-6 py-2 rounded-lg text-on-surface-variant hover:text-white font-label text-sm transition-all"
+            data-i18n="models.filter.mech">Hard Surface</button>
+          <button
+            class="px-4 md:px-6 py-2 rounded-lg text-on-surface-variant hover:text-white font-label text-sm transition-all"
+            data-i18n="models.filter.org">Organic</button>
+        </div>
+      </div>
+    </header>
+    <!-- Gallery Grid -->
+    <div class="px-6 md:px-24 max-w-[1920px] mx-auto space-y-24 md:space-y-40">
+      <!-- Project 01: Hero Layout -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-8 group cursor-crosshair overflow-hidden rounded-md">
+          <img alt="3D Render"
+            class="w-full aspect-video object-cover transition-transform duration-700 group-hover:scale-105"
+            src="img/ps1pc.png" />
+        </div>
+        <div class="lg:col-span-4 flex flex-col gap-6 lg:pl-12">
+          <div class="space-y-2">
+            <span class="text-on-surface-variant font-label text-xs tracking-widest uppercase"
+              data-i18n="models.p1.id">Asset ID: 0882-X</span>
+            <h2 class="text-3xl md:text-4xl font-headline font-bold tracking-tight" data-i18n="models.p1.title">
+              PS1-Computer</h2>
+          </div>
+          <p class="text-on-surface-variant leading-relaxed" data-i18n="models.p1.desc">
+
           </p>
-<div class="flex flex-wrap gap-3 pt-4">
-<span class="px-3 py-1 bg-surface-container-highest text-tertiary font-label text-[10px] tracking-tighter uppercase rounded-sm">ZBrush</span>
-<span class="px-3 py-1 bg-surface-container-highest text-tertiary font-label text-[10px] tracking-tighter uppercase rounded-sm">Octane Render</span>
-<span class="px-3 py-1 bg-surface-container-highest text-tertiary font-label text-[10px] tracking-tighter uppercase rounded-sm">Substance</span>
-</div>
-<button class="open-video-btn mt-4 self-start text-primary font-label text-sm flex items-center gap-2 group" data-video-src="video/spacescene.mp4">
-            View Case Study
-            <span class="w-8 h-[1px] bg-primary group-hover:w-12 transition-all"></span>
-</button>
-</div>
-</section>
-<!-- Project 02 & 03: Asymmetric Duo -->
-<section class="grid grid-cols-1 md:grid-cols-2 gap-24">
-<!-- Card 02 -->
-<div class="space-y-8 mt-12">
-<div class="bg-surface-container-low p-4 rounded-md group overflow-hidden">
-<img alt="3D Render" class="w-full aspect-[4/5] object-cover rounded-sm transition-transform duration-700 group-hover:scale-[1.02]" data-alt="Minimalist 3D architectural visualization of a brutalist concrete structure with sharp shadows and a single warm orange light source inside a dark void" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIC6MBkPwt5zqF0d6i363S1EEuR3ji0RgbFjUuOVzwuwzO2PD1XiCJlABFYMtOtHvQqSFcfLlYDsImFZY5RtsMutCZ5gZmvhy-xNnNmw6PofdMwrDYnArqLcEf9cwn9-Dx3FYG0_HOjVXA1IKK-_aqA7ULab2TB5_aYjansQpGwRUZeP74i3jyOCSKQKIiXjDSiWthrN87HghggjJlVIx_Dg9n8SNsFhbhEqEHiJn3GWh_kcR2nuAgz9U3kyrfnF42IBwLGSh4Bthq"/>
-</div>
-<div class="space-y-4">
-<div class="flex justify-between items-start">
-<h3 class="text-2xl font-headline font-medium">Void Architecture</h3>
-<span class="text-primary font-label text-sm">2024</span>
-</div>
-<p class="text-on-surface-variant font-light">
+          <div class="flex flex-wrap gap-3 pt-4">
+            <span
+              class="px-3 py-1 bg-surface-container-highest text-tertiary font-label text-[10px] tracking-tighter uppercase rounded-sm">Blender</span>
+            <span
+              class="px-3 py-1 bg-surface-container-highest text-tertiary font-label text-[10px] tracking-tighter uppercase rounded-sm">Cycles</span>
+          </div>
+          <button id="open-case-study-btn"
+            class="mt-4 self-start text-primary font-label text-sm flex items-center gap-2 group cursor-pointer"
+            data-video-src="video/spacescene.mp4">
+            <span data-i18n="models.p1.view">View Case Study</span>
+            <span class="w-8 h-[1px] bg-primary group-hover:w-12 transition-all duration-300"></span>
+          </button>
+        </div>
+      </section>
+      <!-- Project 02 & 03: Asymmetric Duo -->
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
+        <!-- Card 02 -->
+        <div class="space-y-8 mt-0 md:mt-12">
+          <div class="bg-surface-container-low p-4 rounded-md group overflow-hidden">
+            <img alt="3D Render"
+              class="w-full aspect-[4/5] object-cover rounded-sm transition-transform duration-700 group-hover:scale-[1.02]"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIC6MBkPwt5zqF0d6i363S1EEuR3ji0RgbFjUuOVzwuwzO2PD1XiCJlABFYMtOtHvQqSFcfLlYDsImFZY5RtsMutCZ5gZmvhy-xNnNmw6PofdMwrDYnArqLcEf9cwn9-Dx3FYG0_HOjVXA1IKK-_aqA7ULab2TB5_aYjansQpGwRUZeP74i3jyOCSKQKIiXjDSiWthrN87HghggjJlVIx_Dg9n8SNsFhbhEqEHiJn3GWh_kcR2nuAgz9U3kyrfnF42IBwLGSh4Bthq" />
+          </div>
+          <div class="space-y-4">
+            <div class="flex justify-between items-start">
+              <h3 class="text-2xl font-headline font-medium" data-i18n="models.p2.title">Void Architecture</h3>
+              <span class="text-primary font-label text-sm">2024</span>
+            </div>
+            <p class="text-on-surface-variant font-light" data-i18n="models.p2.desc">
               A study in brutalist minimalism and dramatic light falloff within a simulated vacuum environment.
             </p>
-<div class="text-xs font-label text-on-surface-variant/60 flex gap-4">
-<span>Software: Blender</span>
-<span>Render: Cycles</span>
-</div>
-</div>
-</div>
-<!-- Card 03 -->
-<div class="space-y-8">
-<div class="bg-surface-container-low p-4 rounded-md group overflow-hidden">
-<img alt="3D Render" class="w-full aspect-[4/5] object-cover rounded-sm transition-transform duration-700 group-hover:scale-[1.02]" data-alt="Abstract 3D fluid simulation with iridescent oil-slick textures swirling in a dark space, high reflective surfaces and chromatic aberration" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvuwhMCFKnBiJYCsD8wli4wT6ZwE5uUieNUZs2Be_IAW0WRX7zFRWfUQ7_1XUU_oSkcCJzjweGp4EIcX36QNowxwyNIdH5BHeSfqFzqwi08Y0r1I09T1InL6GMCUQjA0bIrdkaH7ubVIr_M6HTYxYBa_BWx9ehGhpV5For7sAPHGJnuZyc509wEvsgwFRMsUC4u37pVvXZvVVEhD5GJMPM-cA3zCV3p51N5w4Ts3sA4vWU-4yiJo-A092gwTUZLOH0mZV5kJNLqQ8C"/>
-</div>
-<div class="space-y-4">
-<div class="flex justify-between items-start">
-<h3 class="text-2xl font-headline font-medium">Chromatic Drift</h3>
-<span class="text-primary font-label text-sm">2023</span>
-</div>
-<p class="text-on-surface-variant font-light">
+            <div class="text-xs font-label text-on-surface-variant/60 flex gap-4">
+              <span>Software: Blender</span>
+              <span>Render: Cycles</span>
+            </div>
+          </div>
+        </div>
+        <!-- Card 03 -->
+        <div class="space-y-8">
+          <div class="bg-surface-container-low p-4 rounded-md group overflow-hidden">
+            <img alt="3D Render"
+              class="w-full aspect-[4/5] object-cover rounded-sm transition-transform duration-700 group-hover:scale-[1.02]"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvuwhMCFKnBiJYCsD8wli4wT6ZwE5uUieNUZs2Be_IAW0WRX7zFRWfUQ7_1XUU_oSkcCJzjweGp4EIcX36QNowxwyNIdH5BHeSfqFzqwi08Y0r1I09T1InL6GMCUQjA0bIrdkaH7ubVIr_M6HTYxYBa_BWx9ehGhpV5For7sAPHGJnuZyc509wEvsgwFRMsUC4u37pVvXZvVVEhD5GJMPM-cA3zCV3p51N5w4Ts3sA4vWU-4yiJo-A092gwTUZLOH0mZV5kJNLqQ8C" />
+          </div>
+          <div class="space-y-4">
+            <div class="flex justify-between items-start">
+              <h3 class="text-2xl font-headline font-medium" data-i18n="models.p3.title">Chromatic Drift</h3>
+              <span class="text-primary font-label text-sm">2023</span>
+            </div>
+            <p class="text-on-surface-variant font-light" data-i18n="models.p3.desc">
               Procedural fluid dynamics exploring spectral refraction and non-Newtonian movement patterns.
             </p>
-<div class="text-xs font-label text-on-surface-variant/60 flex gap-4">
-<span>Software: Houdini</span>
-<span>Render: Redshift</span>
-</div>
-</div>
-</div>
-</section>
-<!-- Project 04: Wide Editorial Layout -->
-<section class="relative bg-surface-container-low rounded-md overflow-hidden">
-<div class="grid grid-cols-1 lg:grid-cols-2">
-<div class="p-12 md:p-24 flex flex-col justify-center order-2 lg:order-1">
-<span class="text-tertiary font-label text-xs tracking-[0.3em] uppercase mb-8">Featured Series</span>
-<h2 class="text-5xl md:text-7xl font-headline font-bold leading-none mb-8 tracking-tighter">Monolithic Silence</h2>
-<p class="text-on-surface-variant text-lg leading-relaxed mb-12">
-              A collection of ten high-poly assets inspired by the concept of ancient alien technologies found in deep space.
+            <div class="text-xs font-label text-on-surface-variant/60 flex gap-4">
+              <span>Software: Houdini</span>
+              <span>Render: Redshift</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Project 04: Wide Editorial Layout -->
+      <section class="relative bg-surface-container-low rounded-md overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+          <div class="p-8 md:p-24 flex flex-col justify-center order-2 lg:order-1">
+            <span class="text-tertiary font-label text-xs tracking-[0.3em] uppercase mb-8"
+              data-i18n="models.p4.tag">Featured Series</span>
+            <h2 class="text-4xl sm:text-5xl md:text-7xl font-headline font-bold leading-none mb-8 tracking-tighter"
+              data-i18n="models.p4.title">Monolithic Silence</h2>
+            <p class="text-on-surface-variant text-base md:text-lg leading-relaxed mb-12" data-i18n="models.p4.desc">
+              A collection of ten high-poly assets inspired by the concept of ancient alien technologies found in deep
+              space.
             </p>
-<div class="flex gap-6">
-<button class="bg-primary text-on-primary-fixed px-8 py-4 rounded-xl font-headline font-bold hover:shadow-[0_0_20px_rgba(170,255,220,0.3)] transition-all">
-                Explore Series
-              </button>
-<button class="border border-outline-variant/20 px-8 py-4 rounded-xl font-headline font-bold hover:bg-surface-bright transition-all">
-                Download Wireframe
-              </button>
-</div>
-</div>
-<div class="h-[400px] lg:h-auto order-1 lg:order-2">
-<img alt="3D Series" class="w-full h-full object-cover" data-alt="Dark dramatic 3D scene of massive obsidian monoliths floating in a nebula, intricate etched glowing runes, cinematic scale and depth" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZGtR1ng4_WHQhysR939lnzVQ7DrQ9LzoHb5104GBt9Nb6xhm5FjuWrVtKqyzf39-A-BKLntjk4IB8KC8LFkh9aWOREsfE2jW-keum5EPfFm1WHPDOg1g4vAzyseObqZV7ZF75lFkALOkaG7ikqOkNDILTdgFAOJtCVLY-NJ_by4R08ke-Y8caVjMzXhuWWmAUZYBpGu6FpMgCVZuhafAXO_ipHBvrU9kFWknqoAAGHxnnTT-irIDCDjrrqXsNwKcTTcaYaQ8RpMDp"/>
-</div>
-</div>
-</section>
-</div>
-</main>
-<!-- Footer Shell -->
-<footer class="w-full py-20 mt-24 bg-[#000000] flex flex-col md:flex-row justify-between items-center px-12 border-t border-[#484849]/20 font-['Manrope'] text-sm tracking-wide">
-<div class="text-[#adaaab] mb-8 md:mb-0">
-      © 2023 SubD_Zero Artistry
+            <div class="flex flex-wrap gap-4 md:gap-6">
+              <button
+                class="bg-primary text-on-primary-fixed px-6 md:px-8 py-4 rounded-xl font-headline font-bold hover:shadow-[0_0_20px_rgba(170,255,220,0.3)] transition-all"
+                data-i18n="models.p4.btn1">Explore Series</button>
+              <button
+                class="border border-outline-variant/20 px-6 md:px-8 py-4 rounded-xl font-headline font-bold hover:bg-surface-bright transition-all"
+                data-i18n="models.p4.btn2">Download Wireframe</button>
+            </div>
+          </div>
+          <div class="h-[300px] lg:h-auto order-1 lg:order-2">
+            <img alt="3D Series" class="w-full h-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZGtR1ng4_WHQhysR939lnzVQ7DrQ9LzoHb5104GBt9Nb6xhm5FjuWrVtKqyzf39-A-BKLntjk4IB8KC8LFkh9aWOREsfE2jW-keum5EPfFm1WHPDOg1g4vAzyseObqZV7ZF75lFkALOkaG7ikqOkNDILTdgFAOJtCVLY-NJ_by4R08ke-Y8caVjMzXhuWWmAUZYBpGu6FpMgCVZuhafAXO_ipHBvrU9kFWknqoAAGHxnnTT-irIDCDjrrqXsNwKcTTcaYaQ8RpMDp" />
+          </div>
+        </div>
+      </section>
     </div>
-<div class="flex gap-8">
-<a class="text-[#adaaab] hover:text-[#00FFC2] transition-all opacity-80 hover:opacity-100" href="#">ArtStation</a>
-<a class="text-[#adaaab] hover:text-[#00FFC2] transition-all opacity-80 hover:opacity-100" href="#">LinkedIn</a>
-</div>
-<div class="mt-8 md:mt-0">
-<button class="p-4 rounded-full bg-surface-container-high hover:bg-surface-bright transition-all group">
-<span class="material-symbols-outlined text-[#00FFC2] group-hover:translate-y-[-2px] transition-transform" data-icon="arrow_upward">arrow_upward</span>
-</button>
-</div>
-</footer>
-<!-- Video Modal Structure -->
-<div id="video-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center bg-black/98 backdrop-blur-2xl transition-all duration-500 opacity-0">
+  </main>
+  <!-- Footer Shell -->
+  <footer class="w-full py-20 mt-24 bg-[#000000] border-t border-[#484849]/20">
+    <div class="flex flex-col md:flex-row justify-between items-center px-8 md:px-12 max-w-[1920px] mx-auto gap-8">
+      <div class="font-headline text-lg font-bold tracking-widest text-on-surface-variant">SubD_Zero</div>
+      <div class="flex gap-8 md:gap-12 font-body text-sm tracking-wide">
+        <a class="text-[#adaaab] hover:text-[#00FFC2] transition-all opacity-80 hover:opacity-100"
+          href="#">ArtStation</a>
+        <a class="text-[#adaaab] hover:text-[#00FFC2] transition-all opacity-80 hover:opacity-100" href="#">LinkedIn</a>
+      </div>
+      <div class="text-[#adaaab] font-body text-sm tracking-wide" data-i18n="footer.copy">© 2024 SubD_Zero Artistry
+      </div>
+    </div>
+  </footer>
+  <!-- Video Modal Structure -->
+  <div id="video-modal"
+    class="fixed inset-0 z-[200] hidden flex items-center justify-center bg-black/98 backdrop-blur-2xl transition-all duration-500 opacity-0">
     <div class="absolute inset-0 cursor-zoom-out" id="modal-bg"></div>
-    <button id="close-modal" class="absolute top-10 right-10 text-white/50 hover:text-primary transition-all z-[210]" aria-label="Chiudi">
-        <span class="material-symbols-outlined text-4xl">close</span>
+    <button id="close-modal" class="absolute top-10 right-10 text-white/50 hover:text-primary transition-all z-[210]"
+      aria-label="Chiudi">
+      <span class="material-symbols-outlined text-4xl">close</span>
     </button>
-    <button id="mute-btn" class="absolute bottom-12 right-14 z-[210] flex items-center gap-2 bg-black/40 hover:bg-primary/20 border border-white/10 hover:border-primary/40 text-white/70 hover:text-primary backdrop-blur-sm px-4 py-2 rounded-full transition-all duration-300 text-sm font-label" aria-label="Attiva audio">
-        <span id="mute-icon" class="material-symbols-outlined text-xl">volume_off</span>
-        <span id="mute-label">Suono</span>
+    <button id="mute-btn"
+      class="absolute bottom-8 right-8 md:bottom-12 md:right-14 z-[210] flex items-center gap-2 bg-black/40 hover:bg-primary/20 border border-white/10 hover:border-primary/40 text-white/70 hover:text-primary backdrop-blur-sm px-4 py-2 rounded-full transition-all duration-300 text-sm font-label"
+      aria-label="Attiva audio">
+      <span id="mute-icon" class="material-symbols-outlined text-xl">volume_off</span>
+      <span id="mute-label" data-i18n="modal.mute">Suono</span>
     </button>
-    <div id="modal-container" class="relative w-full max-w-6xl aspect-video p-12 scale-90 blur-md transition-all duration-500 ease-out flex items-center justify-center">
-        <video id="modal-video" class="w-full h-full object-cover rounded-xl border border-primary/20 z-10" playsinline></video>
-        <canvas id="audio-visualizer" class="absolute inset-0 w-full h-full z-0"></canvas>
+    <div id="modal-container"
+      class="relative w-full max-w-6xl aspect-video p-12 scale-90 blur-md transition-all duration-500 ease-out flex items-center justify-center">
+      <video id="modal-video" class="w-full h-full object-cover rounded-xl border border-primary/20 z-10"
+        playsinline></video>
+      <canvas id="audio-visualizer" class="absolute inset-0 w-full h-full z-0"></canvas>
     </div>
-</div>
-</body></html>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+      CASE STUDY PANEL — PS1 Computer
+      Visible only when #open-case-study-btn is clicked
+  ══════════════════════════════════════════════════════════ -->
+  <div id="case-study-panel" aria-modal="true" role="dialog" aria-label="Case Study: PS1 Computer">
+
+    <!-- Sticky top bar -->
+    <div
+      class="sticky top-0 z-10 flex justify-between items-center px-6 md:px-12 py-4 bg-black/80 backdrop-blur-xl border-b border-outline-variant/20">
+      <div class="flex items-center gap-4">
+        <button id="close-case-study"
+          class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2"
+          aria-label="Close">
+          <span class="material-symbols-outlined text-2xl">arrow_back</span>
+        </button>
+        <span class="text-xs font-label tracking-[0.3em] uppercase text-on-surface-variant">Asset ID: 0882-X</span>
+      </div>
+      <div class="font-headline font-bold tracking-tighter text-[#00FFC2] text-lg hidden sm:block">SubD_Zero</div>
+      <div class="text-xs font-label tracking-widest text-on-surface-variant uppercase hidden md:block">
+        <span data-i18n="models.p1.title">PS1 Computer</span> · <span data-i18n="cs.case_study">Case Study</span>
+      </div>
+    </div>
+
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 pt-12 pb-32 space-y-24">
+
+      <!-- ── 01 · HERO ──────────────────────────────────────── -->
+      <section>
+        <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3"
+              data-i18n="cs.overview">01 / Overview</span>
+            <h1 class="text-5xl md:text-7xl font-headline font-bold tracking-tighter leading-none"
+              data-i18n="models.p1.title">PS1 Computer</h1>
+          </div>
+          <div class="flex gap-6 text-sm font-label text-on-surface-variant">
+            <div>
+              <div class="text-white font-medium mb-1" data-i18n="cs.software">Software</div>Blender
+            </div>
+            <div>
+              <div class="text-white font-medium mb-1" data-i18n="cs.render">Render</div>Cycles
+            </div>
+            <div>
+              <div class="text-white font-medium mb-1" data-i18n="cs.year">Year</div>2025
+            </div>
+          </div>
+        </div>
+        <div class="aspect-video overflow-hidden rounded-lg border border-outline-variant/20">
+          <img src="img/ps1pc.png" alt="PS1 Computer — Full Render" class="w-full h-full object-cover">
+        </div>
+      </section>
+
+      <!-- ── 02 · BEFORE / AFTER COMPARISON ───────────────── -->
+      <section>
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3"
+          data-i18n="cs.breakdown">02 / Material Breakdown</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-4" data-i18n="cs.breakdown_title">With &
+          Without Materials</h2>
+        <p class="text-on-surface-variant text-sm leading-relaxed mb-8 max-w-2xl" data-i18n="cs.breakdown_desc">
+          Drag the handle to compare the final shaded model with the raw clay/wireframe version.
+          This highlights the impact of procedural texturing and PBR material setup.
+        </p>
+
+        <!-- Comparison slider -->
+        <div class="compare-container aspect-video rounded-lg border border-outline-variant/20" id="compare-slider">
+          <!-- BASE: no materials (clay/wireframe) -->
+          <img src="img/ps1pcnomat.png" alt="Without materials" class="w-full h-full object-cover" id="compare-base"
+            style="filter: grayscale(1) contrast(1.2);">
+          <!-- TOP: with materials -->
+          <div class="compare-top" id="compare-top-layer">
+            <img src="img/ps1pc.png" alt="With materials" id="compare-top-img" style="width:200%; max-width:none;">
+          </div>
+          <!-- Labels -->
+          <span class="compare-label label-before" data-i18n="cs.label_with">With Materials</span>
+          <span class="compare-label label-after" data-i18n="cs.label_wire">Wireframe Render</span>
+          <!-- Divider handle -->
+          <div class="compare-handle" id="compare-handle"></div>
+        </div>
+        <p class="text-center text-xs text-on-surface-variant mt-3 font-label tracking-wider opacity-60"
+          data-i18n="cs.drag">
+          ← Drag to compare →
+        </p>
+      </section>
+
+      <!-- ── 03 · VIDEO PREVIEW ────────────────────────────── -->
+      <section>
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3"
+          data-i18n="cs.video">03 / Video Preview</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.video_title">Turntable
+          & Scene</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Video 1 -->
+          <div class="cs-video-wrapper">
+            <video id="cs-video-1" class="w-full aspect-video" preload="metadata" loop muted playsinline>
+              <source src="video/ps1pc.mp4" type="video/mp4">
+            </video>
+            <div class="cs-video-overlay" id="cs-play-1">
+              <div class="play-btn-cs">
+                <span class="material-symbols-outlined text-[#0a0a0b] text-3xl">play_arrow</span>
+              </div>
+            </div>
+          </div>
+          <!-- Placeholder for second video -->
+          <div
+            class="bg-surface-container-low rounded-lg aspect-video flex flex-col items-center justify-center gap-3 border border-outline-variant/20">
+            <span class="material-symbols-outlined text-4xl text-outline">videocam_off</span>
+            <span class="text-xs font-label text-on-surface-variant uppercase tracking-widest"
+              data-i18n="cs.video_pending">Second Video — Pending</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 04 · PHOTO GALLERY ────────────────────────────── -->
+      <section>
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.gallery">04 /
+          Gallery</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.gallery_title">Render
+          Shots</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="overflow-hidden rounded-lg group cursor-zoom-in border border-outline-variant/20 aspect-square">
+            <img src="img/ps1pc.png" alt="PS1 Computer — Shot 1"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+          </div>
+          <div class="overflow-hidden rounded-lg group cursor-zoom-in border border-outline-variant/20 aspect-square">
+            <img src="img/ps1pcnomat.png" alt="PS1 Computer — Shot 2"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+          </div>
+      </section>
+
+      <!-- ── 05 · TECHNICAL NOTES ──────────────────────────── -->
+      <section class="border-t border-outline-variant/20 pt-16">
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.notes">05 /
+          Technical Notes</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.notes_title">Pipeline
+          Details</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="space-y-2">
+            <div class="text-primary font-headline text-xl font-bold">01</div>
+            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.step1_label">Reference & Block-out</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.step1_desc">Collected photo references of the original PlayStation 1 pc hardware to ensure accurate proportions and surface detail.</p>
+          </div>
+          <div class="space-y-2">
+            <div class="text-primary font-headline text-xl font-bold">02</div>
+            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.step2_label">Low-Poly Modelling</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.step2_desc">Hard surface modelling in Blender with precise edge insert operations and sharpness.</p>
+          </div>
+          <div class="space-y-2">
+            <div class="text-primary font-headline text-xl font-bold">03</div>
+            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.step3_label">PBR Shading & Cycles Render</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.step3_desc">Procedural materials for aged plastic, metal ports, and label prints. Final lighting with HDRI + area lights in Cycles.</p>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /max-w -->
+  </div><!-- /#case-study-panel -->
+
+  <script>
+      (function () {
+        // ── Open / Close ──────────────────────────────────────────
+        const panel = document.getElementById('case-study-panel');
+        const openBtn = document.getElementById('open-case-study-btn');
+        const closeBtn = document.getElementById('close-case-study');
+
+        function openPanel() {
+          panel.classList.add('open');
+          document.body.style.overflow = 'hidden';
+          panel.scrollTop = 0;
+        }
+        function closePanel() {
+          panel.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+
+        if (openBtn) openBtn.addEventListener('click', openPanel);
+        if (closeBtn) closeBtn.addEventListener('click', closePanel);
+
+        // ESC to close
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+        // ── Before/After Comparison Slider ───────────────────────
+        const slider = document.getElementById('compare-slider');
+        const topLayer = document.getElementById('compare-top-layer');
+        const topImg = document.getElementById('compare-top-img');
+        const handle = document.getElementById('compare-handle');
+
+        if (slider && topLayer && handle) {
+          let dragging = false;
+
+          function setPosition(x) {
+            const rect = slider.getBoundingClientRect();
+            let pct = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
+            topLayer.style.width = (pct * 100) + '%';
+            topImg.style.width = (1 / pct * 100) + '%';
+            handle.style.left = (pct * 100) + '%';
+          }
+
+          // Init at 50%
+          // Use setTimeout so the DOM and CSS have time to render first
+          setTimeout(() => {
+            if (slider.offsetWidth > 0) {
+              setPosition(slider.getBoundingClientRect().left + slider.offsetWidth * 0.5);
+            } else {
+              // fallback if it's hidden
+              topLayer.style.width = '50%';
+              topImg.style.width = '200%';
+              handle.style.left = '50%';
+            }
+          }, 100);
+
+          slider.addEventListener('mousedown', e => { dragging = true; setPosition(e.clientX); });
+          window.addEventListener('mousemove', e => { if (dragging) setPosition(e.clientX); });
+          window.addEventListener('mouseup', () => { dragging = false; });
+
+          // Touch support
+          slider.addEventListener('touchstart', e => { dragging = true; setPosition(e.touches[0].clientX); }, { passive: true });
+          window.addEventListener('touchmove', e => { if (dragging) setPosition(e.touches[0].clientX); }, { passive: true });
+          window.addEventListener('touchend', () => { dragging = false; });
+        }
+
+        // ── Inline video play/pause toggle ───────────────────────
+        const playOverlay1 = document.getElementById('cs-play-1');
+        const vid1 = document.getElementById('cs-video-1');
+        if (playOverlay1 && vid1) {
+          playOverlay1.addEventListener('click', () => {
+            if (vid1.paused) {
+              vid1.muted = false;
+              vid1.play().catch(e => console.log('Autoplay prevented:', e));
+              playOverlay1.style.opacity = '0';
+              playOverlay1.style.pointerEvents = 'none';
+            } else {
+              vid1.pause();
+              playOverlay1.style.opacity = '1';
+              playOverlay1.style.pointerEvents = 'auto';
+            }
+          });
+          vid1.addEventListener('click', () => {
+            vid1.pause();
+            playOverlay1.style.opacity = '1';
+            playOverlay1.style.pointerEvents = 'auto';
+          });
+        }
+      })();
+  </script>
+
+</body>
+
+</html>

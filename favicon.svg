@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="12" fill="#0e0e0f"/>
+  <rect width="64" height="64" rx="12" fill="none" stroke="#00FFC2" stroke-width="1.5" opacity="0.4"/>
+  <!-- S letter -->
+  <path d="M10 20 Q10 14 17 14 L26 14 Q33 14 33 20 Q33 26 26 27 L17 27 Q10 27 10 33 Q10 39 17 39 L29 39" 
+        fill="none" stroke="#00FFC2" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"
+        filter="url(#glow)"/>
+  <!-- Z letter -->
+  <path d="M35 14 L54 14 L35 39 L54 39"
+        fill="none" stroke="#00FFC2" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"
+        filter="url(#glow)"/>
+  <!-- Underscore / _ -->
+  <line x1="10" y1="47" x2="54" y2="47" stroke="#00FFC2" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <!-- Neon glow filter -->
+  <defs>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+</svg>

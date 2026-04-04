@@ -5,6 +5,37 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // ---------------------------------------------------------
+    // 0. MOBILE HAMBURGER MENU
+    // ---------------------------------------------------------
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu    = document.getElementById('mobile-menu');
+    const mobileClose   = document.getElementById('mobile-menu-close');
+
+    const openMobileMenu = () => {
+        if (!mobileMenu) return;
+        mobileMenu.classList.remove('translate-x-full', 'opacity-0', 'pointer-events-none');
+        mobileMenu.classList.add('translate-x-0', 'opacity-100');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeMobileMenu = () => {
+        if (!mobileMenu) return;
+        mobileMenu.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
+        mobileMenu.classList.remove('translate-x-0', 'opacity-100');
+        document.body.style.overflow = '';
+    };
+
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileMenu);
+    if (mobileClose)   mobileClose.addEventListener('click', closeMobileMenu);
+
+    // Close menu when clicking a nav link inside it
+    if (mobileMenu) {
+        mobileMenu.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', closeMobileMenu);
+        });
+    }
+
+    // ---------------------------------------------------------
     // 1. GLOBAL ENVIRONMENTAL LIGHT CONTROL (Scroll Glow)
     // ---------------------------------------------------------
     const topGlow = document.querySelector('.nav-glow-bar');

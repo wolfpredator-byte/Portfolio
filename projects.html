@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="en"><head>
+<html class="dark" lang="it"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>SubD_Zero | Projects</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script src="main.js" defer></script>
+<script src="i18n.js" defer></script>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -77,19 +79,13 @@
       }
     </script>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .glass-nav {
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(20px);
-        }
-        .text-gradient {
-            background: linear-gradient(135deg, #aaffdc 0%, #00fdc1 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-nav { background: rgba(0,0,0,0.6); backdrop-filter: blur(20px); }
+        .text-gradient { background: linear-gradient(135deg, #aaffdc 0%, #00fdc1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-glow-bar { box-shadow: 0 0 20px rgba(0,255,194,0.8), 0 0 40px rgba(0,255,194,0.4); filter: blur(0.5px); }
+        .bottom-ambient-glow { box-shadow: 0 0 30px rgba(0,255,194,0.4), 0 0 60px rgba(0,255,194,0.2); filter: blur(1px); }
+        .lang-active { color: #00FFC2 !important; font-weight: 700; }
+        #mobile-menu { transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease; }
     </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary-fixed">
@@ -97,32 +93,63 @@
 <div class="bottom-ambient-glow fixed bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent shadow-[0_0_30px_rgba(0,255,194,0.4)] z-[100] opacity-0 transition-opacity duration-500"></div>
 <!-- TopNavBar -->
 <nav class="fixed top-0 w-full z-50 glass-nav">
-<div class="flex justify-between items-center px-8 py-6 max-w-[1920px] mx-auto">
+<div class="flex justify-between items-center px-6 md:px-8 py-5 md:py-6 max-w-[1920px] mx-auto">
 <div class="text-2xl font-bold tracking-tighter text-[#00FFC2] font-headline"><a href="index.html">SubD_Zero</a></div>
 <div class="hidden md:flex items-center gap-12 font-headline tracking-tight">
-<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="index.html#featured">Featured</a>
-<a class="text-[#00FFC2] border-b-2 border-[#00FFC2] pb-1 transition-colors" href="projects.html">Projects</a>
-<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="models.html">Models</a>
-<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="wip.html">WIP</a>
-<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="about.html">About</a>
-<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="about.html#contact">Contact</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="index.html#featured" data-i18n="nav.featured">Featured</a>
+<a class="text-[#00FFC2] border-b-2 border-[#00FFC2] pb-1 transition-colors" href="projects.html" data-i18n="nav.projects">Projects</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="models.html" data-i18n="nav.models">Models</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="wip.html" data-i18n="nav.wip">WIP</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="about.html" data-i18n="nav.about">About</a>
+<a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="about.html#contact" data-i18n="nav.contact">Contact</a>
 </div>
-<div class="flex items-center gap-4">
-<button class="text-[#adaaab] hover:text-[#aaffdc] duration-300 scale-95 transition-all">
-<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
-</button>
+<div class="flex items-center gap-3 md:gap-4">
+  <div class="flex items-center gap-1 font-label text-xs tracking-widest">
+    <button class="lang-toggle-btn text-[#adaaab] hover:text-[#00FFC2] transition-colors duration-200 px-1" data-lang="it">IT</button>
+    <span class="text-[#484849]">|</span>
+    <button class="lang-toggle-btn text-[#adaaab] hover:text-[#00FFC2] transition-colors duration-200 px-1" data-lang="en">EN</button>
+  </div>
+  <button class="text-[#adaaab] hover:text-[#aaffdc] duration-300 scale-95 transition-all hidden md:block">
+    <span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+  </button>
+  <button id="mobile-menu-btn" class="md:hidden text-[#adaaab] hover:text-[#00FFC2] transition-colors" aria-label="Open menu">
+    <span class="material-symbols-outlined text-3xl">menu</span>
+  </button>
 </div>
 </div>
 </nav>
-<main class="pt-32 pb-24 px-8 max-w-[1920px] mx-auto">
+
+<!-- Mobile Drawer -->
+<div id="mobile-menu" class="fixed inset-0 z-[150] bg-black/95 backdrop-blur-2xl translate-x-full opacity-0 pointer-events-none flex flex-col">
+  <div class="flex justify-between items-center px-6 py-5 border-b border-outline-variant/20">
+    <div class="text-xl font-bold tracking-tighter text-[#00FFC2] font-headline">SubD_Zero</div>
+    <button id="mobile-menu-close" class="text-[#adaaab] hover:text-[#00FFC2] transition-colors" aria-label="Close menu">
+      <span class="material-symbols-outlined text-3xl">close</span>
+    </button>
+  </div>
+  <nav class="flex flex-col gap-2 p-8 flex-1">
+    <a href="index.html#featured" class="font-headline text-3xl font-bold text-[#adaaab] hover:text-white py-3 border-b border-outline-variant/10 transition-colors" data-i18n="nav.featured">Featured</a>
+    <a href="projects.html"       class="font-headline text-3xl font-bold text-[#00FFC2] py-3 border-b border-outline-variant/10" data-i18n="nav.projects">Projects</a>
+    <a href="models.html"         class="font-headline text-3xl font-bold text-[#adaaab] hover:text-white py-3 border-b border-outline-variant/10 transition-colors" data-i18n="nav.models">Models</a>
+    <a href="wip.html"            class="font-headline text-3xl font-bold text-[#adaaab] hover:text-white py-3 border-b border-outline-variant/10 transition-colors" data-i18n="nav.wip">WIP</a>
+    <a href="about.html"          class="font-headline text-3xl font-bold text-[#adaaab] hover:text-white py-3 border-b border-outline-variant/10 transition-colors" data-i18n="nav.about">About</a>
+    <a href="about.html#contact"  class="font-headline text-3xl font-bold text-[#adaaab] hover:text-white py-3 transition-colors" data-i18n="nav.contact">Contact</a>
+  </nav>
+  <div class="px-8 pb-10 flex items-center gap-2 font-label text-sm tracking-widest">
+    <button class="lang-toggle-btn text-[#adaaab] hover:text-[#00FFC2] transition-colors px-2 py-1" data-lang="it">IT</button>
+    <span class="text-[#484849]">|</span>
+    <button class="lang-toggle-btn text-[#adaaab] hover:text-[#00FFC2] transition-colors px-2 py-1" data-lang="en">EN</button>
+  </div>
+</div>
+<main class="pt-28 md:pt-32 pb-24 px-6 md:px-8 max-w-[1920px] mx-auto">
 <!-- Header Section -->
-<header class="mb-24 max-w-4xl">
-<h1 class="text-6xl md:text-8xl font-headline font-bold tracking-tighter mb-8 leading-[0.9]">
-                Course <span class="text-gradient">Projects</span>
+<header class="mb-16 md:mb-24 max-w-4xl">
+<h1 class="text-4xl sm:text-6xl md:text-8xl font-headline font-bold tracking-tighter mb-8 leading-[0.9]" data-i18n-html="projects.title">
+  Course <span class="text-gradient">Projects</span>
 </h1>
-<p class="text-on-surface-variant text-lg md:text-xl max-w-2xl leading-relaxed">
-                A curated selection of academic milestones and technical explorations developed during specialized certification tracks in 3D environment design and lighting.
-            </p>
+<p class="text-on-surface-variant text-base md:text-xl max-w-2xl leading-relaxed" data-i18n="projects.subtitle">
+  A curated selection of academic milestones and technical explorations developed during specialized certification tracks in 3D environment design and lighting.
+</p>
 </header>
 <!-- Gallery Grid (Bento Style & Asymmetric) -->
 <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
@@ -134,13 +161,13 @@
 </div>
 <div class="mt-8 flex flex-col md:flex-row justify-between items-start gap-6">
 <div class="max-w-xl">
-<span class="font-label text-xs uppercase tracking-widest text-primary mb-2 block">C4D Masterclass • 2024</span>
-<h2 class="text-3xl font-headline font-semibold mb-4">The Neon Arteries</h2>
-<p class="text-on-surface-variant leading-relaxed">Objective: Mastering complex architectural geometry and realistic puddle reflections using Octane's spectral materials.</p>
+<span class="font-label text-xs uppercase tracking-widest text-primary mb-2 block" data-i18n="proj.p1.tag">C4D Masterclass • 2024</span>
+<h2 class="text-3xl font-headline font-semibold mb-4" data-i18n="proj.p1.title">The Neon Arteries</h2>
+<p class="text-on-surface-variant leading-relaxed" data-i18n="proj.p1.desc">Objective: Mastering complex architectural geometry and realistic puddle reflections using Octane's spectral materials.</p>
 </div>
 <div class="flex flex-col items-end text-right">
-<span class="text-xs font-label text-outline uppercase tracking-widest mb-1">Role</span>
-<span class="text-on-surface font-medium">Lighting &amp; Texturing</span>
+<span class="text-xs font-label text-outline uppercase tracking-widest mb-1" data-i18n="proj.role">Role</span>
+<span class="text-on-surface font-medium" data-i18n="proj.p1.role">Lighting &amp; Texturing</span>
 </div>
 </div>
 </div>
@@ -151,12 +178,12 @@
 <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 to-transparent opacity-40"></div>
 </div>
 <div class="mt-8">
-<span class="font-label text-xs uppercase tracking-widest text-primary mb-2 block">Advanced Caustics • 2023</span>
-<h2 class="text-2xl font-headline font-semibold mb-3">Refraction Study 01</h2>
-<p class="text-on-surface-variant text-sm mb-4">Objective: Simulating realistic light dispersion through high-density glass geometry.</p>
+<span class="font-label text-xs uppercase tracking-widest text-primary mb-2 block" data-i18n="proj.p2.tag">Advanced Caustics • 2023</span>
+<h2 class="text-2xl font-headline font-semibold mb-3" data-i18n="proj.p2.title">Refraction Study 01</h2>
+<p class="text-on-surface-variant text-sm mb-4" data-i18n="proj.p2.desc">Objective: Simulating realistic light dispersion through high-density glass geometry.</p>
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-sm text-tertiary" data-icon="lens">lens</span>
-<span class="text-xs font-label text-on-surface uppercase tracking-tighter">Solo Project</span>
+<span class="text-xs font-label text-on-surface uppercase tracking-tighter" data-i18n="proj.solo">Solo Project</span>
 </div>
 </div>
 </div>
@@ -166,9 +193,9 @@
 <img alt="Organic procedural landscape" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Surreal landscape with giant floating organic orbs over a dark liquid ocean, glowing moss textures, soft ethereal moonlight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzz7FPK2707NzyxfTSFkw5Q7-DLprluRQX61QD4eyullUgd6vfx8AhLcg64FbVFg4ejk8WhZgmGs16c4aPbaOIAW2IZPrrLHGJsS75iJqJ5Fw2O_Gow1uJBFFNlZwqHh5lWbXYqaK5xPGjpRRPLZKg3wvZpCIqBVU1LrsZZy5MT6PtDJunOLWxFJacskkeJYIR7LZOOjrb60QvVfBiLAidZIfH3I0jYUhLKbzXnfDjCIJHNxJugBrtPRIKx751bG5Pz_Q-ipDZ0gJn"/>
 </div>
 <div class="mt-8">
-<span class="font-label text-xs uppercase tracking-widest text-primary mb-2 block">Procedural Worlds • 2023</span>
-<h2 class="text-2xl font-headline font-semibold mb-3">Ethereal Tides</h2>
-<p class="text-on-surface-variant text-sm mb-4">Objective: Utilizing X-Particles for fluid simulation and procedural scattering of organic assets.</p>
+<span class="font-label text-xs uppercase tracking-widest text-primary mb-2 block" data-i18n="proj.p3.tag">Procedural Worlds • 2023</span>
+<h2 class="text-2xl font-headline font-semibold mb-3" data-i18n="proj.p3.title">Ethereal Tides</h2>
+<p class="text-on-surface-variant text-sm mb-4" data-i18n="proj.p3.desc">Objective: Utilizing X-Particles for fluid simulation and procedural scattering of organic assets.</p>
 <div class="flex flex-wrap gap-2">
 <span class="px-3 py-1 rounded-full bg-surface-container text-[10px] font-label text-on-surface-variant uppercase border border-outline-variant/20">Simulation</span>
 <span class="px-3 py-1 rounded-full bg-surface-container text-[10px] font-label text-on-surface-variant uppercase border border-outline-variant/20">X-Particles</span>
@@ -183,54 +210,55 @@
 <div class="mt-8">
 <div class="flex justify-between items-start">
 <div>
-<span class="font-label text-xs uppercase tracking-widest text-primary mb-2 block">Interior Visualization • 2024</span>
-<h2 class="text-2xl font-headline font-semibold mb-3">Void Lab: Specular Control</h2>
-<p class="text-on-surface-variant text-sm max-w-md">Objective: Precision lighting for product-focused environment design with zero global illumination.</p>
+<span class="font-label text-xs uppercase tracking-widest text-primary mb-2 block" data-i18n="proj.p4.tag">Interior Visualization • 2024</span>
+<h2 class="text-2xl font-headline font-semibold mb-3" data-i18n="proj.p4.title">Void Lab: Specular Control</h2>
+<p class="text-on-surface-variant text-sm max-w-md" data-i18n="proj.p4.desc">Objective: Precision lighting for product-focused environment design with zero global illumination.</p>
 </div>
 <div class="text-right">
-<span class="text-xs font-label text-outline uppercase block mb-1">Contribution</span>
-<span class="text-on-surface text-sm">Asset Modeling &amp; Rendering</span>
+<span class="text-xs font-label text-outline uppercase block mb-1" data-i18n="proj.contribution">Contribution</span>
+<span class="text-on-surface text-sm" data-i18n="proj.p4.contrib">Asset Modeling &amp; Rendering</span>
 </div>
 </div>
 </div>
 </div>
 </div>
 <!-- Technical Breakdown Section -->
-<section class="mt-48 grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-outline-variant/20 pt-24">
+<section class="mt-24 md:mt-48 grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-outline-variant/20 pt-16 md:pt-24">
 <div>
-<h3 class="font-headline text-2xl font-bold mb-6 text-gradient">The Workflow</h3>
-<p class="text-on-surface-variant leading-relaxed">Each project follows a rigorous pipeline from greybox block-out to final color grading in DaVinci Resolve, ensuring technical proficiency at every stage.</p>
+<h3 class="font-headline text-2xl font-bold mb-6 text-gradient" data-i18n="proj.workflow.title">The Workflow</h3>
+<p class="text-on-surface-variant leading-relaxed" data-i18n="proj.workflow.desc">Each project follows a rigorous pipeline from greybox block-out to final color grading in DaVinci Resolve, ensuring technical proficiency at every stage.</p>
 </div>
 <div class="md:col-span-2">
 <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
 <div class="space-y-2">
 <div class="text-primary font-headline text-xl font-bold">01</div>
-<div class="text-xs font-label uppercase text-outline">Conceptualization</div>
+<div class="text-xs font-label uppercase text-outline" data-i18n="proj.step1">Conceptualization</div>
 </div>
 <div class="space-y-2">
 <div class="text-primary font-headline text-xl font-bold">02</div>
-<div class="text-xs font-label uppercase text-outline">Modeling</div>
+<div class="text-xs font-label uppercase text-outline" data-i18n="proj.step2">Modeling</div>
 </div>
 <div class="space-y-2">
 <div class="text-primary font-headline text-xl font-bold">03</div>
-<div class="text-xs font-label uppercase text-outline">Material Authoring</div>
+<div class="text-xs font-label uppercase text-outline" data-i18n="proj.step3">Material Authoring</div>
 </div>
 <div class="space-y-2">
 <div class="text-primary font-headline text-xl font-bold">04</div>
-<div class="text-xs font-label uppercase text-outline">Final Luminescence</div>
+<div class="text-xs font-label uppercase text-outline" data-i18n="proj.step4">Final Luminescence</div>
 </div>
 </div>
 </div>
 </section>
 </main>
 <!-- Footer -->
-<footer class="w-full py-20 mt-24 bg-[#000000] border-t border-[#484849]/20 px-12">
-<div class="flex flex-col md:flex-row justify-between items-center max-w-[1920px] mx-auto gap-8">
-<div class="text-[#adaaab] font-body text-sm tracking-wide">© 2023 SubD_Zero Artistry</div>
-<div class="flex gap-12">
-<a class="text-[#adaaab] hover:text-[#00FFC2] transition-all font-body text-sm tracking-wide opacity-80 hover:opacity-100" href="#">ArtStation</a>
-<a class="text-[#adaaab] hover:text-[#00FFC2] transition-all font-body text-sm tracking-wide opacity-80 hover:opacity-100" href="#">LinkedIn</a>
+<footer class="w-full py-20 mt-24 bg-[#000000] border-t border-[#484849]/20">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 md:px-12 max-w-[1920px] mx-auto gap-8">
+<div class="font-headline text-lg font-bold tracking-widest text-on-surface-variant">SubD_Zero</div>
+<div class="flex gap-8 md:gap-12 font-body text-sm tracking-wide">
+<a class="text-[#adaaab] hover:text-[#00FFC2] transition-all opacity-80 hover:opacity-100" href="#">ArtStation</a>
+<a class="text-[#adaaab] hover:text-[#00FFC2] transition-all opacity-80 hover:opacity-100" href="#">LinkedIn</a>
 </div>
+<div class="text-[#adaaab] font-body text-sm tracking-wide" data-i18n="footer.copy">© 2024 SubD_Zero Artistry</div>
 </div>
 </footer>
 <!-- Video Modal Structure -->
@@ -239,9 +267,9 @@
     <button id="close-modal" class="absolute top-10 right-10 text-white/50 hover:text-primary transition-all z-[210]" aria-label="Chiudi">
         <span class="material-symbols-outlined text-4xl">close</span>
     </button>
-    <button id="mute-btn" class="absolute bottom-12 right-14 z-[210] flex items-center gap-2 bg-black/40 hover:bg-primary/20 border border-white/10 hover:border-primary/40 text-white/70 hover:text-primary backdrop-blur-sm px-4 py-2 rounded-full transition-all duration-300 text-sm font-label" aria-label="Attiva audio">
+    <button id="mute-btn" class="absolute bottom-8 right-8 md:bottom-12 md:right-14 z-[210] flex items-center gap-2 bg-black/40 hover:bg-primary/20 border border-white/10 hover:border-primary/40 text-white/70 hover:text-primary backdrop-blur-sm px-4 py-2 rounded-full transition-all duration-300 text-sm font-label" aria-label="Attiva audio">
         <span id="mute-icon" class="material-symbols-outlined text-xl">volume_off</span>
-        <span id="mute-label">Suono</span>
+        <span id="mute-label" data-i18n="modal.mute">Suono</span>
     </button>
     <div id="modal-container" class="relative w-full max-w-6xl aspect-video p-12 scale-90 blur-md transition-all duration-500 ease-out flex items-center justify-center">
         <video id="modal-video" class="w-full h-full object-cover rounded-xl border border-primary/20 z-10" playsinline></video>
