@@ -118,7 +118,7 @@
     }
 
     /* ── Case Study Panel ───────────────────────── */
-    #case-study-panel {
+    .case-study-panel {
       position: fixed;
       inset: 0;
       z-index: 300;
@@ -129,7 +129,7 @@
       will-change: transform;
     }
 
-    #case-study-panel.open {
+    .case-study-panel.open {
       transform: translateY(0);
     }
 
@@ -411,9 +411,9 @@
             <span
               class="px-3 py-1 bg-surface-container-highest text-tertiary font-label text-[10px] tracking-tighter uppercase rounded-sm">Cycles</span>
           </div>
-          <button id="open-case-study-btn"
-            class="mt-4 self-start text-primary font-label text-sm flex items-center gap-2 group cursor-pointer"
-            data-video-src="video/spacescene.mp4">
+          <button
+            class="open-case-study-btn mt-4 self-start text-primary font-label text-sm flex items-center gap-2 group cursor-pointer"
+            data-target="case-study-ps1pc" data-video-src="video/spacescene.mp4">
             <span data-i18n="models.p1.view">View Case Study</span>
             <span class="w-8 h-[1px] bg-primary group-hover:w-12 transition-all duration-300"></span>
           </button>
@@ -426,20 +426,26 @@
           <div class="bg-surface-container-low p-4 rounded-md group overflow-hidden">
             <img alt="3D Render"
               class="w-full aspect-[4/5] object-cover rounded-sm transition-transform duration-700 group-hover:scale-[1.02]"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIC6MBkPwt5zqF0d6i363S1EEuR3ji0RgbFjUuOVzwuwzO2PD1XiCJlABFYMtOtHvQqSFcfLlYDsImFZY5RtsMutCZ5gZmvhy-xNnNmw6PofdMwrDYnArqLcEf9cwn9-Dx3FYG0_HOjVXA1IKK-_aqA7ULab2TB5_aYjansQpGwRUZeP74i3jyOCSKQKIiXjDSiWthrN87HghggjJlVIx_Dg9n8SNsFhbhEqEHiJn3GWh_kcR2nuAgz9U3kyrfnF42IBwLGSh4Bthq" />
+              src="img/amazonbox.png" />
           </div>
           <div class="space-y-4">
             <div class="flex justify-between items-start">
-              <h3 class="text-2xl font-headline font-medium" data-i18n="models.p2.title">Void Architecture</h3>
-              <span class="text-primary font-label text-sm">2024</span>
+              <h3 class="text-2xl font-headline font-medium" data-i18n="models.p2.title">Amazon Box</h3>
+              <span class="text-primary font-label text-sm">2025</span>
             </div>
             <p class="text-on-surface-variant font-light" data-i18n="models.p2.desc">
-              A study in brutalist minimalism and dramatic light falloff within a simulated vacuum environment.
+              A study in UV mapping and material shading.
             </p>
             <div class="text-xs font-label text-on-surface-variant/60 flex gap-4">
               <span>Software: Blender</span>
               <span>Render: Cycles</span>
             </div>
+            <button
+              class="open-case-study-btn mt-4 self-start text-primary font-label text-sm flex items-center gap-2 group cursor-pointer"
+              data-target="case-study-void">
+              <span data-i18n="models.p2.view">View Case Study</span>
+              <span class="w-8 h-[1px] bg-primary group-hover:w-12 transition-all duration-300"></span>
+            </button>
           </div>
         </div>
         <!-- Card 03 -->
@@ -461,6 +467,12 @@
               <span>Software: Houdini</span>
               <span>Render: Redshift</span>
             </div>
+            <button
+              class="open-case-study-btn mt-4 self-start text-primary font-label text-sm flex items-center gap-2 group cursor-pointer"
+              data-target="case-study-chromatic">
+              <span data-i18n="models.p3.view">View Case Study</span>
+              <span class="w-8 h-[1px] bg-primary group-hover:w-12 transition-all duration-300"></span>
+            </button>
           </div>
         </div>
       </section>
@@ -478,8 +490,8 @@
             </p>
             <div class="flex flex-wrap gap-4 md:gap-6">
               <button
-                class="bg-primary text-on-primary-fixed px-6 md:px-8 py-4 rounded-xl font-headline font-bold hover:shadow-[0_0_20px_rgba(170,255,220,0.3)] transition-all"
-                data-i18n="models.p4.btn1">Explore Series</button>
+                class="open-case-study-btn bg-primary text-on-primary-fixed px-6 md:px-8 py-4 rounded-xl font-headline font-bold hover:shadow-[0_0_20px_rgba(170,255,220,0.3)] transition-all"
+                data-target="case-study-monolithic" data-i18n="models.p4.btn1">Explore Series</button>
               <button
                 class="border border-outline-variant/20 px-6 md:px-8 py-4 rounded-xl font-headline font-bold hover:bg-surface-bright transition-all"
                 data-i18n="models.p4.btn2">Download Wireframe</button>
@@ -530,16 +542,16 @@
 
   <!-- ═══════════════════════════════════════════════════════
       CASE STUDY PANEL — PS1 Computer
-      Visible only when #open-case-study-btn is clicked
   ══════════════════════════════════════════════════════════ -->
-  <div id="case-study-panel" aria-modal="true" role="dialog" aria-label="Case Study: PS1 Computer">
+  <div id="case-study-ps1pc" class="case-study-panel" aria-modal="true" role="dialog"
+    aria-label="Case Study: PS1 Computer">
 
     <!-- Sticky top bar -->
     <div
       class="sticky top-0 z-10 flex justify-between items-center px-6 md:px-12 py-4 bg-black/80 backdrop-blur-xl border-b border-outline-variant/20">
       <div class="flex items-center gap-4">
-        <button id="close-case-study"
-          class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2"
+        <button
+          class="close-case-study shadow-none text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2"
           aria-label="Close">
           <span class="material-symbols-outlined text-2xl">arrow_back</span>
         </button>
@@ -581,11 +593,13 @@
 
       <!-- ── 02 · BEFORE / AFTER COMPARISON ───────────────── -->
       <section>
-        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3"
-          data-i18n="cs.breakdown">02 / Material Breakdown</span>
-        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-4" data-i18n="cs.breakdown_title">With &
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.breakdown">02
+          / Material Breakdown</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-4" data-i18n="cs.p1.breakdown_title">
+          With
+          &
           Without Materials</h2>
-        <p class="text-on-surface-variant text-sm leading-relaxed mb-8 max-w-2xl" data-i18n="cs.breakdown_desc">
+        <p class="text-on-surface-variant text-sm leading-relaxed mb-8 max-w-2xl" data-i18n="cs.p1.breakdown_desc">
           Drag the handle to compare the final shaded model with the raw clay/wireframe version.
           This highlights the impact of procedural texturing and PBR material setup.
         </p>
@@ -613,9 +627,10 @@
 
       <!-- ── 03 · VIDEO PREVIEW ────────────────────────────── -->
       <section>
-        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3"
-          data-i18n="cs.video">03 / Video Preview</span>
-        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.video_title">Turntable
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.video">03 /
+          Video Preview</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.p1.video_title">
+          Turntable
           & Scene</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- Video 1 -->
@@ -643,7 +658,8 @@
       <section>
         <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.gallery">04 /
           Gallery</span>
-        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.gallery_title">Render
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.p1.gallery_title">
+          Render
           Shots</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
           <div class="overflow-hidden rounded-lg group cursor-zoom-in border border-outline-variant/20 aspect-square">
@@ -660,115 +676,633 @@
       <section class="border-t border-outline-variant/20 pt-16">
         <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.notes">05 /
           Technical Notes</span>
-        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.notes_title">Pipeline
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.p1.notes_title">
+          Pipeline
           Details</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="space-y-2">
             <div class="text-primary font-headline text-xl font-bold">01</div>
-            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.step1_label">Reference & Block-out</div>
-            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.step1_desc">Collected photo references of the original PlayStation 1 pc hardware to ensure accurate proportions and surface detail.</p>
+            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.p1.step1_label">
+              Reference &
+              Block-out</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.p1.step1_desc">Collected photo
+              references of the original PlayStation 1 pc hardware to ensure accurate proportions and surface detail.
+            </p>
           </div>
           <div class="space-y-2">
             <div class="text-primary font-headline text-xl font-bold">02</div>
-            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.step2_label">Low-Poly Modelling</div>
-            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.step2_desc">Hard surface modelling in Blender with precise edge insert operations and sharpness.</p>
+            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.p1.step2_label">Low-Poly
+              Modelling</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.p1.step2_desc">Hard surface
+              modelling
+              in Blender with precise edge insert operations and sharpness.</p>
           </div>
           <div class="space-y-2">
             <div class="text-primary font-headline text-xl font-bold">03</div>
-            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.step3_label">PBR Shading & Cycles Render</div>
-            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.step3_desc">Procedural materials for aged plastic, metal ports, and label prints. Final lighting with HDRI + area lights in Cycles.</p>
+            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.p1.step3_label">PBR
+              Shading
+              & Cycles Render</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.p1.step3_desc">Procedural materials
+              for aged plastic, metal ports, and label prints. Final lighting with HDRI + area lights in Cycles.</p>
           </div>
         </div>
       </section>
 
     </div><!-- /max-w -->
-  </div><!-- /#case-study-panel -->
+  </div><!-- /#case-study-ps1pc -->
+
+  <!-- ═══════════════════════════════════════════════════════
+      CASE STUDY PANEL — Amazon Box
+  ══════════════════════════════════════════════════════════ -->
+  <div id="case-study-void" class="case-study-panel" aria-modal="true" role="dialog"
+    aria-label="Case Study: Amazon Box">
+    <div
+      class="sticky top-0 z-10 flex justify-between items-center px-6 md:px-12 py-4 bg-black/80 backdrop-blur-xl border-b border-outline-variant/20">
+      <div class="flex items-center gap-4">
+        <button
+          class="close-case-study shadow-none text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2"
+          aria-label="Close">
+          <span class="material-symbols-outlined text-2xl">arrow_back</span>
+        </button>
+        <span class="text-xs font-label tracking-[0.3em] uppercase text-on-surface-variant">Asset ID: AMZN-02</span>
+      </div>
+      <div class="font-headline font-bold tracking-tighter text-[#00FFC2] text-lg hidden sm:block">SubD_Zero</div>
+      <div class="text-xs font-label tracking-widest text-on-surface-variant uppercase hidden md:block">
+        Amazon Box · Case Study
+      </div>
+    </div>
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 pt-12 pb-32 space-y-24">
+      <!-- ── 01 · HERO ──────────────────────────────────────── -->
+      <section>
+        <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3"
+              data-i18n="cs.overview">01 / Overview</span>
+            <h1 class="text-5xl md:text-7xl font-headline font-bold tracking-tighter leading-none">Amazon Box
+            </h1>
+          </div>
+          <div class="flex gap-6 text-sm font-label text-on-surface-variant">
+            <div>
+              <div class="text-white font-medium mb-1" data-i18n="cs.software">Software</div>Blender
+            </div>
+            <div>
+              <div class="text-white font-medium mb-1" data-i18n="cs.render">Render</div>Cycles
+            </div>
+            <div>
+              <div class="text-white font-medium mb-1" data-i18n="cs.year">Year</div>2025
+            </div>
+          </div>
+        </div>
+        <div class="aspect-video overflow-hidden rounded-lg border border-outline-variant/20">
+          <img src="img/amazonbox.png" alt="Amazon Box — Full Render" class="w-full h-full object-cover">
+        </div>
+      </section>
+
+      <!-- ── 02 · BEFORE / AFTER COMPARISON ───────────────── -->
+      <section>
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.breakdown">02
+          / Material Breakdown</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-4" data-i18n="cs.p2.breakdown_title">
+          With
+          & Without Materials</h2>
+        <p class="text-on-surface-variant text-sm leading-relaxed mb-8 max-w-2xl" data-i18n="cs.p2.breakdown_desc">
+          Drag the handle to compare the final shaded model with the raw clay/wireframe version.
+          This highlights the impact of procedural texturing and PBR material setup.
+        </p>
+        <div class="compare-container aspect-video rounded-lg border border-outline-variant/20">
+          <img src="img/amazonboxnomat.png" alt="Without materials" class="w-full h-full object-cover compare-base"
+            style="filter: grayscale(1) contrast(1.2);">
+          <div class="compare-top">
+            <img src="img/amazonbox.png" alt="With materials" style="width:200%; max-width:none;">
+          </div>
+          <span class="compare-label label-before" data-i18n="cs.label_with">With Materials</span>
+          <span class="compare-label label-after" data-i18n="cs.label_wire">Wireframe Render</span>
+          <div class="compare-handle"></div>
+        </div>
+        <p class="text-center text-xs text-on-surface-variant mt-3 font-label tracking-wider opacity-60"
+          data-i18n="cs.drag">
+          ← Drag to compare →
+        </p>
+      </section>
+
+      <!-- ── 03 · VIDEO PREVIEW ────────────────────────────── -->
+      <section>
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.video">03 /
+          Video Preview</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.p1.video_title">
+          Turntable
+          & Scene</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Video 1 -->
+          <div class="cs-video-wrapper">
+            <video id="cs-video-1" class="w-full aspect-video" preload="metadata" loop muted playsinline>
+              <source src="video/amazonbox.mp4" type="video/mp4">
+            </video>
+            <div class="cs-video-overlay" id="cs-play-1">
+              <div class="play-btn-cs">
+                <span class="material-symbols-outlined text-[#0a0a0b] text-3xl">play_arrow</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-surface-container-low rounded-lg aspect-video flex flex-col items-center justify-center gap-3 border border-outline-variant/20">
+            <span class="material-symbols-outlined text-4xl text-outline">videocam_off</span>
+            <span class="text-xs font-label text-on-surface-variant uppercase tracking-widest"
+              data-i18n="cs.video_pending">Second Video — Pending</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 04 · PHOTO GALLERY ────────────────────────────── -->
+      <section>
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.gallery">04 /
+          Gallery</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.p2.gallery_title">
+          Render
+          Shots</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="overflow-hidden rounded-lg group cursor-zoom-in border border-outline-variant/20 aspect-square">
+            <img src="img/amazonbox.png" alt="Shot 1"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+          </div>
+          <div class="overflow-hidden rounded-lg group cursor-zoom-in border border-outline-variant/20 aspect-square">
+            <img src="img/amazonboxnomat.png" alt="Shot 2"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              style="filter: grayscale(1) contrast(1.2);">
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 05 · TECHNICAL NOTES ──────────────────────────── -->
+      <section class="border-t border-outline-variant/20 pt-16">
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.notes">05 /
+          Technical Notes</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.p2.notes_title">
+          Pipeline
+          Details</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="space-y-2">
+            <div class="text-primary font-headline text-xl font-bold">01</div>
+            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.p2.step1_label">
+              Reference &
+              Block-out</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.p2.step1_desc">Collected photo
+              references to ensure accurate proportions and surface detail.</p>
+          </div>
+          <div class="space-y-2">
+            <div class="text-primary font-headline text-xl font-bold">02</div>
+            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.p2.step2_label">Low-Poly
+              Modelling</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.p2.step2_desc">Modelling with
+              precise
+              edge insert operations and sharpness.</p>
+          </div>
+          <div class="space-y-2">
+            <div class="text-primary font-headline text-xl font-bold">03</div>
+            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.p2.step3_label">PBR
+              Shading
+              & Render</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.p2.step3_desc">Procedural materials
+              for realistic look. Final lighting with HDRI + area lights.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+      CASE STUDY PANEL — Chromatic Drift
+  ══════════════════════════════════════════════════════════ -->
+  <div id="case-study-chromatic" class="case-study-panel" aria-modal="true" role="dialog"
+    aria-label="Case Study: Chromatic Drift">
+    <div
+      class="sticky top-0 z-10 flex justify-between items-center px-6 md:px-12 py-4 bg-black/80 backdrop-blur-xl border-b border-outline-variant/20">
+      <div class="flex items-center gap-4">
+        <button
+          class="close-case-study shadow-none text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2"
+          aria-label="Close">
+          <span class="material-symbols-outlined text-2xl">arrow_back</span>
+        </button>
+        <span class="text-xs font-label tracking-[0.3em] uppercase text-on-surface-variant">Asset ID: CHRM-03</span>
+      </div>
+      <div class="font-headline font-bold tracking-tighter text-[#00FFC2] text-lg hidden sm:block">SubD_Zero</div>
+      <div class="text-xs font-label tracking-widest text-on-surface-variant uppercase hidden md:block">
+        Chromatic Drift · Case Study
+      </div>
+    </div>
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 pt-12 pb-32 space-y-24">
+      <!-- ── 01 · HERO ──────────────────────────────────────── -->
+      <section>
+        <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3"
+              data-i18n="cs.overview">01 / Overview</span>
+            <h1 class="text-5xl md:text-7xl font-headline font-bold tracking-tighter leading-none">Chromatic Drift</h1>
+          </div>
+          <div class="flex gap-6 text-sm font-label text-on-surface-variant">
+            <div>
+              <div class="text-white font-medium mb-1" data-i18n="cs.software">Software</div>Houdini
+            </div>
+            <div>
+              <div class="text-white font-medium mb-1" data-i18n="cs.render">Render</div>Redshift
+            </div>
+            <div>
+              <div class="text-white font-medium mb-1" data-i18n="cs.year">Year</div>2023
+            </div>
+          </div>
+        </div>
+        <div class="aspect-video overflow-hidden rounded-lg border border-outline-variant/20">
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvuwhMCFKnBiJYCsD8wli4wT6ZwE5uUieNUZs2Be_IAW0WRX7zFRWfUQ7_1XUU_oSkcCJzjweGp4EIcX36QNowxwyNIdH5BHeSfqFzqwi08Y0r1I09T1InL6GMCUQjA0bIrdkaH7ubVIr_M6HTYxYBa_BWx9ehGhpV5For7sAPHGJnuZyc509wEvsgwFRMsUC4u37pVvXZvVVEhD5GJMPM-cA3zCV3p51N5w4Ts3sA4vWU-4yiJo-A092gwTUZLOH0mZV5kJNLqQ8C"
+            alt="Chromatic Drift — Full Render" class="w-full h-full object-cover">
+        </div>
+      </section>
+
+      <!-- ── 02 · BEFORE / AFTER COMPARISON ───────────────── -->
+      <section>
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.breakdown">02
+          / Material Breakdown</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-4" data-i18n="cs.p3.breakdown_title">
+          With
+          & Without Materials</h2>
+        <p class="text-on-surface-variant text-sm leading-relaxed mb-8 max-w-2xl" data-i18n="cs.p3.breakdown_desc">
+          Drag the handle to compare the final shaded model with the raw clay/wireframe version.
+          This highlights the impact of procedural texturing and PBR material setup.
+        </p>
+        <div class="compare-container aspect-video rounded-lg border border-outline-variant/20">
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvuwhMCFKnBiJYCsD8wli4wT6ZwE5uUieNUZs2Be_IAW0WRX7zFRWfUQ7_1XUU_oSkcCJzjweGp4EIcX36QNowxwyNIdH5BHeSfqFzqwi08Y0r1I09T1InL6GMCUQjA0bIrdkaH7ubVIr_M6HTYxYBa_BWx9ehGhpV5For7sAPHGJnuZyc509wEvsgwFRMsUC4u37pVvXZvVVEhD5GJMPM-cA3zCV3p51N5w4Ts3sA4vWU-4yiJo-A092gwTUZLOH0mZV5kJNLqQ8C"
+            alt="Without materials" class="w-full h-full object-cover compare-base"
+            style="filter: grayscale(1) contrast(1.2);">
+          <div class="compare-top">
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvuwhMCFKnBiJYCsD8wli4wT6ZwE5uUieNUZs2Be_IAW0WRX7zFRWfUQ7_1XUU_oSkcCJzjweGp4EIcX36QNowxwyNIdH5BHeSfqFzqwi08Y0r1I09T1InL6GMCUQjA0bIrdkaH7ubVIr_M6HTYxYBa_BWx9ehGhpV5For7sAPHGJnuZyc509wEvsgwFRMsUC4u37pVvXZvVVEhD5GJMPM-cA3zCV3p51N5w4Ts3sA4vWU-4yiJo-A092gwTUZLOH0mZV5kJNLqQ8C"
+              alt="With materials" style="width:200%; max-width:none;">
+          </div>
+          <span class="compare-label label-before" data-i18n="cs.label_with">With Materials</span>
+          <span class="compare-label label-after" data-i18n="cs.label_wire">Wireframe Render</span>
+          <div class="compare-handle"></div>
+        </div>
+        <p class="text-center text-xs text-on-surface-variant mt-3 font-label tracking-wider opacity-60"
+          data-i18n="cs.drag">
+          ← Drag to compare →
+        </p>
+      </section>
+
+      <!-- ── 03 · VIDEO PREVIEW ────────────────────────────── -->
+      <section>
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.video">03 /
+          Video Preview</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.p3.video_title">
+          Turntable & Scene</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div
+            class="cs-video-wrapper aspect-video border border-outline-variant/20 rounded-lg overflow-hidden bg-black relative">
+            <video class="w-full h-full" preload="metadata" loop muted playsinline></video>
+            <div
+              class="cs-video-overlay absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/60 transition-all cursor-pointer">
+              <div
+                class="play-btn-cs w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center pointer-events-none">
+                <span class="material-symbols-outlined text-[#0a0a0b] text-3xl">play_arrow</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-surface-container-low rounded-lg aspect-video flex flex-col items-center justify-center gap-3 border border-outline-variant/20">
+            <span class="material-symbols-outlined text-4xl text-outline">videocam_off</span>
+            <span class="text-xs font-label text-on-surface-variant uppercase tracking-widest"
+              data-i18n="cs.video_pending">Second Video — Pending</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 04 · PHOTO GALLERY ────────────────────────────── -->
+      <section>
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.gallery">04 /
+          Gallery</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.p3.gallery_title">
+          Render
+          Shots</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="overflow-hidden rounded-lg group cursor-zoom-in border border-outline-variant/20 aspect-square">
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvuwhMCFKnBiJYCsD8wli4wT6ZwE5uUieNUZs2Be_IAW0WRX7zFRWfUQ7_1XUU_oSkcCJzjweGp4EIcX36QNowxwyNIdH5BHeSfqFzqwi08Y0r1I09T1InL6GMCUQjA0bIrdkaH7ubVIr_M6HTYxYBa_BWx9ehGhpV5For7sAPHGJnuZyc509wEvsgwFRMsUC4u37pVvXZvVVEhD5GJMPM-cA3zCV3p51N5w4Ts3sA4vWU-4yiJo-A092gwTUZLOH0mZV5kJNLqQ8C"
+              alt="Shot 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+          </div>
+          <div class="overflow-hidden rounded-lg group cursor-zoom-in border border-outline-variant/20 aspect-square">
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvuwhMCFKnBiJYCsD8wli4wT6ZwE5uUieNUZs2Be_IAW0WRX7zFRWfUQ7_1XUU_oSkcCJzjweGp4EIcX36QNowxwyNIdH5BHeSfqFzqwi08Y0r1I09T1InL6GMCUQjA0bIrdkaH7ubVIr_M6HTYxYBa_BWx9ehGhpV5For7sAPHGJnuZyc509wEvsgwFRMsUC4u37pVvXZvVVEhD5GJMPM-cA3zCV3p51N5w4Ts3sA4vWU-4yiJo-A092gwTUZLOH0mZV5kJNLqQ8C"
+              alt="Shot 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              style="filter: grayscale(1) contrast(1.2);">
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 05 · TECHNICAL NOTES ──────────────────────────── -->
+      <section class="border-t border-outline-variant/20 pt-16">
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.notes">05 /
+          Technical Notes</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.p3.notes_title">
+          Pipeline
+          Details</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="space-y-2">
+            <div class="text-primary font-headline text-xl font-bold">01</div>
+            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.p3.step1_label">
+              Reference &
+              Block-out</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.p3.step1_desc">Collected photo
+              references to ensure accurate proportions and surface detail.</p>
+          </div>
+          <div class="space-y-2">
+            <div class="text-primary font-headline text-xl font-bold">02</div>
+            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.p3.step2_label">Low-Poly
+              Modelling</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.p3.step2_desc">Modelling with
+              precise
+              edge insert operations and sharpness.</p>
+          </div>
+          <div class="space-y-2">
+            <div class="text-primary font-headline text-xl font-bold">03</div>
+            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.p3.step3_label">PBR
+              Shading
+              & Render</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.p3.step3_desc">Procedural materials
+              for realistic look. Final lighting with HDRI + area lights.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+      CASE STUDY PANEL — Monolithic Silence
+  ══════════════════════════════════════════════════════════ -->
+  <div id="case-study-monolithic" class="case-study-panel" aria-modal="true" role="dialog"
+    aria-label="Case Study: Monolithic Silence">
+    <div
+      class="sticky top-0 z-10 flex justify-between items-center px-6 md:px-12 py-4 bg-black/80 backdrop-blur-xl border-b border-outline-variant/20">
+      <div class="flex items-center gap-4">
+        <button
+          class="close-case-study shadow-none text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2"
+          aria-label="Close">
+          <span class="material-symbols-outlined text-2xl">arrow_back</span>
+        </button>
+        <span class="text-xs font-label tracking-[0.3em] uppercase text-on-surface-variant">Asset ID: SERIES-04</span>
+      </div>
+      <div class="font-headline font-bold tracking-tighter text-[#00FFC2] text-lg hidden sm:block">SubD_Zero</div>
+      <div class="text-xs font-label tracking-widest text-on-surface-variant uppercase hidden md:block">
+        Monolithic Silence · Case Study
+      </div>
+    </div>
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 pt-12 pb-32 space-y-24">
+      <!-- ── 01 · HERO ──────────────────────────────────────── -->
+      <section>
+        <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3"
+              data-i18n="cs.overview">01 / Overview</span>
+            <h1 class="text-5xl md:text-7xl font-headline font-bold tracking-tighter leading-none">Monolithic Silence
+            </h1>
+          </div>
+          <div class="flex gap-6 text-sm font-label text-on-surface-variant">
+            <div>
+              <div class="text-white font-medium mb-1" data-i18n="cs.software">Software</div>Blender
+            </div>
+            <div>
+              <div class="text-white font-medium mb-1" data-i18n="cs.render">Render</div>Cycles
+            </div>
+            <div>
+              <div class="text-white font-medium mb-1" data-i18n="cs.year">Year</div>2022
+            </div>
+          </div>
+        </div>
+        <div class="aspect-video overflow-hidden rounded-lg border border-outline-variant/20">
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZGtR1ng4_WHQhysR939lnzVQ7DrQ9LzoHb5104GBt9Nb6xhm5FjuWrVtKqyzf39-A-BKLntjk4IB8KC8LFkh9aWOREsfE2jW-keum5EPfFm1WHPDOg1g4vAzyseObqZV7ZF75lFkALOkaG7ikqOkNDILTdgFAOJtCVLY-NJ_by4R08ke-Y8caVjMzXhuWWmAUZYBpGu6FpMgCVZuhafAXO_ipHBvrU9kFWknqoAAGHxnnTT-irIDCDjrrqXsNwKcTTcaYaQ8RpMDp"
+            alt="Monolithic Silence — Full Render" class="w-full h-full object-cover">
+        </div>
+      </section>
+
+      <!-- ── 02 · BEFORE / AFTER COMPARISON ───────────────── -->
+      <section>
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.breakdown">02
+          / Material Breakdown</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-4" data-i18n="cs.p4.breakdown_title">
+          With
+          & Without Materials</h2>
+        <p class="text-on-surface-variant text-sm leading-relaxed mb-8 max-w-2xl" data-i18n="cs.p4.breakdown_desc">
+          Drag the handle to compare the final shaded model with the raw clay/wireframe version.
+          This highlights the impact of procedural texturing and PBR material setup.
+        </p>
+        <div class="compare-container aspect-video rounded-lg border border-outline-variant/20">
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZGtR1ng4_WHQhysR939lnzVQ7DrQ9LzoHb5104GBt9Nb6xhm5FjuWrVtKqyzf39-A-BKLntjk4IB8KC8LFkh9aWOREsfE2jW-keum5EPfFm1WHPDOg1g4vAzyseObqZV7ZF75lFkALOkaG7ikqOkNDILTdgFAOJtCVLY-NJ_by4R08ke-Y8caVjMzXhuWWmAUZYBpGu6FpMgCVZuhafAXO_ipHBvrU9kFWknqoAAGHxnnTT-irIDCDjrrqXsNwKcTTcaYaQ8RpMDp"
+            alt="Without materials" class="w-full h-full object-cover compare-base"
+            style="filter: grayscale(1) contrast(1.2);">
+          <div class="compare-top">
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZGtR1ng4_WHQhysR939lnzVQ7DrQ9LzoHb5104GBt9Nb6xhm5FjuWrVtKqyzf39-A-BKLntjk4IB8KC8LFkh9aWOREsfE2jW-keum5EPfFm1WHPDOg1g4vAzyseObqZV7ZF75lFkALOkaG7ikqOkNDILTdgFAOJtCVLY-NJ_by4R08ke-Y8caVjMzXhuWWmAUZYBpGu6FpMgCVZuhafAXO_ipHBvrU9kFWknqoAAGHxnnTT-irIDCDjrrqXsNwKcTTcaYaQ8RpMDp"
+              alt="With materials" style="width:200%; max-width:none;">
+          </div>
+          <span class="compare-label label-before" data-i18n="cs.label_with">With Materials</span>
+          <span class="compare-label label-after" data-i18n="cs.label_wire">Wireframe Render</span>
+          <div class="compare-handle"></div>
+        </div>
+        <p class="text-center text-xs text-on-surface-variant mt-3 font-label tracking-wider opacity-60"
+          data-i18n="cs.drag">
+          ← Drag to compare →
+        </p>
+      </section>
+
+      <!-- ── 03 · VIDEO PREVIEW ────────────────────────────── -->
+      <section>
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.video">03 /
+          Video Preview</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.p4.video_title">
+          Turntable & Scene</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div
+            class="cs-video-wrapper aspect-video border border-outline-variant/20 rounded-lg overflow-hidden bg-black relative">
+            <video class="w-full h-full" preload="metadata" loop muted playsinline></video>
+            <div
+              class="cs-video-overlay absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/60 transition-all cursor-pointer">
+              <div
+                class="play-btn-cs w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center pointer-events-none">
+                <span class="material-symbols-outlined text-[#0a0a0b] text-3xl">play_arrow</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-surface-container-low rounded-lg aspect-video flex flex-col items-center justify-center gap-3 border border-outline-variant/20">
+            <span class="material-symbols-outlined text-4xl text-outline">videocam_off</span>
+            <span class="text-xs font-label text-on-surface-variant uppercase tracking-widest"
+              data-i18n="cs.video_pending">Second Video — Pending</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 04 · PHOTO GALLERY ────────────────────────────── -->
+      <section>
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.gallery">04 /
+          Gallery</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.p4.gallery_title">
+          Render
+          Shots</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="overflow-hidden rounded-lg group cursor-zoom-in border border-outline-variant/20 aspect-square">
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZGtR1ng4_WHQhysR939lnzVQ7DrQ9LzoHb5104GBt9Nb6xhm5FjuWrVtKqyzf39-A-BKLntjk4IB8KC8LFkh9aWOREsfE2jW-keum5EPfFm1WHPDOg1g4vAzyseObqZV7ZF75lFkALOkaG7ikqOkNDILTdgFAOJtCVLY-NJ_by4R08ke-Y8caVjMzXhuWWmAUZYBpGu6FpMgCVZuhafAXO_ipHBvrU9kFWknqoAAGHxnnTT-irIDCDjrrqXsNwKcTTcaYaQ8RpMDp"
+              alt="Shot 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+          </div>
+          <div class="overflow-hidden rounded-lg group cursor-zoom-in border border-outline-variant/20 aspect-square">
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZGtR1ng4_WHQhysR939lnzVQ7DrQ9LzoHb5104GBt9Nb6xhm5FjuWrVtKqyzf39-A-BKLntjk4IB8KC8LFkh9aWOREsfE2jW-keum5EPfFm1WHPDOg1g4vAzyseObqZV7ZF75lFkALOkaG7ikqOkNDILTdgFAOJtCVLY-NJ_by4R08ke-Y8caVjMzXhuWWmAUZYBpGu6FpMgCVZuhafAXO_ipHBvrU9kFWknqoAAGHxnnTT-irIDCDjrrqXsNwKcTTcaYaQ8RpMDp"
+              alt="Shot 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              style="filter: grayscale(1) contrast(1.2);">
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 05 · TECHNICAL NOTES ──────────────────────────── -->
+      <section class="border-t border-outline-variant/20 pt-16">
+        <span class="text-primary font-label text-xs tracking-[0.3em] uppercase block mb-3" data-i18n="cs.notes">05 /
+          Technical Notes</span>
+        <h2 class="text-2xl md:text-3xl font-headline font-bold tracking-tight mb-8" data-i18n="cs.p4.notes_title">
+          Pipeline
+          Details</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="space-y-2">
+            <div class="text-primary font-headline text-xl font-bold">01</div>
+            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.p4.step1_label">
+              Reference &
+              Block-out</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.p4.step1_desc">Collected photo
+              references to ensure accurate proportions and surface detail.</p>
+          </div>
+          <div class="space-y-2">
+            <div class="text-primary font-headline text-xl font-bold">02</div>
+            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.p4.step2_label">Low-Poly
+              Modelling</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.p4.step2_desc">Modelling with
+              precise
+              edge insert operations and sharpness.</p>
+          </div>
+          <div class="space-y-2">
+            <div class="text-primary font-headline text-xl font-bold">03</div>
+            <div class="text-sm font-label uppercase text-outline tracking-wider" data-i18n="cs.p4.step3_label">PBR
+              Shading
+              & Render</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed" data-i18n="cs.p4.step3_desc">Procedural materials
+              for realistic look. Final lighting with HDRI + area lights.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
 
   <script>
       (function () {
         // ── Open / Close ──────────────────────────────────────────
-        const panel = document.getElementById('case-study-panel');
-        const openBtn = document.getElementById('open-case-study-btn');
-        const closeBtn = document.getElementById('close-case-study');
+        const openBtns = document.querySelectorAll('.open-case-study-btn');
+        const closeBtns = document.querySelectorAll('.close-case-study');
+        let activePanel = null;
 
-        function openPanel() {
-          panel.classList.add('open');
-          document.body.style.overflow = 'hidden';
-          panel.scrollTop = 0;
+        function openPanel(panelId) {
+          const panel = document.getElementById(panelId);
+          if (panel) {
+            panel.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            panel.scrollTop = 0;
+            activePanel = panel;
+          }
         }
         function closePanel() {
-          panel.classList.remove('open');
-          document.body.style.overflow = '';
+          if (activePanel) {
+            activePanel.classList.remove('open');
+            document.body.style.overflow = '';
+            activePanel = null;
+          }
         }
 
-        if (openBtn) openBtn.addEventListener('click', openPanel);
-        if (closeBtn) closeBtn.addEventListener('click', closePanel);
+        openBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            const target = btn.getAttribute('data-target');
+            if (target) openPanel(target);
+          });
+        });
+
+        closeBtns.forEach(btn => {
+          btn.addEventListener('click', closePanel);
+        });
 
         // ESC to close
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
 
-        // ── Before/After Comparison Slider ───────────────────────
-        const slider = document.getElementById('compare-slider');
-        const topLayer = document.getElementById('compare-top-layer');
-        const topImg = document.getElementById('compare-top-img');
-        const handle = document.getElementById('compare-handle');
+        // ── Before/After Comparison Sliders ───────────────────────
+        const sliders = document.querySelectorAll('.compare-container');
+        sliders.forEach(slider => {
+          const topLayer = slider.querySelector('.compare-top');
+          const topImg = slider.querySelector('.compare-top img, #compare-top-img');
+          const handle = slider.querySelector('.compare-handle');
 
-        if (slider && topLayer && handle) {
-          let dragging = false;
+          if (topLayer && topImg && handle) {
+            let dragging = false;
 
-          function setPosition(x) {
-            const rect = slider.getBoundingClientRect();
-            let pct = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
-            topLayer.style.width = (pct * 100) + '%';
-            topImg.style.width = (1 / pct * 100) + '%';
-            handle.style.left = (pct * 100) + '%';
-          }
-
-          // Init at 50%
-          // Use setTimeout so the DOM and CSS have time to render first
-          setTimeout(() => {
-            if (slider.offsetWidth > 0) {
-              setPosition(slider.getBoundingClientRect().left + slider.offsetWidth * 0.5);
-            } else {
-              // fallback if it's hidden
-              topLayer.style.width = '50%';
-              topImg.style.width = '200%';
-              handle.style.left = '50%';
+            function setPosition(x) {
+              const rect = slider.getBoundingClientRect();
+              let pct = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
+              topLayer.style.width = (pct * 100) + '%';
+              topImg.style.width = (1 / pct * 100) + '%';
+              handle.style.left = (pct * 100) + '%';
             }
-          }, 100);
 
-          slider.addEventListener('mousedown', e => { dragging = true; setPosition(e.clientX); });
-          window.addEventListener('mousemove', e => { if (dragging) setPosition(e.clientX); });
-          window.addEventListener('mouseup', () => { dragging = false; });
+            // Init at 50%
+            setTimeout(() => {
+              if (slider.offsetWidth > 0) {
+                setPosition(slider.getBoundingClientRect().left + slider.offsetWidth * 0.5);
+              } else {
+                topLayer.style.width = '50%';
+                topImg.style.width = '200%';
+                handle.style.left = '50%';
+              }
+            }, 100);
 
-          // Touch support
-          slider.addEventListener('touchstart', e => { dragging = true; setPosition(e.touches[0].clientX); }, { passive: true });
-          window.addEventListener('touchmove', e => { if (dragging) setPosition(e.touches[0].clientX); }, { passive: true });
-          window.addEventListener('touchend', () => { dragging = false; });
-        }
+            slider.addEventListener('mousedown', e => { dragging = true; setPosition(e.clientX); });
+            window.addEventListener('mousemove', e => { if (dragging) setPosition(e.clientX); });
+            window.addEventListener('mouseup', () => { dragging = false; });
+
+            slider.addEventListener('touchstart', e => { dragging = true; setPosition(e.touches[0].clientX); }, { passive: true });
+            window.addEventListener('touchmove', e => { if (dragging) setPosition(e.touches[0].clientX); }, { passive: true });
+            window.addEventListener('touchend', () => { dragging = false; });
+          }
+        });
 
         // ── Inline video play/pause toggle ───────────────────────
-        const playOverlay1 = document.getElementById('cs-play-1');
-        const vid1 = document.getElementById('cs-video-1');
-        if (playOverlay1 && vid1) {
-          playOverlay1.addEventListener('click', () => {
-            if (vid1.paused) {
-              vid1.muted = false;
-              vid1.play().catch(e => console.log('Autoplay prevented:', e));
-              playOverlay1.style.opacity = '0';
-              playOverlay1.style.pointerEvents = 'none';
-            } else {
-              vid1.pause();
-              playOverlay1.style.opacity = '1';
-              playOverlay1.style.pointerEvents = 'auto';
-            }
-          });
-          vid1.addEventListener('click', () => {
-            vid1.pause();
-            playOverlay1.style.opacity = '1';
-            playOverlay1.style.pointerEvents = 'auto';
-          });
-        }
+        const videoWrappers = document.querySelectorAll('.cs-video-wrapper');
+        videoWrappers.forEach(wrapper => {
+          const playOverlay = wrapper.querySelector('.cs-video-overlay');
+          const vid = wrapper.querySelector('video');
+          if (playOverlay && vid) {
+            playOverlay.addEventListener('click', () => {
+              if (vid.paused) {
+                vid.muted = false;
+                vid.play().catch(e => console.log('Autoplay prevented:', e));
+                playOverlay.style.opacity = '0';
+                playOverlay.style.pointerEvents = 'none';
+              } else {
+                vid.pause();
+                playOverlay.style.opacity = '1';
+                playOverlay.style.pointerEvents = 'auto';
+              }
+            });
+            vid.addEventListener('click', () => {
+              vid.pause();
+              playOverlay.style.opacity = '1';
+              playOverlay.style.pointerEvents = 'auto';
+            });
+          }
+        });
       })();
   </script>
 
