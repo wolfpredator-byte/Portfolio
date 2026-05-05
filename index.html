@@ -82,11 +82,9 @@
     </script>
 <style>
         #canvas3d {
-        pointer-events: auto !important; 
-        touch-action: none;
-        }
-        #spline-placeholder {
-        pointer-events: none;
+        display: block;
+        width: 100%;
+        height: 100%;
         }
         .scroll-line {
         transition: height 0.2s ease-out;
@@ -137,7 +135,6 @@
   <!-- Desktop links -->
   <div class="hidden md:flex items-center gap-12 font-headline tracking-tight">
     <a class="text-[#00FFC2] border-b-2 border-[#00FFC2] pb-1 transition-colors" href="index.html#featured" data-i18n="nav.home">Home</a>
-    <a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="projects.html" data-i18n="nav.projects">Projects</a>
     <a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="models.html" data-i18n="nav.models">Models</a>
     <a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="wip.html" data-i18n="nav.wip">WIP</a>
     <a class="text-[#adaaab] hover:text-white transition-colors duration-300" href="about.html" data-i18n="nav.about">About</a>
@@ -172,7 +169,6 @@
   </div>
   <nav class="flex flex-col gap-2 p-8 flex-1">
     <a href="index.html#featured" class="font-headline text-3xl font-bold text-[#00FFC2] py-3 border-b border-outline-variant/10" data-i18n="nav.home">Home</a>
-    <a href="projects.html"       class="font-headline text-3xl font-bold text-[#adaaab] hover:text-white py-3 border-b border-outline-variant/10 transition-colors" data-i18n="nav.projects">Projects</a>
     <a href="models.html"         class="font-headline text-3xl font-bold text-[#adaaab] hover:text-white py-3 border-b border-outline-variant/10 transition-colors" data-i18n="nav.models">Models</a>
     <a href="wip.html"            class="font-headline text-3xl font-bold text-[#adaaab] hover:text-white py-3 border-b border-outline-variant/10 transition-colors" data-i18n="nav.wip">WIP</a>
     <a href="about.html"          class="font-headline text-3xl font-bold text-[#adaaab] hover:text-white py-3 border-b border-outline-variant/10 transition-colors" data-i18n="nav.about">About</a>
@@ -203,7 +199,7 @@
                 Pushing the boundaries of light, texture, and form through advanced octane-rendered environments and high-fidelity procedural geometries.
             </p>
             <div class="flex flex-wrap gap-4 md:gap-6">
-                <a href="projects.html" class="pointer-events-auto primary-gradient text-on-primary-fixed px-7 md:px-10 py-3 md:py-4 rounded-xl font-bold tracking-tight hover:shadow-[0_0_20px_rgba(170,255,220,0.4)] transition-all duration-300 flex items-center gap-2 group" data-i18n="hero.cta.explore">
+                <a href="models.html" class="pointer-events-auto primary-gradient text-on-primary-fixed px-7 md:px-10 py-3 md:py-4 rounded-xl font-bold tracking-tight hover:shadow-[0_0_20px_rgba(170,255,220,0.4)] transition-all duration-300 flex items-center gap-2 group" data-i18n="hero.cta.explore">
                  Explore Projects
                 <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
               </a>
@@ -339,15 +335,8 @@
 </div>
 </footer>
 
-<!-- Spline Initialization -->
-<script type="module">
-    import { Application } from 'https://unpkg.com/@splinetool/runtime@1.0.28/build/runtime.js';
-    const canvas3dElement = document.getElementById('canvas3d');
-    if (canvas3dElement) {
-        const app = new Application(canvas3dElement);
-        app.load('https://prod.spline.design/sXAH4XnRLsisEISw/scene.splinecode');
-    }
-</script>
+<!-- Hero Particle Animation -->
+<script src="hero-particles.js" defer></script>
 
 <!-- Video Modal Structure -->
 <div id="video-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center bg-black/98 backdrop-blur-2xl transition-all duration-500 opacity-0">
